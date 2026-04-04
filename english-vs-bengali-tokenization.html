@@ -1,100 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LLM Sentence Reconstruction: English vs Bengali</title>
-<meta name="description" content="Deep technical guide with diagrams explaining why LLMs reconstruct English better than Bengali." />
-<style>
-:root{--bg:#ffffff;--text:#222;--muted:#6b7280;--brand:#2563eb;--card:#f8fafc;--border:#e5e7eb}
-body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.7;color:var(--text);background:var(--bg)}
-.container{max-width:900px;margin:auto;padding:24px}
-header{border-bottom:1px solid var(--border);margin-bottom:24px}
-h1{font-size:2.2rem;margin:0 0 8px}
-.subtitle{color:var(--muted)}
-h2{margin-top:32px;color:#1f3a5f}
-pre{background:#f4f6f8;padding:12px;border-radius:8px;overflow:auto}
-.box{background:#eef6ff;border-left:4px solid var(--brand);padding:14px;border-radius:8px;margin:16px 0}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin:16px 0}
-svg{width:100%;height:auto}
-footer{border-top:1px solid var(--border);margin-top:40px;padding-top:16px;color:var(--muted)}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLMs and Language Reconstruction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+            margin: 40px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #1a73e8;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 4px 6px;
+            border-radius: 4px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+        .highlight {
+            background: #eef5ff;
+            padding: 10px;
+            border-left: 4px solid #1a73e8;
+            margin: 15px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
+
 <div class="container">
-<header>
-<h1>Why LLMs Reconstruct English Better than Bengali</h1>
-<p class="subtitle">A Medium-style technical blog with static diagrams</p>
-</header>
 
-<section>
-<h2>Core Prediction Mechanism</h2>
-<pre>P(w1, w2, ..., wn) = Π P(wi | w1...wi-1)</pre>
-<p>LLMs choose the sequence with the highest probability.</p>
-</section>
+<h1>Why LLMs Perform Better on Jumbled English Sentences than Bengali</h1>
 
-<section class="card">
-<h2>Token Flow Diagram</h2>
-<svg viewBox="0 0 600 120">
-<text x="20" y="60">Input Tokens</text>
-<rect x="120" y="30" width="100" height="40" fill="#2563eb"/>
-<text x="135" y="55" fill="#fff">Embedding</text>
-<rect x="260" y="30" width="120" height="40" fill="#16a34a"/>
-<text x="275" y="55" fill="#fff">Attention</text>
-<rect x="420" y="30" width="120" height="40" fill="#ea580c"/>
-<text x="440" y="55" fill="#fff">Output</text>
-</svg>
-</section>
+<h2>Introduction</h2>
+<p>
+Large Language Models (LLMs) like ChatGPT are remarkably good at reconstructing meaningful English sentences from jumbled words. However, the same capability often appears weaker for Bengali. This is due to differences in training data, tokenization, linguistic structure, and probabilistic prediction mechanisms.
+</p>
 
-<section class="card">
-<h2>Transformer Attention Visualization</h2>
-<svg viewBox="0 0 600 200">
-<circle cx="100" cy="50" r="20" fill="#2563eb"/>
-<circle cx="300" cy="50" r="20" fill="#2563eb"/>
-<circle cx="500" cy="50" r="20" fill="#2563eb"/>
-<line x1="100" y1="50" x2="300" y2="50" stroke="#16a34a" stroke-width="2"/>
-<line x1="300" y1="50" x2="500" y2="50" stroke="#16a34a" stroke-width="2"/>
-<text x="80" y="100">Token 1</text>
-<text x="280" y="100">Token 2</text>
-<text x="480" y="100">Token 3</text>
-</svg>
-</section>
+<h2>1. How LLMs Predict Words</h2>
 
-<section>
-<h2>English Example</h2>
-<div class="box">percent nine genius and perspiration ninety percent is one inspiration</div>
-<pre>
-P("Genius is") ≈ 0.95
-P("one percent inspiration") ≈ 0.92
-P("ninety-nine percent perspiration") ≈ 0.97
-</pre>
-<div class="box"><b>Genius is one percent inspiration and ninety-nine percent perspiration.</b></div>
-</section>
-
-<section>
-<h2>Bengali Example</h2>
-<div class="box">বেলা সুরে সুর সাঁঝবেলাতে তোমার যে মেলাতে আমার যায় সুরে</div>
-<pre>
-Option A: আমার সাঁঝবেলাতে...
-Option B: সাঁঝবেলাতে আমার...
-Option C: তোমার সুরে...
-</pre>
-<div class="box"><b>আমার সাঁঝবেলাতে যে তোমার সুরে সুরে মেলাতে যায়।</b></div>
-</section>
-
-<section>
-<h2>Why the Difference?</h2>
-<ul>
-<li>More English training data</li>
-<li>Stronger phrase repetition</li>
-<li>Bengali has flexible syntax</li>
-<li>Tokenization challenges</li>
-</ul>
-</section>
-
-<footer>
-<p>© 2026 LLM Technical Blog</p>
-</footer>
+<div class="highlight">
+P(w₁, w₂, ..., wₙ) = Π P(wᵢ | w₁, ..., wᵢ₋₁)
 </div>
+
+<p>
+The model predicts the next token based on prior tokens using learned probabilities.
+</p>
+
+<ul>
+    <li><b>Tokenization:</b> Text split into tokens</li>
+    <li><b>Embeddings:</b> Tokens converted to vectors</li>
+    <li><b>Attention:</b> Captures relationships</li>
+    <li><b>Probability:</b> Selects most likely next token</li>
+</ul>
+
+<h2>2. Example: English Reconstruction</h2>
+
+<p><b>Input:</b></p>
+<code>percent nine genius and perspiration ninety percent is one inspiration</code>
+
+<p><b>Output:</b></p>
+<div class="highlight">
+“Genius is one percent inspiration and ninety-nine percent perspiration.”
+</div>
+
+<p>
+This works well because the model has seen this famous quote frequently.
+</p>
+
+<h3>Why it works:</h3>
+<ul>
+    <li>High-frequency training data</li>
+    <li>Strong phrase patterns</li>
+    <li>Fixed sentence structure</li>
+</ul>
+
+<h2>3. Example: Bengali Reconstruction</h2>
+
+<p><b>Input:</b></p>
+<code>বেলা সুরে সুর সাঁঝবেলাতে তোমার যে মেলাতে আমার যায় সুরে</code>
+
+<p><b>Expected Output:</b></p>
+<div class="highlight">
+“আমার সাঁঝবেলাতে যে তোমার সুরে সুরে মেলাতে যায়।”
+</div>
+
+<h3>Why it is harder:</h3>
+
+<ul>
+    <li><b>Lower training frequency</b></li>
+    <li><b>Flexible word order</b></li>
+    <li><b>Morphological complexity</b></li>
+    <li><b>Tokenization challenges</b></li>
+    <li><b>Weak phrase anchors</b></li>
+</ul>
+
+<h2>4. Comparison</h2>
+
+<table>
+    <tr>
+        <th>Aspect</th>
+        <th>English</th>
+        <th>Bengali</th>
+    </tr>
+    <tr>
+        <td>Training Data</td>
+        <td>High</td>
+        <td>Moderate/Low</td>
+    </tr>
+    <tr>
+        <td>Phrase Familiarity</td>
+        <td>High</td>
+        <td>Low</td>
+    </tr>
+    <tr>
+        <td>Word Order</td>
+        <td>Rigid</td>
+        <td>Flexible</td>
+    </tr>
+    <tr>
+        <td>Tokenization</td>
+        <td>Strong</td>
+        <td>Weaker</td>
+    </tr>
+    <tr>
+        <td>Accuracy</td>
+        <td>High</td>
+        <td>Lower</td>
+    </tr>
+</table>
+
+<h2>5. Internal Processing Steps</h2>
+
+<ol>
+    <li>Token identification</li>
+    <li>Pattern recognition</li>
+    <li>Probability maximization</li>
+    <li>Sentence generation</li>
+</ol>
+
+<h2>6. Not a Language Limitation</h2>
+<p>
+This is not because the model cannot understand Bengali. It is due to statistical confidence based on available data and structure.
+</p>
+
+<h2>7. Improvements</h2>
+
+<ul>
+    <li>More Bengali training data</li>
+    <li>Better tokenization</li>
+    <li>Fine-tuning with Bengali corpus</li>
+    <li>Better prompts</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>
+LLMs reconstruct sentences by maximizing probability over learned patterns. English performs better due to higher training exposure and rigid structure. Bengali introduces ambiguity and complexity, making reconstruction more challenging.
+</p>
+
+</div>
+
 </body>
 </html>
