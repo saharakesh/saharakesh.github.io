@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LLM Sentence Reconstruction: English vs Bengali</title>
+<meta name="description" content="Deep technical guide with interactive diagrams explaining why LLMs reconstruct English better than Bengali." />
+<style>
+:root{--bg:#ffffff;--text:#222;--muted:#6b7280;--brand:#2563eb;--card:#f8fafc;--border:#e5e7eb}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;line-height:1.7;color:var(--text);background:var(--bg)}
+.container{max-width:900px;margin:auto;padding:24px}
+header{border-bottom:1px solid var(--border);margin-bottom:24px}
+h1{font-size:2.2rem;margin:0 0 8px}
+.subtitle{color:var(--muted)}
+h2{margin-top:32px;color:#1f3a5f}
+pre{background:#f4f6f8;padding:12px;border-radius:8px;overflow:auto}
+.box{background:#eef6ff;border-left:4px solid var(--brand);padding:14px;border-radius:8px;margin:16px 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin:16px 0}
+.btn{background:var(--brand);color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer}
+.row{display:flex;gap:16px;flex-wrap:wrap}
+.col{flex:1 1 300px}
+svg{width:100%;height:auto}
+footer{border-top:1px solid var(--border);margin-top:40px;padding-top:16px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>Why LLMs Reconstruct English Better than Bengali</h1>
+<p class="subtitle">A Medium-style technical blog with interactive diagrams</p>
+</header>
+
+<section>
+<h2>Core Prediction Mechanism</h2>
+<pre>P(w1, w2, ..., wn) = Π P(wi | w1...wi-1)</pre>
+<p>LLMs choose the sequence with the highest probability.</p>
+</section>
+
+<section class="card">
+<h2>Interactive Token Flow</h2>
+<div id="tokenFlow"></div>
+<button class="btn" onclick="animateFlow()">Animate Flow</button>
+</section>
+
+<section class="card">
+<h2>Transformer Attention Visualization</h2>
+<div id="attentionViz"></div>
+<button class="btn" onclick="drawAttention()">Show Attention</button>
+</section>
+
+<section>
+<h2>English Example</h2>
+<div class="box">percent nine genius and perspiration ninety percent is one inspiration</div>
+<pre>
+P("Genius is") ≈ 0.95
+P("one percent inspiration") ≈ 0.92
+P("ninety-nine percent perspiration") ≈ 0.97
+</pre>
+<div class="box"><b>Genius is one percent inspiration and ninety-nine percent perspiration.</b></div>
+</section>
+
+<section>
+<h2>Bengali Example</h2>
+<div class="box">বেলা সুরে সুর সাঁঝবেলাতে তোমার যে মেলাতে আমার যায় সুরে</div>
+<pre>
+Option A: আমার সাঁঝবেলাতে...
+Option B: সাঁঝবেলাতে আমার...
+Option C: তোমার সুরে...
+</pre>
+<div class="box"><b>আমার সাঁঝবেলাতে যে তোমার সুরে সুরে মেলাতে যায়।</b></div>
+</section>
+
+<section>
+<h2>Why the Difference?</h2>
+<ul>
+<li>More English training data</li>
+<li>Stronger phrase repetition</li>
+<li>Bengali has flexible syntax</li>
+<li>Tokenization challenges</li>
+</ul>
+</section>
+
+<footer>
+<p>© 2026 LLM Technical Blog</p>
+</footer>
+</div>
+
+<script>
+function animateFlow(){
+const el=document.getElementById('tokenFlow');
+el.innerHTML=`<svg viewBox="0 0 600 120">
+<text x="20" y="60">Input Tokens</text>
+<rect x="120" y="30" width="100" height="40" fill="#2563eb"/>
+<text x="135" y="55" fill="#fff">Embed</text>
+<rect x="260" y="30" width="120" height="40" fill="#16a34a"/>
+<text x="275" y="55" fill="#fff">Attention</text>
+<rect x="420" y="30" width="120" height="40" fill="#ea580c"/>
+<text x="440" y="55" fill="#fff">Output</text>
+</svg>`;
+}
+
+function drawAttention(){
+const el=document.getElementById('attentionViz');
+el.innerHTML=`<svg viewBox="0 0 600 200">
+<circle cx="100" cy="50" r="20" fill="#2563eb"/>
+<circle cx="300" cy="50" r="20" fill="#2563eb"/>
+<circle cx="500" cy="50" r="20" fill="#2563eb"/>
+<line x1="100" y1="50" x2="300" y2="50" stroke="#16a34a" stroke-width="2"/>
+<line x1="300" y1="50" x2="500" y2="50" stroke="#16a34a" stroke-width="2"/>
+<text x="80" y="100">Token 1</text>
+<text x="280" y="100">Token 2</text>
+<text x="480" y="100">Token 3</text>
+</svg>`;
+}
+</script>
+
+</body>
+</html>
