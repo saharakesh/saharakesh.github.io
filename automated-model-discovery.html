@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Asset Discovery Mechanisms</title>
+
+<style>
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f4f7fb;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+h1 {
+  color: #0b3d91;
+  text-align: center;
+}
+
+.section {
+  background: #ffffff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  border-left: 6px solid #0b3d91;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+h2 {
+  color: #0b3d91;
+}
+
+ul {
+  margin-top: 10px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+.code {
+  background: #272822;
+  color: #f8f8f2;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  margin-top: 10px;
+}
+
+.highlight {
+  background: #e8f0fe;
+  padding: 12px;
+  border-left: 4px solid #1a73e8;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.footer {
+  margin-top: 30px;
+  padding: 15px;
+  background: #0b3d91;
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Automated Mechanisms to Discover AI/ML Models Across Environments</h1>
+
+<p>
+Organizations must implement automated mechanisms to continuously discover AI/ML models across 
+cloud, on-prem, SaaS, and runtime environments. Below are practical approaches used in real-world scenarios.
+</p>
+
+<div class="section">
+<h2>1. Cloud-Native Discovery</h2>
+<ul>
+<li>Integrate with AWS SageMaker, Azure ML, GCP Vertex AI</li>
+<li>Use APIs to list models and endpoints</li>
+<li>Schedule periodic discovery scans</li>
+<li>Auto-tag assets with owner, environment, and risk</li>
+</ul>
+
+<div class="highlight">
+Tools: AWS Config, Azure Resource Graph, GCP Asset Inventory
+</div>
+</div>
+
+<div class="section">
+<h2>2. MLOps Platform Integration</h2>
+<ul>
+<li>Integrate with MLflow, Kubeflow, Databricks</li>
+<li>Sync model registry and experiment tracking</li>
+<li>Track model versions and datasets</li>
+<li>Capture deployment status</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>3. Code Repository Scanning</h2>
+<ul>
+<li>Scan GitHub, GitLab, Bitbucket repositories</li>
+<li>Detect model files (.pkl, .onnx, .h5)</li>
+<li>Identify ML libraries (TensorFlow, PyTorch)</li>
+<li>Detect model loading patterns</li>
+</ul>
+
+<div class="code">
+joblib.load("fraud_model.pkl")
+</div>
+</div>
+
+<div class="section">
+<h2>4. API & Endpoint Discovery</h2>
+<ul>
+<li>Scan API gateways (Kong, Apigee, AWS API Gateway)</li>
+<li>Detect endpoints like /predict, /generate</li>
+<li>Monitor exposure of AI services</li>
+</ul>
+
+<div class="highlight">
+GenAI applications often exist only as APIs and are not formally registered.
+</div>
+</div>
+
+<div class="section">
+<h2>5. Runtime / Infrastructure Scanning</h2>
+<ul>
+<li>Monitor Kubernetes, Docker, and VM workloads</li>
+<li>Detect GPU usage patterns</li>
+<li>Identify ML serving frameworks (TensorFlow Serving, TorchServe)</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>6. SaaS & Shadow AI Discovery</h2>
+<ul>
+<li>Monitor usage of ChatGPT, Copilot, Gemini</li>
+<li>Use CASB/SSE tools (Netskope, Defender for Cloud Apps)</li>
+<li>Detect unauthorized API key usage</li>
+</ul>
+
+<div class="highlight">
+Shadow AI is one of the highest-risk areas in AI security.
+</div>
+</div>
+
+<div class="section">
+<h2>7. Data Pipeline Inspection</h2>
+<ul>
+<li>Scan Airflow, Spark, and ETL pipelines</li>
+<li>Detect inference steps like model.predict()</li>
+<li>Track feature engineering workflows</li>
+</ul>
+
+<div class="code">
+model.predict(data)
+</div>
+</div>
+
+<div class="section">
+<h2>8. CMDB & Asset Correlation</h2>
+<ul>
+<li>Integrate with ServiceNow or asset management tools</li>
+<li>Link models with applications and datasets</li>
+<li>Build AI asset relationship graphs</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>Key Takeaway</h2>
+<p>
+AI discovery requires a combination of cloud scanning, code analysis, API monitoring, 
+and runtime inspection.
+</p>
+
+<div class="highlight">
+The biggest risk comes from unknown or shadow AI systems — discovering them is critical.
+</div>
+</div>
+
+<div class="footer">
+AI Security Assessment Framework | AI Inventory & Classification Module
+</div>
+
+</div>
+
+</body>
+</html>
