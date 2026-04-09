@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Inventory Management Examples</title>
+
+<style>
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background-color: #f4f7fb;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+h1 {
+  color: #0b3d91;
+  text-align: center;
+}
+
+.section {
+  background: #ffffff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  border-left: 6px solid #0b3d91;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+h2 {
+  color: #0b3d91;
+}
+
+ul {
+  margin-top: 10px;
+}
+
+li {
+  margin-bottom: 8px;
+}
+
+.highlight {
+  background: #e8f0fe;
+  padding: 12px;
+  border-left: 4px solid #1a73e8;
+  margin-top: 10px;
+  border-radius: 4px;
+}
+
+.code {
+  background: #272822;
+  color: #f8f8f2;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  margin-top: 10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>AI System Inventory & Classification – Inventory Management Examples</h1>
+
+<p>
+Inventory Management ensures that all AI assets (models, datasets, pipelines, APIs) are centrally tracked, 
+updated, and governed throughout their lifecycle.
+</p>
+
+<div class="section">
+<h2>1. Centralized AI Inventory Registry</h2>
+<ul>
+<li>Maintain a single source of truth for all AI assets</li>
+<li>Store model name, version, owner, and deployment status</li>
+<li>Integrate with platforms like MLflow or ServiceNow CMDB</li>
+</ul>
+
+<div class="highlight">
+Example: A centralized dashboard listing all production and non-production AI models across environments.
+</div>
+</div>
+
+<div class="section">
+<h2>2. Automated Inventory Synchronization</h2>
+<ul>
+<li>Automatically sync inventory with cloud platforms (AWS, Azure, GCP)</li>
+<li>Update inventory when new models are deployed</li>
+<li>Remove or flag deprecated models</li>
+</ul>
+
+<div class="highlight">
+Example: A scheduled job that pulls model metadata from AWS SageMaker every 6 hours.
+</div>
+</div>
+
+<div class="section">
+<h2>3. Model-Dataset Linking</h2>
+<ul>
+<li>Link each model with its training and validation datasets</li>
+<li>Track dataset versions used for training</li>
+<li>Ensure traceability for audits</li>
+</ul>
+
+<div class="code">
+Model: Fraud_Model_v2  
+Dataset: Transactions_v5  
+</div>
+</div>
+
+<div class="section">
+<h2>4. Dependency Tracking</h2>
+<ul>
+<li>Track libraries and frameworks used (TensorFlow, PyTorch)</li>
+<li>Maintain version details of dependencies</li>
+<li>Identify vulnerable or outdated components</li>
+</ul>
+
+<div class="highlight">
+Example: Detect models using outdated ML libraries with known vulnerabilities.
+</div>
+</div>
+
+<div class="section">
+<h2>5. Lifecycle Status Tracking</h2>
+<ul>
+<li>Tag models as Development, Testing, Production, or Retired</li>
+<li>Maintain lifecycle history</li>
+<li>Track promotion between environments</li>
+</ul>
+
+<div class="highlight">
+Example: A model moving from staging to production is automatically updated in the inventory.
+</div>
+</div>
+
+<div class="section">
+<h2>6. CMDB Integration</h2>
+<ul>
+<li>Integrate AI assets with enterprise asset management systems</li>
+<li>Link models to business applications and services</li>
+<li>Enable impact analysis</li>
+</ul>
+
+<div class="highlight">
+Example: A chatbot model linked to a customer service application in ServiceNow.
+</div>
+</div>
+
+<div class="section">
+<h2>7. Version Control & History</h2>
+<ul>
+<li>Maintain full version history of models</li>
+<li>Track changes in training data and parameters</li>
+<li>Enable rollback capability</li>
+</ul>
+
+<div class="code">
+v1 → v2 → v3 (Production)
+</div>
+</div>
+
+<div class="section">
+<h2>8. Decommissioning & Cleanup</h2>
+<ul>
+<li>Identify inactive or unused models</li>
+<li>Flag obsolete assets for removal</li>
+<li>Ensure secure deletion policies</li>
+</ul>
+
+<div class="highlight">
+Example: Models not accessed for 90 days are automatically flagged for review.
+</div>
+</div>
+
+<div class="section">
+<h2>Key Takeaway</h2>
+<p>
+Effective inventory management is not static—it requires continuous synchronization, 
+tracking, and governance across the AI lifecycle.
+</p>
+
+<div class="highlight">
+Organizations that fail in inventory management often suffer from <strong>shadow AI, compliance gaps, and unmanaged risk</strong>.
+</div>
+</div>
+
+</div>
+
+</body>
+</html>
