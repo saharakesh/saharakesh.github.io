@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Security Assessment SaaS</title><style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f4f7fb;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #0b3c5d;
+    color: white;
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+/* Main */
+.main {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background: #e9f0f7;
+}
+
+/* Buttons */
+.btn {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.yes { background: #4caf50; color: white; }
+.partial { background: #ff9800; color: white; }
+.no { background: #f44336; color: white; }
+
+/* Recommendation */
+.recommendation {
+    background: #fff3cd;
+    padding: 10px;
+    border-left: 5px solid #ffc107;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+</style></head><body><div class="sidebar">
+    <h2>AI Security SaaS</h2>
+    <ul>
+        <li>Dashboard</li>
+        <li>Assessments</li>
+        <li>Reports</li>
+        <li>Compliance</li>
+        <li>Settings</li>
+    </ul>
+</div><div class="main"><div class="header">
+    <h3>GRC Assessment Dashboard</h3>
+    <div>
+        <strong>Overall Score:</strong> 68%
+    </div>
+</div>
+
+<!-- Assessment Table -->
+<div class="card">
+    <h4>Governance, Risk & Compliance</h4>
+
+    <table>
+        <tr>
+            <th>Sub-Category</th>
+            <th>Question</th>
+            <th>Response</th>
+            <th>Score</th>
+            <th>Control Mapping</th>
+        </tr>
+
+        <tr>
+            <td>Policies & Standards</td>
+            <td>Do you maintain formally approved AI governance policies aligned with enterprise security and risk frameworks?</td>
+            <td>
+                <button class="btn yes">Yes</button>
+                <button class="btn partial">Partial</button>
+                <button class="btn no">No</button>
+            </td>
+            <td>2</td>
+            <td>NIST AI RMF GOV / ISO 42001</td>
+        </tr>
+
+        <tr>
+            <td colspan="5">
+                <div class="recommendation">
+                    Create and formally approve AI governance policies aligned with enterprise risk and security frameworks.
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Risk Management</td>
+            <td>Do you perform formal AI risk assessments prior to deployment?</td>
+            <td>
+                <button class="btn yes">Yes</button>
+                <button class="btn partial">Partial</button>
+                <button class="btn no">No</button>
+            </td>
+            <td>1</td>
+            <td>NIST AI RMF MAP</td>
+        </tr>
+
+        <tr>
+            <td colspan="5">
+                <div class="recommendation">
+                    Implement structured pre-deployment AI risk assessments with scoring, ownership, and mitigation tracking.
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Compliance</td>
+            <td>Do you map AI systems to applicable regulatory requirements such as GDPR?</td>
+            <td>
+                <button class="btn yes">Yes</button>
+                <button class="btn partial">Partial</button>
+                <button class="btn no">No</button>
+            </td>
+            <td>0</td>
+            <td>ISO 42001</td>
+        </tr>
+
+        <tr>
+            <td colspan="5">
+                <div class="recommendation">
+                    Map each AI system to applicable regulations and maintain audit-ready compliance documentation.
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+<!-- Insights -->
+<div class="card">
+    <h4>AI Security Insights</h4>
+    <ul>
+        <li>⚠️ Missing formal AI governance policies</li>
+        <li>⚠️ Risk assessments not consistently applied</li>
+        <li>❗ Compliance mapping incomplete</li>
+    </ul>
+</div>
+
+<!-- Recommendation Summary -->
+<div class="card">
+    <h4>Top Recommendations</h4>
+    <ul>
+        <li>Establish AI governance framework aligned with NIST AI RMF</li>
+        <li>Implement automated risk assessment workflows</li>
+        <li>Integrate compliance checks into CI/CD pipelines</li>
+    </ul>
+</div>
+
+</div></body>
+</html>
