@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI Security Maturity Assessment Outcome HTML document for Apex Financial Services sample assessment.">
+  <title>AI Security Maturity Assessment Outcome - Defined</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      /* Premium palette — deep slate, champagne gold, crisp white */
+      --ink:        #0D1B2A;
+      --text:       #1E2D3D;
+      --muted:      #6B7C8D;
+      --paper:      #F7F8FA;
+      --white:      #FFFFFF;
+      --line:       #DDE3EA;
+      --navy:       #0D1B2A;
+      --gold:       #B8943F;
+      --gold-light: #F5EDD6;
+      --teal:       #0A7C71;
+      --green:      #1A7A4A;
+      --blue:       #1A4FBE;
+      --amber:      #C47D12;
+      --red:        #B02828;
+      --grey-mist:  #EEF1F5;
+      --mist:       #E6F3F1;
+      --blue-mist:  #E8EEFF;
+      --amber-mist: #FFF3DC;
+      --red-mist:   #FBEAEA;
+      --green-mist: #E8F5EF;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--text);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); letter-spacing: 0.01em; }
+    a { color: var(--blue); text-decoration-thickness: 0.08em; text-underline-offset: 0.2em; }
+
+    /* ── Skip link ── */
+    .skip-link {
+      position: absolute; left: 1rem; top: -4rem; z-index: 10;
+      padding: 0.6rem 0.8rem; background: var(--white);
+      border: 1px solid var(--line); border-radius: 4px;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ── Document header ── */
+    .document-header {
+      background: var(--navy);
+      color: var(--white);
+      padding: 1.4rem max(1.5rem, calc((100vw - 1200px) / 2));
+      border-bottom: 3px solid var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .document-header::before {
+      content: "";
+      display: block;
+      width: 3px;
+      height: 2.8rem;
+      background: var(--gold);
+      flex-shrink: 0;
+      border-radius: 2px;
+    }
+    .document-header h1 {
+      margin: 0 0 0.2rem;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+    }
+    .document-header p { margin: 0; color: #9BAAB8; font-size: 0.85rem; font-weight: 300; letter-spacing: 0.04em; }
+
+    /* ── Table of contents ── */
+    nav.toc {
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 1.4rem 1.8rem;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      box-shadow: 0 2px 12px rgba(13,27,42,0.05);
+    }
+    nav.toc h2 {
+      margin: 0 0 0.9rem;
+      font-family: 'Playfair Display', Georgia, serif;
+      color: var(--ink);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    nav.toc ol {
+      margin: 0; padding-left: 1.3rem;
+      columns: 2; column-gap: 2.5rem;
+    }
+    nav.toc li { break-inside: avoid; margin: 0 0 0.4rem; font-size: 0.88rem; }
+    nav.toc a { color: var(--text); font-weight: 400; }
+    nav.toc a:hover { color: var(--gold); }
+
+    /* ── Main layout ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    /* ── Slide card ── */
+    .slide {
+      position: relative;
+      min-height: 620px;
+      margin: 1.4rem 0;
+      padding: 2.5rem 2.8rem;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(13,27,42,0.07), 0 1px 4px rgba(13,27,42,0.04);
+      transition: box-shadow 0.2s ease;
+    }
+    .slide:hover {
+      box-shadow: 0 8px 36px rgba(13,27,42,0.11), 0 2px 6px rgba(13,27,42,0.05);
+    }
+    /* Gold accent bar top, subtle rule bottom */
+    .slide::before {
+      content: "";
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gold) 0%, #D4AF6A 50%, var(--gold) 100%);
+    }
+    .slide::after {
+      content: "";
+      position: absolute; bottom: 0; left: 2.8rem; right: 2.8rem;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* ── Slide header ── */
+    .slide-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.3rem 1rem;
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.4rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .kicker {
+      margin: 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .slide-number {
+      margin: 0;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-align: right;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Typography ── */
+    h1, h2, h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: var(--ink);
+      letter-spacing: 0;
+    }
+    .slide h2 {
+      grid-column: 1 / -1;
+      max-width: 860px;
+      margin: 0.3rem 0 0;
+      font-size: 1.9rem;
+      font-weight: 700;
+      line-height: 1.18;
+    }
+    .subtitle {
+      grid-column: 1 / -1;
+      max-width: 860px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
+      font-weight: 300;
+    }
+
+    /* ── Cover slide ── */
+    .cover {
+      display: grid;
+      grid-template-columns: 36% 64%;
+      padding: 0;
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .cover::before, .cover::after { display: none; }
+    .cover-panel {
+      padding: 4rem 3rem;
+      background: var(--navy);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Decorative geometric accent */
+    .cover-panel::before {
+      content: "";
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      border: 40px solid rgba(184,148,63,0.15);
+    }
+    .cover-panel::after {
+      content: "";
+      position: absolute;
+      top: 30px; right: 20px;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 2px solid rgba(184,148,63,0.3);
+    }
+    .cover-panel .kicker { color: var(--gold); }
+    .cover-panel h2 {
+      color: var(--white);
+      font-size: 2.6rem;
+      line-height: 1.1;
+      margin: 1rem 0 1.4rem;
+    }
+    .cover-panel p { color: #9BAAB8; line-height: 1.6; font-size: 0.9rem; font-weight: 300; }
+    .component-cloud {
+      align-content: start;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.6rem;
+      padding: 2.5rem 2.2rem 2rem;
+      background: #F4F6F9;
+    }
+    .component-cloud span {
+      display: grid;
+      min-height: 2.8rem;
+      place-items: center;
+      padding: 0.5rem 0.4rem;
+      text-align: center;
+      font-weight: 500;
+      font-size: 0.78rem;
+      color: var(--navy);
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      letter-spacing: 0.01em;
+    }
+    .cover-result {
+      grid-column: 2;
+      padding: 1.5rem 2.2rem 2.5rem;
+      background: #F4F6F9;
+    }
+    .cover-result h2 {
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin: 0 0 1.5rem;
+    }
+
+    /* ── Grid system ── */
+    .grid { display: grid; gap: 1rem; }
+    .grid.two   { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four  { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid.five  { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+    /* ── Cards & metrics ── */
+    .card, .metric {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--teal);
+      border-radius: 6px;
+      padding: 1.2rem 1.1rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .card:hover, .metric:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(13,27,42,0.09);
+    }
+    .card h3 {
+      margin: 0 0 0.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .card p { margin: 0; line-height: 1.55; font-size: 0.9rem; color: var(--text); }
+    .metric strong {
+      display: block;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+    .metric span { display: block; color: var(--muted); line-height: 1.4; font-size: 0.85rem; font-weight: 400; }
+
+    /* Color variants — top border */
+    .teal  { border-top-color: var(--teal);  }
+    .blue  { border-top-color: var(--blue);  }
+    .green { border-top-color: var(--green); }
+    .amber { border-top-color: var(--amber); }
+    .red   { border-top-color: var(--red);   }
+    .navy  { border-top-color: var(--navy);  }
+    .teal  h3, .teal  strong { color: var(--teal);  }
+    .blue  h3, .blue  strong { color: var(--blue);  }
+    .green h3, .green strong { color: var(--green); }
+    .amber h3, .amber strong { color: var(--amber); }
+    .red   h3, .red   strong { color: var(--red);   }
+    .navy  h3, .navy  strong { color: var(--navy);  }
+
+    /* ── Maturity bar ── */
+    .maturity-bar { position: relative; margin-top: 2.4rem; padding-top: 2rem; }
+    .band-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .band-row span {
+      padding: 0.9rem 0.5rem;
+      color: var(--white);
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+    }
+    .band-row .red   { background: #A52020; }
+    .band-row .amber { background: #B87010; }
+    .band-row .blue  { background: var(--blue); }
+    .band-row .teal  { background: var(--teal); }
+    .band-row .green { background: var(--green); }
+    .score-pin {
+      position: absolute; top: 0;
+      transform: translateX(-50%);
+      padding: 0.3rem 0.55rem;
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 4px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(184,148,63,0.4);
+    }
+    .score-pin::after {
+      content: "";
+      position: absolute;
+      top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--gold);
+    }
+
+    /* ── Tables ── */
+    .score-table, .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      font-size: 0.88rem;
+    }
+    .score-table th, .score-table td,
+    .data-table  th, .data-table  td {
+      padding: 0.75rem 0.9rem;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.4;
+    }
+    .score-table tbody tr:hover,
+    .data-table  tbody tr:hover { background: var(--paper); }
+    .score-table tbody tr:last-child td,
+    .score-table tbody tr:last-child th,
+    .data-table  tbody tr:last-child td,
+    .data-table  tbody tr:last-child th { border-bottom: none; }
+    .score-table thead th, .data-table thead th {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.73rem;
+      letter-spacing: 0.07em;
+      font-weight: 500;
+      padding: 0.9rem;
+    }
+    .score-table tbody th, .data-table tbody th {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* ── Score track bars ── */
+    .score-track {
+      display: block;
+      width: 100%;
+      height: 0.55rem;
+      background: var(--grey-mist);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .score-track span { display: block; height: 100%; border-radius: 99px; }
+
+    /* ── Heatmap ── */
+    .heatmap {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.7rem;
+    }
+    .heat-tile {
+      min-height: 6rem;
+      padding: 1rem;
+      color: var(--white);
+      background: var(--tile);
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    .heat-tile::before {
+      content: "";
+      position: absolute;
+      bottom: -12px; right: -12px;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+    }
+    .heat-tile h3, .heat-tile strong, .heat-tile span { color: var(--white); }
+    .heat-tile h3 { margin: 0 0 0.5rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; }
+    .heat-tile strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; }
+    .heat-tile span  { font-size: 0.75rem; opacity: 0.85; letter-spacing: 0.04em; }
+
+    /* ── Timeline / phases ── */
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      position: relative;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 2.1rem; left: 1.5rem; right: 1.5rem;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--teal) 100%);
+      z-index: 0;
+    }
+    .phase {
+      min-height: 14rem;
+      padding: 1.2rem;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      position: relative;
+      z-index: 1;
+    }
+    .phase time {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: 0.78rem;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      background: var(--gold-light);
+      border-radius: 3px;
+    }
+    .phase h3 { margin: 1rem 0 0.5rem; font-size: 1.2rem; color: var(--ink); }
+    .phase p  { font-size: 0.88rem; color: var(--text); line-height: 1.5; margin: 0; }
+
+    /* ── Sources ── */
+    .sources {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+    .sources summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.85rem;
+      user-select: none;
+    }
+    .sources li { margin-bottom: 0.35rem; }
+
+    /* ── Accessibility ── */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 960px) {
+      nav.toc ol { columns: 1; }
+      .slide, .cover { min-height: auto; }
+      .cover { grid-template-columns: 1fr; }
+      .cover-panel { padding: 2.5rem 2rem; }
+      .cover-result { grid-column: 1; padding: 1.5rem 2rem 2rem; }
+      .component-cloud { grid-template-columns: repeat(2, 1fr); padding: 1.5rem; }
+      .grid.two, .grid.three, .grid.four, .grid.five,
+      .timeline, .heatmap { grid-template-columns: 1fr; }
+      .timeline::before { display: none; }
+      .slide h2 { font-size: 1.55rem; }
+      .slide { padding: 1.6rem 1.4rem; }
+    }
+
+    @media print {
+      body { background: var(--white); }
+      .document-header, nav.toc { box-shadow: none; }
+      .slide {
+        break-after: page; box-shadow: none;
+        min-height: 0; margin: 0; border-radius: 0;
+      }
+      a::after { content: " (" attr(href) ")"; font-size: 0.8em; color: var(--muted); }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to assessment content</a>
+  <header class="document-header">
+    <h1>AI Security Maturity Assessment Outcome</h1>
+    <p>Apex Financial Services (sample) · April 2026 · Final maturity: Defined</p>
+  </header>
+  <nav class="toc" aria-labelledby="toc-title">
+    <h2 id="toc-title">Document Contents</h2>
+    <ol>
+      <li><a href="#slide-1">Assessment cover</a></li><li><a href="#slide-2">Executive summary</a></li><li><a href="#slide-3">Assessment method</a></li><li><a href="#slide-4">Maturity scale</a></li><li><a href="#slide-5">Response mix</a></li><li><a href="#slide-6">Component scores</a></li><li><a href="#slide-7">Maturity heatmap</a></li><li><a href="#slide-8">Key strengths</a></li><li><a href="#slide-9">Priority gaps</a></li><li><a href="#slide-10">Detailed recommendations</a></li><li><a href="#slide-11">Top remediation register</a></li><li><a href="#slide-12">Remediation roadmap</a></li><li><a href="#slide-13">Target state</a></li><li><a href="#slide-14">Stakeholders interviewed</a></li><li><a href="#slide-15">Operating model</a></li><li><a href="#slide-16">Next steps</a></li>
+    </ol>
+  </nav>
+  <main id="main-content">
+    <section class="slide cover" id="slide-1" aria-labelledby="slide-1-title">
+      <div class="cover-panel">
+        <p class="kicker">Sample Assessment Outcome</p>
+        <h2 id="slide-1-title">AI Security Maturity Assessment</h2>
+        <p>Apex Financial Services (sample)<br>Assessment outcome document</p>
+        <div class="grid two" style="margin-top:3rem">
+          <article class="metric blue"><strong>55.2%</strong><span>Overall maturity score</span></article>
+          <article class="metric blue"><strong>Defined</strong><span>Final maturity level</span></article>
+        </div>
+      </div>
+      <div class="component-cloud" aria-label="Assessment components">
+        <span>GRC</span><span>AI Inventory &amp; Classification</span><span>Data Security</span><span>Model Security</span><span>Threat Modeling</span><span>DevSecOps (AI SSDLC)</span><span>API Security</span><span>Infrastructure Security</span><span>Access Control</span><span>Monitoring &amp; Detection</span><span>Explainability &amp; Auditability</span><span>Ethical AI</span><span>Supply Chain Security</span><span>Red Teaming</span><span>Lifecycle Management</span>
+      </div>
+      <div class="cover-result">
+        <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;color:#0D1B2A;margin:0 0 1.5rem;">Final scale result: Defined</h2>
+        <div class="maturity-bar" role="img" aria-label="Maturity score 55.2 percent">
+    <span class="score-pin" style="left:55.2%">55.2%</span>
+    <div class="band-row"><span class="red">Initial</span><span class="amber">Developing</span><span class="blue">Defined</span><span class="teal">Managed</span><span class="green">Optimized</span></div>
+  </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2" aria-labelledby="slide-2-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Executive Summary</p>
+      <p class="slide-number">02 / 16</p>
+      <h2 id="slide-2-title">The organization is Defined, with clear foundations but inconsistent assurance</h2>
+      <p class="subtitle">The AI security program has documented controls and pockets of strong execution, but evidence quality, red teaming, monitoring, and third-party assurance are not yet managed consistently.</p>
+    </header>
+      <div class="grid five">
+        <article class="metric blue"><strong>55.2%</strong><span>Weighted score</span></article>
+        <article class="metric teal"><strong>1,500</strong><span>Controls assessed</span></article>
+        <article class="metric green"><strong>15</strong><span>Assessment components</span></article>
+        <article class="metric blue"><strong>Defined</strong><span>Final maturity</span></article>
+        <article class="metric red"><strong>4</strong><span>Priority risk themes</span></article>
+      </div>
+      <div class="grid three" style="margin-top:1.2rem">
+        <article class="card green"><h3>What is working</h3><p>Access control, GRC, API security, and core infrastructure practices show repeatable patterns and stronger ownership.</p></article>
+        <article class="card amber"><h3>What is incomplete</h3><p>Many controls are partially implemented, with inconsistent evidence, monitoring coverage, and lifecycle validation.</p></article>
+        <article class="card red"><h3>Leadership decision</h3><p>Fund a 180-day uplift focused on red teaming, supply chain assurance, threat modeling, and continuous monitoring.</p></article>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-3" aria-labelledby="slide-3-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Assessment Method</p>
+      <p class="slide-number">03 / 16</p>
+      <h2 id="slide-3-title">Scoring and weighting convert workbook responses into defensible maturity</h2>
+      <p class="subtitle">The model uses the workbook questions as control tests, then applies contextual weighting based on security impact, AI risk exposure, and assurance importance.</p>
+    </header>
+      <div class="grid two">
+        <article class="card blue"><h3>Response scoring</h3><p>Yes = 2, Partial = 1, No = 0. Partial means the control exists but lacks consistency, evidence, automation, or governance review.</p></article>
+        <article class="card teal"><h3>Weighting</h3><p>Weights from 2 to 5. Higher weights are assigned to identity, encryption, monitoring, risk, vendor, adversarial, API, model, and privacy controls.</p></article>
+        <article class="card amber"><h3>Weighted maturity</h3><p>Component score equals achieved weighted points divided by maximum possible weighted points, then mapped to a five-level maturity scale.</p></article>
+        <article class="card red"><h3>Evidence posture</h3><p>The sample assumes moderate evidence maturity: policies and technical controls exist, but auditability and continuous assurance are uneven.</p></article>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-4" aria-labelledby="slide-4-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Maturity Scale</p>
+      <p class="slide-number">04 / 16</p>
+      <h2 id="slide-4-title">Final maturity scale: Defined</h2>
+      <p class="subtitle">The overall score is intentionally calibrated to Defined, while individual domains range from weaker Defined to Managed.</p>
+    </header>
+      <div class="grid five">
+        <article class="card red"><h3>Initial · 0-20</h3><p>Ad hoc or undocumented controls.</p></article><article class="card amber"><h3>Developing · 21-40</h3><p>Early repeatability, limited coverage.</p></article><article class="card blue"><h3>Defined · 41-60</h3><p>Documented and broadly implemented, but not yet consistently measured.</p></article><article class="card teal"><h3>Managed · 61-80</h3><p>Metrics, owners, evidence, and review cycles are operating.</p></article><article class="card green"><h3>Optimized · 81-100</h3><p>Continuous assurance and automated improvement loops.</p></article>
+      </div>
+      <h3 style="text-align:center;margin-top:2rem;font-family:'Playfair Display',Georgia,serif;color:#0D1B2A;font-size:1.1rem;font-weight:600;letter-spacing:0.01em;">Overall result: 55.2% sits in the Defined band.</h3>
+    </section>
+
+    <section class="slide" id="slide-5" aria-labelledby="slide-5-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Response Mix</p>
+      <p class="slide-number">05 / 16</p>
+      <h2 id="slide-5-title">The result is driven by many Partial controls, not many No controls</h2>
+      <p class="subtitle">This is typical of a Defined organization: controls are recognized and partially deployed, but evidence and consistency are still maturing.</p>
+    </header>
+      <div class="grid three">
+        <article class="metric green"><strong>166</strong><span>Yes responses (11%)</span></article>
+        <article class="metric blue"><strong>1306</strong><span>Partial responses (87%)</span></article>
+        <article class="metric red"><strong>28</strong><span>No responses (2%)</span></article>
+      </div>
+      <div style="margin-top:1.5rem"><article class="card amber"><h3>Interpretation</h3><p>The sample organization has substantial control coverage, but the dominant Partial response pattern means remediation should focus on operating evidence, automation, ownership, and review cadence.</p></article></div>
+    </section>
+
+    <section class="slide" id="slide-6" aria-labelledby="slide-6-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Component Scores</p>
+      <p class="slide-number">06 / 16</p>
+      <h2 id="slide-6-title">Component maturity shows uneven execution</h2>
+      <p class="subtitle">Managed pockets exist in Access Control, GRC, API Security, and Infrastructure, but weak assurance domains hold the overall result at Defined.</p>
+    </header>
+      <table class="score-table">
+        <caption class="sr-only">Component maturity scores</caption>
+        <thead><tr><th scope="col">Component</th><th scope="col">Score Bar</th><th scope="col">Score</th><th scope="col">Maturity</th><th scope="col">Y/P/N</th></tr></thead>
+        <tbody><tr>
+      <th scope="row">Access Control</th>
+      <td><span class="score-track"><span style="width:64%;background:#0E9384"></span></span></td>
+      <td>64%</td>
+      <td>Managed</td>
+      <td>28/72/0</td>
+    </tr><tr>
+      <th scope="row">GRC</th>
+      <td><span class="score-track"><span style="width:63.5%;background:#0E9384"></span></span></td>
+      <td>63.5%</td>
+      <td>Managed</td>
+      <td>22/78/0</td>
+    </tr><tr>
+      <th scope="row">API Security</th>
+      <td><span class="score-track"><span style="width:62.2%;background:#0E9384"></span></span></td>
+      <td>62.2%</td>
+      <td>Managed</td>
+      <td>24/76/0</td>
+    </tr><tr>
+      <th scope="row">Infrastructure Security</th>
+      <td><span class="score-track"><span style="width:60.5%;background:#0E9384"></span></span></td>
+      <td>60.5%</td>
+      <td>Managed</td>
+      <td>19/81/0</td>
+    </tr><tr>
+      <th scope="row">Data Security</th>
+      <td><span class="score-track"><span style="width:59.4%;background:#2563EB"></span></span></td>
+      <td>59.4%</td>
+      <td>Defined</td>
+      <td>18/82/0</td>
+    </tr><tr>
+      <th scope="row">AI Inventory</th>
+      <td><span class="score-track"><span style="width:58.3%;background:#2563EB"></span></span></td>
+      <td>58.3%</td>
+      <td>Defined</td>
+      <td>14/86/0</td>
+    </tr><tr>
+      <th scope="row">AI SSDLC</th>
+      <td><span class="score-track"><span style="width:57%;background:#2563EB"></span></span></td>
+      <td>57%</td>
+      <td>Defined</td>
+      <td>12/88/0</td>
+    </tr><tr>
+      <th scope="row">Ethical AI</th>
+      <td><span class="score-track"><span style="width:56.5%;background:#2563EB"></span></span></td>
+      <td>56.5%</td>
+      <td>Defined</td>
+      <td>11/89/0</td>
+    </tr><tr>
+      <th scope="row">Lifecycle</th>
+      <td><span class="score-track"><span style="width:55.2%;background:#2563EB"></span></span></td>
+      <td>55.2%</td>
+      <td>Defined</td>
+      <td>8/92/0</td>
+    </tr><tr>
+      <th scope="row">Model Security</th>
+      <td><span class="score-track"><span style="width:53.1%;background:#2563EB"></span></span></td>
+      <td>53.1%</td>
+      <td>Defined</td>
+      <td>6/94/0</td>
+    </tr><tr>
+      <th scope="row">Explainability</th>
+      <td><span class="score-track"><span style="width:52.2%;background:#2563EB"></span></span></td>
+      <td>52.2%</td>
+      <td>Defined</td>
+      <td>4/96/0</td>
+    </tr><tr>
+      <th scope="row">Monitoring</th>
+      <td><span class="score-track"><span style="width:50%;background:#2563EB"></span></span></td>
+      <td>50%</td>
+      <td>Defined</td>
+      <td>0/100/0</td>
+    </tr><tr>
+      <th scope="row">Threat Modeling</th>
+      <td><span class="score-track"><span style="width:48.8%;background:#2563EB"></span></span></td>
+      <td>48.8%</td>
+      <td>Defined</td>
+      <td>0/97/3</td>
+    </tr><tr>
+      <th scope="row">Supply Chain Security</th>
+      <td><span class="score-track"><span style="width:47.9%;background:#2563EB"></span></span></td>
+      <td>47.9%</td>
+      <td>Defined</td>
+      <td>0/95/5</td>
+    </tr><tr>
+      <th scope="row">Red Teaming</th>
+      <td><span class="score-track"><span style="width:41.6%;background:#2563EB"></span></span></td>
+      <td>41.6%</td>
+      <td>Defined</td>
+      <td>0/80/20</td>
+    </tr></tbody>
+      </table>
+    </section>
+
+    <section class="slide" id="slide-7" aria-labelledby="slide-7-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Maturity Heatmap</p>
+      <p class="slide-number">07 / 16</p>
+      <h2 id="slide-7-title">Defined maturity is broad, but not yet deeply managed</h2>
+      <p class="subtitle">The heatmap highlights the weakest and strongest components using the same five-level scale as the overall result.</p>
+    </header>
+      <div class="heatmap"><article class="heat-tile" style="--tile:#2563EB">
+      <h3>Red Teaming</h3>
+      <strong>41.6%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#2563EB">
+      <h3>Supply Chain Security</h3>
+      <strong>47.9%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#2563EB">
+      <h3>Threat Modeling</h3>
+      <strong>48.8%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#2563EB">
+      <h3>Monitoring</h3>
+      <strong>50%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#2563EB">
+      <h3>Explainability</h3>
+      <strong>52.2%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#2563EB">
+      <h3>Model Security</h3>
+      <strong>53.1%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#2563EB">
+      <h3>Lifecycle</h3>
+      <strong>55.2%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#2563EB">
+      <h3>Ethical AI</h3>
+      <strong>56.5%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#2563EB">
+      <h3>AI SSDLC</h3>
+      <strong>57%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#2563EB">
+      <h3>AI Inventory</h3>
+      <strong>58.3%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#2563EB">
+      <h3>Data Security</h3>
+      <strong>59.4%</strong>
+      <span>Defined</span>
+    </article><article class="heat-tile" style="--tile:#0E9384">
+      <h3>Infrastructure Security</h3>
+      <strong>60.5%</strong>
+      <span>Managed</span>
+    </article><article class="heat-tile" style="--tile:#0E9384">
+      <h3>API Security</h3>
+      <strong>62.2%</strong>
+      <span>Managed</span>
+    </article><article class="heat-tile" style="--tile:#0E9384">
+      <h3>GRC</h3>
+      <strong>63.5%</strong>
+      <span>Managed</span>
+    </article><article class="heat-tile" style="--tile:#0E9384">
+      <h3>Access Control</h3>
+      <strong>64%</strong>
+      <span>Managed</span>
+    </article></div>
+    </section>
+
+    <section class="slide" id="slide-8" aria-labelledby="slide-8-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Key Strengths</p>
+      <p class="slide-number">08 / 16</p>
+      <h2 id="slide-8-title">Strengths show that AI security foundations are present</h2>
+      <p class="subtitle">The organization has repeatable control patterns in identity, governance, API security, and baseline infrastructure.</p>
+    </header>
+      <div class="grid two">
+        <article class="card green"><h3>Access Control</h3><p>Centralized identity, RBAC, and least privilege are the strongest sample control families.</p></article>
+        <article class="card teal"><h3>GRC</h3><p>Policies, roles, and governance structures are documented and integrated with enterprise security.</p></article>
+        <article class="card blue"><h3>API Security</h3><p>Authentication, authorization, key management, and input validation show higher maturity.</p></article>
+        <article class="card amber"><h3>Infrastructure</h3><p>Cloud baselines and core platform controls are partially managed and repeatable.</p></article>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-9" aria-labelledby="slide-9-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Priority Gaps</p>
+      <p class="slide-number">09 / 16</p>
+      <h2 id="slide-9-title">Four themes should drive the remediation program</h2>
+      <p class="subtitle">The largest practical gaps relate to adversarial validation, third-party assurance, threat modeling depth, and continuous monitoring.</p>
+    </header>
+      <div class="grid two">
+        <article class="card red"><h3>AI red teaming</h3><p>Formal red team strategy, prompt injection testing, adversarial testing depth, and retest cadence are immature.</p></article>
+        <article class="card amber"><h3>Supply chain assurance</h3><p>Vendor reassessment, SBOM/model provenance, contractual controls, and AI service monitoring need uplift.</p></article>
+        <article class="card blue"><h3>Threat modeling</h3><p>AI-specific abuse cases are identified inconsistently, especially data poisoning, model inversion, and LLM abuse paths.</p></article>
+        <article class="card teal"><h3>Monitoring and detection</h3><p>Logging exists but detection engineering, model behavior alerts, and incident playbooks remain partial.</p></article>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-10" aria-labelledby="slide-10-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Detailed Recommendations</p>
+      <p class="slide-number">10 / 16</p>
+      <h2 id="slide-10-title">Control-level actions to lift the organization from Defined to Managed</h2>
+      <p class="subtitle">These recommendations focus on high-weight Partial and No responses from the sample assessment and are grouped into practical workstreams.</p>
+    </header>
+      <table class="data-table">
+        <thead><tr><th scope="col">Workstream</th><th scope="col">Detailed Recommendation</th><th scope="col">Primary Domain</th><th scope="col">Target</th></tr></thead>
+        <tbody><tr><th scope="row">AI Red Teaming</th><td>Define red team charter, objectives, test frequency, success criteria, and retest workflow for high-risk AI and LLM systems.</td><td>Red Teaming</td><td>0-90 days</td></tr><tr><th scope="row">Threat Modeling</th><td>Add prompt injection, data poisoning, model inversion, model extraction, and misuse scenarios into AI SSDLC threat-model templates.</td><td>Threat Modeling</td><td>0-90 days</td></tr><tr><th scope="row">Supply Chain</th><td>Create AI vendor tiering, contractual control requirements, model/data provenance checks, and periodic reassessment triggers.</td><td>Supply Chain</td><td>3-6 months</td></tr><tr><th scope="row">Monitoring</th><td>Centralize AI logs, define model behavior alerts, detect anomalous prompts/API use, and connect incidents to SOC playbooks.</td><td>Monitoring</td><td>3-6 months</td></tr><tr><th scope="row">Evidence Quality</th><td>Require owner-approved evidence for critical controls, with freshness dates, reviewer comments, and exception decisions.</td><td>GRC / Audit</td><td>3-6 months</td></tr><tr><th scope="row">Lifecycle Controls</th><td>Gate model release, change, retirement, and vendor onboarding with risk acceptance and control validation checkpoints.</td><td>Lifecycle</td><td>6-12 months</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="slide" id="slide-11" aria-labelledby="slide-11-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Top Remediation Register</p>
+      <p class="slide-number">11 / 16</p>
+      <h2 id="slide-11-title">Sample high-priority findings for leadership tracking</h2>
+      <p class="subtitle">These items combine low maturity, higher weight, and strong relationship to AI-specific attack or compliance exposure.</p>
+    </header>
+      <table class="data-table">
+        <thead><tr><th scope="col">Domain</th><th scope="col">Finding</th><th scope="col">Priority</th><th scope="col">Target</th></tr></thead>
+        <tbody><tr><th scope="row">Red Teaming</th><td>Formal AI red team strategy and objectives</td><td>High</td><td>90 days</td></tr><tr><th scope="row">Supply Chain</th><td>Vendor risk register and reassessment cadence</td><td>High</td><td>120 days</td></tr><tr><th scope="row">Threat Modeling</th><td>Prompt injection, data poisoning, and inversion scenarios</td><td>High</td><td>90 days</td></tr><tr><th scope="row">Monitoring</th><td>AI behavior alerts and tamper-resistant logs</td><td>Medium</td><td>120 days</td></tr><tr><th scope="row">Model Security</th><td>Model artifact protection and registry governance</td><td>Medium</td><td>180 days</td></tr><tr><th scope="row">Explainability</th><td>Evidence for high-risk model explanations</td><td>Medium</td><td>180 days</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="slide" id="slide-12" aria-labelledby="slide-12-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Remediation Roadmap</p>
+      <p class="slide-number">12 / 16</p>
+      <h2 id="slide-12-title">Move from Defined to Managed in two assessment cycles</h2>
+      <p class="subtitle">The roadmap focuses first on high-risk assurance gaps, then institutionalizes continuous monitoring and evidence quality.</p>
+    </header>
+      <div class="timeline">
+        <article class="phase"><time>0-90 days</time><h3>Stabilize</h3><p>Approve AI security policy updates, define evidence standards, launch red team strategy, and create high-risk AI inventory.</p></article><article class="phase"><time>3-6 months</time><h3>Industrialize</h3><p>Integrate threat modeling into AI SSDLC, implement vendor reassessment, and centralize AI logs.</p></article><article class="phase"><time>6-12 months</time><h3>Measure</h3><p>Deploy AI detection use cases, track KRIs, mature model registry controls, and validate remediation closure.</p></article><article class="phase"><time>12+ months</time><h3>Optimize</h3><p>Automate continuous assurance signals and expand benchmarking across business units and vendors.</p></article>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-13" aria-labelledby="slide-13-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Target State</p>
+      <p class="slide-number">13 / 16</p>
+      <h2 id="slide-13-title">Managed maturity requires evidence, metrics, and continuous assurance</h2>
+      <p class="subtitle">The next maturity step is less about writing more policy and more about proving that AI security controls operate consistently.</p>
+    </header>
+      <div class="grid two">
+        <article class="card teal"><h3>Evidence quality</h3><p>Every critical control has current, reviewable, owner-approved evidence.</p></article>
+        <article class="card blue"><h3>Automation</h3><p>Inventory, logging, posture signals, and ticketing integrations reduce manual attestation.</p></article>
+        <article class="card amber"><h3>Risk governance</h3><p>AI risk decisions are tied to business criticality, regulatory exposure, and model lifecycle stage.</p></article>
+        <article class="card green"><h3>Assurance rhythm</h3><p>Quarterly reassessment for high-risk AI systems and event-driven review after major changes.</p></article>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-14" aria-labelledby="slide-14-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Stakeholders Interviewed</p>
+      <p class="slide-number">14 / 16</p>
+      <h2 id="slide-14-title">Assessment interviews covered control owners across all 15 AI security components</h2>
+      <p class="subtitle">Stakeholders represent the sample evidence owners, operating teams, and governance roles interviewed during the assessment.</p>
+    </header>
+      <table class="data-table">
+        <thead><tr><th scope="col">Component</th><th scope="col">Stakeholders Interviewed</th></tr></thead>
+        <tbody><tr><th scope="row">GRC</th><td>AI Governance Lead; Enterprise Risk Manager; Compliance Officer</td></tr><tr><th scope="row">AI Inventory</th><td>AI Platform Owner; CMDB Owner; Enterprise Architect</td></tr><tr><th scope="row">Data Security</th><td>Data Security Owner; Privacy Officer; Data Engineering Lead</td></tr><tr><th scope="row">Model Security</th><td>ML Platform Owner; Model Risk Manager; MLOps Lead</td></tr><tr><th scope="row">Threat Modeling</th><td>Application Security Architect; AI Product Security Lead</td></tr><tr><th scope="row">AI SSDLC</th><td>AI Engineering Lead; DevSecOps Lead; Secure Design Reviewer</td></tr><tr><th scope="row">API Security</th><td>API Platform Owner; Integration Security Lead</td></tr><tr><th scope="row">Infrastructure</th><td>Cloud Security Lead; Platform Engineering Manager</td></tr><tr><th scope="row">Access Control</th><td>IAM Control Owner; Privileged Access Manager</td></tr><tr><th scope="row">Monitoring</th><td>SOC Detection Lead; SIEM Engineer; Incident Response Lead</td></tr><tr><th scope="row">Explainability</th><td>Model Risk Manager; Internal Audit Representative</td></tr><tr><th scope="row">Ethical AI</th><td>Responsible AI Lead; Legal Counsel; Data Ethics Reviewer</td></tr><tr><th scope="row">Supply Chain</th><td>Third-Party Risk Manager; Procurement Lead; Vendor Owner</td></tr><tr><th scope="row">Red Teaming</th><td>Security Testing Lead; AI Red Team Lead; AppSec Tester</td></tr><tr><th scope="row">Lifecycle</th><td>AI Product Governance Owner; Change Manager; Release Manager</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="slide" id="slide-15" aria-labelledby="slide-15-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Operating Model</p>
+      <p class="slide-number">15 / 16</p>
+      <h2 id="slide-15-title">Recommended governance cadence for the next assessment cycle</h2>
+      <p class="subtitle">Clear accountabilities are needed to turn a Defined assessment result into a managed improvement program.</p>
+    </header>
+      <div class="grid two">
+        <article class="card teal"><h3>AI Governance Council</h3><p>Owns maturity target, exceptions, risk appetite, and quarterly reporting.</p></article>
+        <article class="card blue"><h3>CISO / Security</h3><p>Owns control standards, validation, red teaming, monitoring, and incident readiness.</p></article>
+        <article class="card amber"><h3>Model / Product Owners</h3><p>Own evidence, remediation plans, lifecycle records, and control implementation.</p></article>
+        <article class="card red"><h3>Internal Audit / Risk</h3><p>Validates evidence quality, closure confidence, and regulatory traceability.</p></article>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-16" aria-labelledby="slide-16-title">
+      
+    <header class="slide-header">
+      <p class="kicker">Next Steps</p>
+      <p class="slide-number">16 / 16</p>
+      <h2 id="slide-16-title">Decision asks to move beyond Defined</h2>
+      <p class="subtitle">The sample organization should approve a targeted uplift program and reassess after remediation evidence is available.</p>
+    </header>
+      <div class="grid two">
+        <article class="card teal"><h3>Approve target</h3><p>Set 12-month target maturity to Managed for high-risk AI systems.</p></article>
+        <article class="card blue"><h3>Fund remediation</h3><p>Prioritize red teaming, supply chain assurance, threat modeling, and monitoring.</p></article>
+        <article class="card amber"><h3>Assign owners</h3><p>Create named control owners and remediation due dates for every high-risk gap.</p></article>
+        <article class="card green"><h3>Reassess</h3><p>Run a focused reassessment in 6 months and a full reassessment in 12 months.</p></article>
+      </div>
+      <h3 style="text-align:center;margin-top:2rem;font-family:'Playfair Display',Georgia,serif;color:#0D1B2A;font-size:1.3rem;font-weight:700;letter-spacing:0.01em;padding:1.5rem;background:#F7F8FA;border-radius:6px;border:1px solid #DDE3EA;">Final sample result: 55.2% — Defined</h3>
+      <details class="sources">
+        <summary>Reference basis</summary>
+        <ul><li>Source workbook: AI_Security_Advisory_Tool.xlsx, 15 components and 1,500 questions.</li><li>NIST AI RMF Playbook: Govern, Map, Measure, Manage functions.</li><li>ISO/IEC 42001:2023 AI management system requirements.</li><li>OWASP Top 10 for LLM Applications 2025.</li><li>MITRE ATLAS adversarial AI knowledge base.</li><li>Cloud Security Alliance AI Controls Matrix.</li></ul>
+      </details>
+    </section>
+  </main>
+</body>
+</html>
