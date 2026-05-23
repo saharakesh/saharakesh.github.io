@@ -1,379 +1,584 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Security Breaches: Impact & Prevention | Rakesh Saha</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-<title>AI Security Breaches – The Real Impact & How AI Security Maturity Assessment Prevents It</title>
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-red: #ef4444;
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-<style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
 
-body{
-    margin:0;
-    padding:0;
-    background:#f4f7fb;
-    font-family:'Inter',sans-serif;
-    color:#1e293b;
-    line-height:1.8;
-}
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
 
-.container{
-    width:90%;
-    max-width:1200px;
-    margin:auto;
-    padding:40px 0;
-}
+    /* Grid mesh overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-.hero{
-    background:linear-gradient(135deg,#0f172a,#1e3a8a);
-    color:white;
-    padding:80px 40px;
-    border-radius:20px;
-    margin-top:30px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.15);
-}
+    .blur-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
 
-.hero h1{
-    font-size:3rem;
-    margin-bottom:20px;
-    line-height:1.2;
-}
+    .blur-blob.cyan {
+      top: 10%;
+      left: 5%;
+      width: 350px;
+      height: 350px;
+      background: var(--accent-cyan);
+    }
 
-.hero p{
-    font-size:1.2rem;
-    max-width:900px;
-    opacity:0.92;
-}
+    .blur-blob.purple {
+      bottom: 10%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-purple);
+    }
 
-.section{
-    background:white;
-    padding:40px;
-    margin-top:30px;
-    border-radius:18px;
-    box-shadow:0 8px 30px rgba(0,0,0,0.06);
-}
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
 
-.section h2{
-    font-size:2rem;
-    margin-bottom:20px;
-    color:#0f172a;
-    border-left:6px solid #2563eb;
-    padding-left:15px;
-}
+    /* STICKY HEADER NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 0;
+      margin-bottom: 48px;
+    }
 
-.section h3{
-    margin-top:30px;
-    color:#1e3a8a;
-}
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.highlight{
-    background:#eff6ff;
-    border-left:5px solid #2563eb;
-    padding:20px;
-    border-radius:10px;
-    margin:25px 0;
-}
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
 
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-}
+    .logo span {
+      color: var(--accent-cyan);
+    }
 
-table th{
-    background:#0f172a;
-    color:white;
-    padding:14px;
-    text-align:left;
-}
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: transparent;
+    }
 
-table td{
-    padding:14px;
-    border-bottom:1px solid #e2e8f0;
-}
+    nav a:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
 
-table tr:hover{
-    background:#f8fafc;
-}
+    /* ARTICLE HERO HEADER */
+    .article-header {
+      margin-bottom: 40px;
+    }
 
-.image-container{
-    text-align:center;
-    margin-top:30px;
-}
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
 
-.image-container img{
-    width:100%;
-    max-width:1100px;
-    border-radius:18px;
-    box-shadow:0 12px 30px rgba(0,0,0,0.15);
-}
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
 
-.benefits-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:20px;
-    margin-top:25px;
-}
+    .tag.cyan {
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
 
-.card{
-    background:#f8fafc;
-    border-radius:14px;
-    padding:25px;
-    border-top:5px solid #2563eb;
-    transition:0.3s ease;
-}
+    .tag.purple {
+      color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
 
-.card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
-}
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 2.8rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
 
-.card h4{
-    margin-bottom:12px;
-    color:#0f172a;
-}
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
 
-.footer-cta{
-    margin-top:40px;
-    background:linear-gradient(135deg,#1e3a8a,#0f172a);
-    color:white;
-    padding:50px;
-    border-radius:20px;
-    text-align:center;
-}
+    /* SECTION CARD STYLES */
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
 
-.footer-cta h2{
-    font-size:2.2rem;
-    margin-bottom:20px;
-}
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 32px;
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+      transition: var(--transition);
+    }
 
-.footer-cta p{
-    font-size:1.1rem;
-    opacity:0.9;
-}
+    .section:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
 
-</style>
+    h2 {
+      font-size: 1.45rem;
+      margin-bottom: 16px;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+    }
+
+    .section:nth-child(even) h2::before {
+      background: var(--accent-purple);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 24px 0 12px;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Highlight Callouts */
+    .highlight {
+      background: rgba(59, 130, 246, 0.04);
+      border-left: 3px solid var(--accent-blue);
+      padding: 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-top: 18px;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    /* Image Display Card */
+    .image-container {
+      margin-top: 20px;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #000;
+    }
+
+    .image-container img {
+      width: 100%;
+      display: block;
+      transition: var(--transition);
+    }
+
+    .image-container img:hover {
+      transform: scale(1.02);
+    }
+
+    /* Grid of benefits cards */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      padding: 24px;
+      border-top: 3px solid var(--accent-cyan);
+      transition: var(--transition);
+    }
+
+    .card:nth-child(even) {
+      border-top-color: var(--accent-purple);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--surface-border-hover);
+      background: rgba(6, 182, 212, 0.02);
+    }
+
+    .card h4 {
+      color: #fff;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    /* Table Design */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    th {
+      background-color: rgba(6, 182, 212, 0.08);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+
+    /* CTA Box */
+    .footer-cta {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(59, 130, 246, 0.08) 100%);
+      border: 1px solid var(--accent-cyan);
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.1);
+      padding: 40px;
+      border-radius: var(--radius);
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .footer-cta h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      justify-content: center;
+    }
+
+    .footer-cta h2::before {
+      display: none;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
+  <div class="blur-blob cyan"></div>
+  <div class="blur-blob purple"></div>
 
-    <!-- HERO SECTION -->
-    <div class="hero">
+  <!-- RETURN HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
+      <nav>
+        <a href="index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
 
-        <h1>AI Security Breaches: The Real Impact & How to Prevent It</h1>
-
-        <p>
-            Artificial Intelligence is rapidly transforming industries including BFSI, healthcare, retail, manufacturing, and government sectors. 
-            However, the rapid adoption of AI technologies has also introduced new cyber risks, governance gaps, and regulatory challenges. 
-            AI security breaches are now causing significant financial losses, reputational damage, customer distrust, and operational disruption worldwide.
-        </p>
-
+  <main class="container">
+    
+    <!-- Hero Article Header -->
+    <div class="article-header">
+      <div class="tag-row">
+        <span class="tag cyan">AI Security</span>
+        <span class="tag purple">GRC Assessment</span>
+      </div>
+      <h1>AI Security Breaches: The Real Impact & Maturity Prevention</h1>
+      <div class="meta-row">
+        <span>Author: Rakesh Saha</span>
+        <span>•</span>
+        <span>⏱ 8 min read</span>
+        <span>•</span>
+        <span>Threat Intel Series</span>
+      </div>
     </div>
 
-    <!-- INFOGRAPHIC -->
+    <!-- Intro -->
+    <p class="section-intro">
+      Artificial Intelligence is transforming banking, healthcare, retail, manufacturing, and national infrastructures. However, rapid model adoption has introduced unprecedented cyber risks. Analyzing real-world breaches demonstrates how maturity frameworks safeguard systems.
+    </p>
+
+    <!-- Infographic Section -->
     <div class="section">
+      <h2>AI Security Breaches Infographic</h2>
+      <p>A comprehensive threat landscape visualization mapping model vulnerabilities, attack routes, and governance solutions.</p>
+      <div class="image-container">
+        <img src="a_high_detail_infographic_poster_clean_corporate.png" alt="AI Security Breaches Infographic Detail">
+      </div>
+    </div>
 
-        <h2>AI Security Breaches an Infographic</h2>
+    <!-- Real-World Incidents -->
+    <div class="section">
+      <h2>Real-World AI Security Incidents</h2>
+      <p>
+        Recent AI incidents demonstrate that vulnerabilities in machine learning models and pipelines quickly escalate into boardroom-level business and brand risks.
+      </p>
 
-        <div class="image-container">
-            <img src="a_high_detail_infographic_poster_clean_corporate.png" alt="AI Security Breaches Infographic">
+      <table>
+        <thead>
+          <tr>
+            <th>Organization</th>
+            <th>Vulnerability & Incident</th>
+            <th>Operational Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>OpenAI</strong></td>
+            <td>Software-driven chat log exposure bugs.</td>
+            <td>Erosion of developer trust and localized data leaks.</td>
+          </tr>
+          <tr>
+            <td><strong>Samsung</strong></td>
+            <td>Confidential enterprise source code pasted into public LLM.</td>
+            <td>Confidential intellectual property leakage.</td>
+          </tr>
+          <tr>
+            <td><strong>JPMorgan Chase</strong></td>
+            <td>Restrictions imposed on unauthorized third-party model usage.</td>
+            <td>Compliance risk containment and data leaks prevention.</td>
+          </tr>
+          <tr>
+            <td><strong>C3.ai</strong></td>
+            <td>Access vulnerability permitting lateral data access.</td>
+            <td>Immediate brand equity and market value impact.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Financial & Reputational Impact -->
+    <div class="section">
+      <h2>Financial & Brand Impact of AI Breaches</h2>
+      
+      <div class="highlight">
+        According to IBM’s Cost of a Data Breach Report, the average compromise in financial services exceeded $6 million in 2024. AI compromises carry compounding costs due to core intellectual property leakage and massive regulatory enforcement.
+      </div>
+
+      <h3>Financial Impact Categories:</h3>
+      <ul>
+        <li><strong>Regulatory Penalties:</strong> Substantial fines under newly enacted EU AI Acts and security acts.</li>
+        <li><strong>Operational Halts:</strong> Significant downtime spent rebuilding models, verifying data, and running audits.</li>
+        <li><strong>Remediation Cost:</strong> Expansive engineering hours spent identifying data poisoning and retraining models.</li>
+        <li><strong>Premium Surges:</strong> Dramatic increases in cybersecurity insurance costs due to model failures.</li>
+      </ul>
+
+      <h3>Reputational & Brand Impact:</h3>
+      <ul>
+        <li><strong>Erosion of Customer Trust:</strong> Customers withdrawing business due to confidential data leaks.</li>
+        <li><strong>Negative Media Telemetry:</strong> Damaged reputation across global technical and business journals.</li>
+        <li><strong>Reduced Investor Confidence:</strong> Declining market capitalization and lower stock multiples.</li>
+      </ul>
+    </div>
+
+    <!-- How Framework Helps -->
+    <div class="section">
+      <h2>How the AI Security Maturity Framework Prevents Breaches</h2>
+      <p>
+        The AI Security Maturity Assessment Framework provides a structured, multi-domain control checklist to audit, defend, and optimize model security across the entire enterprise.
+      </p>
+
+      <div class="benefits-grid">
+        <div class="card">
+          <h4>Enforced Governance</h4>
+          <p>Align model development with emerging international standards like NIST AI RMF, ISO 42001, and the EU AI Act.</p>
         </div>
-
-    </div>
-
-    <!-- REAL WORLD IMPACT -->
-    <div class="section">
-
-        <h2>Real-World AI Security Incidents</h2>
-
-        <p>
-            Recent AI-related incidents demonstrate how security gaps in AI systems can expose organizations to major business risks. 
-            AI security is no longer just a technical concern — it is now a boardroom-level business risk.
-        </p>
-
-        <table>
-            <tr>
-                <th>Organization</th>
-                <th>Incident</th>
-                <th>Impact</th>
-            </tr>
-
-            <tr>
-                <td>OpenAI</td>
-                <td>Chat history exposure due to software bug</td>
-                <td>Customer trust concerns and data privacy impact</td>
-            </tr>
-
-            <tr>
-                <td>Samsung</td>
-                <td>Employees leaked confidential source code into ChatGPT</td>
-                <td>Potential intellectual property leakage</td>
-            </tr>
-
-            <tr>
-                <td>JPMorgan Chase</td>
-                <td>Restrictions imposed on unauthorized AI tool usage</td>
-                <td>Regulatory and governance concerns</td>
-            </tr>
-
-            <tr>
-                <td>C3.ai</td>
-                <td>Security vulnerability impacting data access</td>
-                <td>Market and reputational impact</td>
-            </tr>
-
-        </table>
-
-    </div>
-
-    <!-- FINANCIAL IMPACT -->
-    <div class="section">
-
-        <h2>Financial & Reputational Impact of AI Security Breaches</h2>
-
-        <div class="highlight">
-            According to IBM’s Cost of a Data Breach Report, the average breach cost in financial services exceeded $6 million in 2024. 
-            AI-related breaches can potentially cause even greater losses due to intellectual property compromise, regulatory penalties, and large-scale operational disruption.
+        <div class="card">
+          <h4>Risk Visibility</h4>
+          <p>Identify active risks, discover shadow models, and secure unmonitored API connection vectors.</p>
         </div>
-
-        <h3>Financial Impact</h3>
-
-        <ul>
-            <li>Regulatory fines and legal penalties</li>
-            <li>Operational downtime and productivity loss</li>
-            <li>Revenue decline and customer churn</li>
-            <li>Incident response and remediation costs</li>
-            <li>Higher cyber insurance premiums</li>
-        </ul>
-
-        <h3>Reputational Impact</h3>
-
-        <ul>
-            <li>Loss of customer trust</li>
-            <li>Negative media exposure</li>
-            <li>Reduced investor confidence</li>
-            <li>Brand credibility damage</li>
-            <li>Increased regulatory scrutiny</li>
-        </ul>
-
-    </div>
-
-    <!-- FRAMEWORK -->
-    <div class="section">
-
-        <h2>How AI Security Maturity Assessment Framework Helps</h2>
-
-        <p>
-            An AI Security Maturity Assessment Framework provides organizations with a structured and measurable approach to identify, assess, and improve AI security posture across the enterprise.
-        </p>
-
-        <div class="benefits-grid">
-
-            <div class="card">
-                <h4>Governance & Compliance</h4>
-                <p>
-                    Strengthen AI governance practices and align with NIST AI RMF, ISO 42001, GDPR, RBI, and industry regulations.
-                </p>
-            </div>
-
-            <div class="card">
-                <h4>Risk Visibility</h4>
-                <p>
-                    Identify hidden AI risks across models, APIs, infrastructure, data pipelines, and third-party integrations.
-                </p>
-            </div>
-
-            <div class="card">
-                <h4>Operational Resilience</h4>
-                <p>
-                    Improve monitoring, threat detection, incident response, and AI operational stability.
-                </p>
-            </div>
-
-            <div class="card">
-                <h4>Secure AI Adoption</h4>
-                <p>
-                    Enable scalable and trusted AI transformation while minimizing business and regulatory risks.
-                </p>
-            </div>
-
+        <div class="card">
+          <h4>Operational Resilience</h4>
+          <p>Build real-time anomaly telemetry, rapid threat intelligence triage, and automated failover pipelines.</p>
         </div>
-
-    </div>
-
-    <!-- FRAMEWORK COMPONENTS -->
-    <div class="section">
-
-        <h2>Core Components of the AI Security Maturity Assessment Framework</h2>
-
-        <ul>
-            <li>Governance & Compliance</li>
-            <li>AI Inventory & Classification</li>
-            <li>Threat Modeling</li>
-            <li>Data Security</li>
-            <li>Model Security</li>
-            <li>DevSecOps (AI-SSDLC)</li>
-            <li>Access Control</li>
-            <li>API Security</li>
-            <li>Infrastructure Security</li>
-            <li>Monitoring & Detection</li>
-            <li>Explainability & Auditability</li>
-            <li>Ethical AI</li>
-            <li>Supply Chain Security</li>
-            <li>Red Teaming</li>
-            <li>Lifecycle Management</li>
-        </ul>
-
-    </div>
-
-    <!-- BUSINESS BENEFITS -->
-    <div class="section">
-
-        <h2>Business Benefits of AI Security Maturity Assessments</h2>
-
-        <div class="benefits-grid">
-
-            <div class="card">
-                <h4>Short-Term Benefits</h4>
-                <p>
-                    Immediate visibility into AI risks, governance gaps, and compliance readiness.
-                </p>
-            </div>
-
-            <div class="card">
-                <h4>Medium-Term Benefits</h4>
-                <p>
-                    Reduced breach likelihood, improved operational resilience, and enhanced AI governance maturity.
-                </p>
-            </div>
-
-            <div class="card">
-                <h4>Long-Term Benefits</h4>
-                <p>
-                    Trusted AI adoption, scalable AI innovation, improved customer confidence, and stronger market positioning.
-                </p>
-            </div>
-
+        <div class="card">
+          <h4>Secure Innovation</h4>
+          <p>Adopt state-of-the-art transformers and models while minimizing exposure to regulatory and cyber threats.</p>
         </div>
-
+      </div>
     </div>
 
-    <!-- CTA -->
+    <!-- Core Components -->
+    <div class="section">
+      <h2>Core Components of the Framework</h2>
+      <p>The 15 critical assurance domains audited under our assessment framework to isolate, score, and remediate systemic gaps:</p>
+      <ul>
+        <li><strong>GRC Policies:</strong> Policies aligned with NIST AI RMF & ISO 42001.</li>
+        <li><strong>Asset Inventory:</strong> Cataloging datasets, endpoints, weights, and versions.</li>
+        <li><strong>Threat Modeling:</strong> Pre-deployment neural attack surface mapping.</li>
+        <li><strong>Data Security:</strong> PII anonymization, poison prevention, and leakage protection.</li>
+        <li><strong>Model Security:</strong> Neural weight encryption and input filter validation.</li>
+        <li><strong>DevSecOps (AI-SSDLC):</strong> Automated scanning of ML pipelines.</li>
+        <li><strong>API Security:</strong> Rate-limiting, token auth, and payload screening.</li>
+        <li><strong>Supply Chain Audit:</strong> Dependency tracking for open-source packages.</li>
+        <li><strong>Red Teaming:</strong> Structured adversarial model attacks.</li>
+        <li><strong>Monitoring & Detection:</strong> Drift analysis, model telemetry, and anomaly logs.</li>
+      </ul>
+    </div>
+
+    <!-- Business Benefits -->
+    <div class="section">
+      <h2>Strategic Maturity Benefits</h2>
+      <div class="benefits-grid">
+        <div class="card">
+          <h4>Short-Term</h4>
+          <p>Rapidly isolate immediate gaps, compliance warnings, and shadow LLM integrations within 30 days.</p>
+        </div>
+        <div class="card">
+          <h4>Medium-Term</h4>
+          <p>Achieve structured, audit-ready compliance postures and significantly lower vulnerability densities.</p>
+        </div>
+        <div class="card">
+          <h4>Long-Term</h4>
+          <p>Build absolute market trust, enable fast model deployments, and capture superior competitive advantages.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer CTA -->
     <div class="footer-cta">
-
-        <h2>Secure AI Today. Protect Tomorrow.</h2>
-
-        <p>
-            AI Security Maturity Assessment is not just a compliance exercise — it is a strategic investment in trust, resilience, innovation, and sustainable AI transformation.
-        </p>
-
+      <h2>Secure AI Today. Protect Tomorrow.</h2>
+      <p>
+        Conducting an AI Security Maturity Assessment is not just a compliance checkbox—it is a strategic blueprint that secures your intellectual property, customer trust, and future innovation.
+      </p>
     </div>
 
-</div>
+  </main>
+
+  <!-- Footer -->
+  <footer style="margin-top: 80px; padding: 40px 0; background: #02050c; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Rakesh Saha. All rights reserved. Professional Portfolio Repository.</p>
+  </footer>
 
 </body>
 </html>

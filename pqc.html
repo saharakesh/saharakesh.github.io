@@ -1,192 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Security and the Way Ahead</title>
-    <style>
-        :root {
-            --primary-blue: #1a73e8;
-            --dark-bg: #0f172a;
-            --text-main: #334155;
-            --text-light: #64748b;
-            --accent-cyan: #22d3ee;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Security and the Way Ahead | Rakesh Saha</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-main);
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f8fafc;
-        }
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
 
-        .article-card {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        h1 {
-            color: var(--dark-bg);
-            font-size: 2.5rem;
-            border-bottom: 4px solid var(--primary-blue);
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
 
-        h2 {
-            color: var(--primary-blue);
-            margin-top: 1.5em;
-            font-size: 1.8rem;
-        }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
 
-        h3 {
-            color: #1e293b;
-            font-size: 1.3rem;
-            border-left: 4px solid var(--accent-cyan);
-            padding-left: 15px;
-        }
+    /* Grid mesh overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .highlight-box {
-            background-color: #f1f5f9;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid var(--primary-blue);
-        }
+    .blur-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.95em;
-        }
+    .blur-blob.cyan {
+      top: 10%;
+      left: 5%;
+      width: 350px;
+      height: 350px;
+      background: var(--accent-cyan);
+    }
 
-        th {
-            background-color: var(--dark-bg);
-            color: white;
-            text-align: left;
-            padding: 12px;
-        }
+    .blur-blob.purple {
+      bottom: 10%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-purple);
+    }
 
-        td {
-            border: 1px solid #e2e8f0;
-            padding: 12px;
-        }
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
 
-        tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
+    /* STICKY HEADER NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 0;
+      margin-bottom: 48px;
+    }
 
-        .math-concept {
-            font-family: "Courier New", Courier, monospace;
-            background: #eee;
-            padding: 2px 5px;
-            border-radius: 4px;
-        }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .footer-note {
-            font-style: italic;
-            color: var(--text-light);
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-        }
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
 
-        @media (max-width: 600px) {
-            .article-card { padding: 20px; }
-            h1 { font-size: 1.8rem; }
-            table { display: block; overflow-x: auto; }
-        }
-    </style>
+    .logo span {
+      color: var(--accent-cyan);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: transparent;
+    }
+
+    nav a:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
+
+    /* ARTICLE HERO HEADER */
+    .article-header {
+      margin-bottom: 40px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
+
+    .tag.cyan {
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .tag.purple {
+      color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 2.8rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* SECTION CARD STYLES */
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 32px;
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-bottom: 16px;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+    }
+
+    .section:nth-child(even) h2::before {
+      background: var(--accent-purple);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 24px 0 12px;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Highlight Callout */
+    .highlight-box {
+      background: rgba(245, 158, 11, 0.04);
+      border-left: 3px solid var(--accent-amber);
+      padding: 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-top: 18px;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    .highlight-box strong {
+      color: var(--accent-amber);
+    }
+
+    /* Code/Math Inline Concepts */
+    .math-concept {
+      font-family: var(--font-mono);
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      color: var(--accent-cyan);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+
+    /* Table Design */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    th {
+      background-color: rgba(6, 182, 212, 0.08);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+  </style>
 </head>
 <body>
 
-<div class="article-card">
-    <h1>Quantum Security and the Way Ahead</h1>
+  <div class="blur-blob cyan"></div>
+  <div class="blur-blob purple"></div>
+
+  <!-- RETURN HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
+      <nav>
+        <a href="index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
     
-    <p>The rapid advancement of quantum computing represents a dual-edged sword for global security. While it promises breakthroughs in medicine and materials science, it simultaneously threatens to render our current cryptographic foundations completely obsolete. This article explores the threat, the shift toward <strong>Post-Quantum Cryptography (PQC)</strong>, and the emerging field of <strong>Quantum Key Distribution (QKD)</strong>.</p>
-
-    <hr>
-
-    <h2>1. The Quantum Threat</h2>
-    <p>Today’s digital security relies on mathematical problems that are "hard" for classical computers to solve, such as factoring large prime numbers (RSA) or solving discrete logarithms (ECC).</p>
-    
-    <ul>
-        <li><strong>Shor’s Algorithm:</strong> Proves that a sufficiently powerful quantum computer could factor large integers in polynomial time. hours instead of trillions of years.</li>
-        <li><strong>Grover’s Algorithm:</strong> Effectively halves the security strength of symmetric encryption like AES (e.g., a <span class="math-concept">256-bit</span> key becomes as weak as a <span class="math-concept">128-bit</span> key).</li>
-    </ul>
-
-    <div class="highlight-box">
-        <strong>The "Store Now, Decrypt Later" (SNDL) Risk:</strong> Adversaries are currently harvesting encrypted sensitive data, betting they can decrypt it in 10-15 years once quantum technology matures.
+    <!-- Hero Article Header -->
+    <div class="article-header">
+      <div class="tag-row">
+        <span class="tag cyan">Quantum Security</span>
+        <span class="tag purple">Cryptography</span>
+      </div>
+      <h1>Quantum Security and the Way Ahead</h1>
+      <div class="meta-row">
+        <span>Author: Rakesh Saha</span>
+        <span>•</span>
+        <span>⏱ 7 min read</span>
+        <span>•</span>
+        <span>Cryptography Series</span>
+      </div>
     </div>
 
-    <h2>2. Post-Quantum Cryptography (PQC)</h2>
-    <p>PQC focuses on developing classical algorithms that are secure against quantum attacks. This is the most practical immediate solution as it runs on existing internet infrastructure.</p>
-    
-    <h3>Key PQC Approaches:</h3>
-    <ul>
-        <li><strong>Lattice-based Cryptography:</strong> Based on finding the shortest vector in a high-dimensional grid. (Standardized by NIST).</li>
-        <li><strong>Code-based Cryptography:</strong> Uses error-correcting codes to hide information.</li>
-        <li><strong>Multivariate Cryptography:</strong> Relies on the difficulty of solving systems of multivariate equations.</li>
-    </ul>
+    <!-- Intro -->
+    <p class="section-intro">
+      The rapid advancement of quantum computing represents a dual-edged sword for enterprise networks. While it promises breakthroughs in computational chemistry, it simultaneously threatens to make our entire public-key cryptographic foundations obsolete.
+    </p>
 
-    <h2>3. Quantum Key Distribution (QKD)</h2>
-    <p>Unlike PQC, which relies on math, QKD relies on the <strong>laws of physics</strong>.</p>
-    <p>Using the <em>No-Cloning Theorem</em>, QKD ensures that any attempt by an eavesdropper to intercept a quantum key will disturb the quantum state, alerting the legitimate users immediately.</p>
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>The Quantum Threat Paradigm</h2>
+      <p>
+        Today’s global digital security relies on mathematical problems that are "hard" for classical computers to resolve, such as factoring large prime numbers (RSA) or solving discrete logarithms (ECC).
+      </p>
+      
+      <ul>
+        <li><strong>Shor's Algorithm:</strong> Proves that a sufficiently powerful quantum computing engine could factor large integers in polynomial time—resolving calculations in hours that would take classical systems trillions of years.</li>
+        <li><strong>Grover's Algorithm:</strong> Effectively halves the security parameter strength of symmetric algorithms like AES (e.g., a <span class="math-concept">256-bit</span> key decays to a <span class="math-concept">128-bit</span> security level).</li>
+      </ul>
 
-    <h2>4. Comparative Analysis: PQC vs. QKD</h2>
-    
-    <table>
+      <div class="highlight-box">
+        <strong>The "Store Now, Decrypt Later" (SNDL) Threat:</strong> Adversaries are currently intercepting and harvesting encrypted enterprise and state communications, betting they can decrypt the logs in 10-15 years once quantum hardware matures.
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>Post-Quantum Cryptography (PQC)</h2>
+      <p>
+        PQC focus points center on developing classical mathematical algorithms that are resilient against attacks from both classical and quantum computers. PQC runs on existing networks without requiring specialized physics hardware.
+      </p>
+      
+      <h3>Key Standardized PQC Approaches:</h3>
+      <ul>
+        <li><strong>Lattice-based Cryptography:</strong> Based on the geometric difficulty of finding the shortest vectors in high-dimensional grids (e.g., standardized by NIST like CRYSTALS-Kyber).</li>
+        <li><strong>Code-based Cryptography:</strong> Utilizes complex algebraic error-correcting codes to obfuscate plaintext.</li>
+        <li><strong>Multivariate Cryptography:</strong> Relies on the complexity of solving systems of non-linear multivariate equations.</li>
+      </ul>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="section">
+      <h2>Quantum Key Distribution (QKD)</h2>
+      <p>
+        Unlike PQC, which relies on mathematical complexity, QKD relies on the **fundamental laws of quantum physics**.
+      </p>
+      <p>
+        Utilizing the <em>No-Cloning Theorem</em>, QKD guarantees that any attempt by a third-party interceptor to capture a photon-based quantum key changes its quantum state, instantly alerting the communicating users.
+      </p>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="section">
+      <h2>Comparative Analysis: PQC vs. QKD</h2>
+      <p>An evaluation of the mathematical, hardware, and operational differences between PQC software upgrades and physical QKD infrastructures.</p>
+
+      <table>
         <thead>
-            <tr>
-                <th>Feature</th>
-                <th>Post-Quantum Cryptography (PQC)</th>
-                <th>Quantum Key Distribution (QKD)</th>
-            </tr>
+          <tr>
+            <th>Functional Aspect</th>
+            <th>Post-Quantum Cryptography (PQC)</th>
+            <th>Quantum Key Distribution (QKD)</th>
+          </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><strong>Foundation</strong></td>
-                <td>Complex Mathematics</td>
-                <td>Quantum Mechanics (Physics)</td>
-            </tr>
-            <tr>
-                <td><strong>Hardware</strong></td>
-                <td>Standard PCs/Servers</td>
-                <td>Specialized Fiber/Lasers</td>
-            </tr>
-            <tr>
-                <td><strong>Implementation</strong></td>
-                <td>Software Update</td>
-                <td>New Physical Infrastructure</td>
-            </tr>
-            <tr>
-                <td><strong>Security Proof</strong></td>
-                <td>Computational Hardness</td>
-                <td>Information-Theoretic Security</td>
-            </tr>
+          <tr>
+            <td><strong>Core Security Foundation</strong></td>
+            <td>Complex Multidimensional Math</td>
+            <td>Quantum Mechanics Laws (Physics)</td>
+          </tr>
+          <tr>
+            <td><strong>Hardware Requirements</strong></td>
+            <td>Standard CPUs and Servers</td>
+            <td>Specialized Fiber-Optics & Lasers</td>
+          </tr>
+          <tr>
+            <td><strong>Implementation Path</strong></td>
+            <td>Straightforward Software Upgrades</td>
+            <td>Deployment of Physical Infrastructure</td>
+          </tr>
+          <tr>
+            <td><strong>Security Guarantee</strong></td>
+            <td>Computational Hardness</td>
+            <td>Information-Theoretic Security</td>
+          </tr>
         </tbody>
-    </table>
-
-    <h2>5. The Way Ahead: A Hybrid Future</h2>
-    <p>The transition to a quantum-secure world will likely involve a <strong>Hybrid Model</strong>. Organizations will use PQC for general data encryption while utilizing QKD for high-security government or financial backbones.</p>
-    
-    <h3>Next Steps for Global Security:</h3>
-    <ol>
-        <li><strong>Quantum Readiness Audits:</strong> Identifying which data is vulnerable to SNDL.</li>
-        <li><strong>NIST Standardization:</strong> Implementing CRYSTALS-Kyber and Dilithium protocols.</li>
-        <li><strong>Crypto-Agility:</strong> Designing systems so that encryption algorithms can be swapped easily without rebuilding the entire software stack.</li>
-    </ol>
-
-    <div class="footer-note">
-        <p>Conclusion: We are in the "Quantum Dawn." Moving global infrastructure to a quantum-safe state is a race against time, requiring proactive agility rather than reactive patches.</p>
+      </table>
     </div>
-</div>
+
+    <!-- Section 5 -->
+    <div class="section">
+      <h2>The Way Ahead: A Hybrid Future</h2>
+      <p>
+        Transitioning the global digital ecosystem to a quantum-secure state will require deploying a **Hybrid Encryption Model**. Enterprises will roll out PQC mathematical filters for general software and API encryption, while leveraging QKD fibers to secure high-value bank backbones and government subnets.
+      </p>
+      
+      <h3>Essential Organizational Next Steps:</h3>
+      <ol>
+        <li><strong>SNDL Vulnerability Audits:</strong> Cataloging long-term data files currently vulnerable to harvest-now-decrypt-later strategies.</li>
+        <li><strong>Standardization Rollout:</strong> Integrating Kyber and Dilithium protocols as standardized by NIST.</li>
+        <li><strong>Crypto-Agility Architecture:</strong> Refactoring applications so that cryptographic modules can be swapped easily via software configurations without rewriting core code stacks.</li>
+      </ol>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="margin-top: 80px; padding: 40px 0; background: #02050c; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Rakesh Saha. All rights reserved. Professional Portfolio Repository.</p>
+  </footer>
 
 </body>
 </html>

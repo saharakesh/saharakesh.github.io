@@ -1,298 +1,677 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Navigating the Digital Frontier: Understanding the Risks Associated with AI</title>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Understanding the Risks of Artificial Intelligence | Rakesh Saha</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-red: #ef4444;
+
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
     body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        color: #333;
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #f4f4f4;
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
     }
-    header, section, footer {
-        background-color: #fff;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    /* Grid mesh overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
     }
+
+    .blur-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .blur-blob.cyan {
+      top: 10%;
+      left: 5%;
+      width: 350px;
+      height: 350px;
+      background: var(--accent-cyan);
+    }
+
+    .blur-blob.purple {
+      bottom: 20%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-purple);
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* STICKY HEADER NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 0;
+      margin-bottom: 48px;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+
+    .logo span {
+      color: var(--accent-cyan);
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: transparent;
+    }
+
+    nav a:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
+
+    /* ARTICLE HERO HEADER */
+    .article-header {
+      margin-bottom: 40px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
+
+    .tag.cyan {
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .tag.purple {
+      color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
+
     h1 {
-        color: #2c3e50;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 10px;
+      font-size: clamp(2rem, 5.5vw, 2.8rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
     }
+
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* SECTION CARD STYLES */
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 32px;
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
     h2 {
-        color: #e67e22;
-        margin-top: 30px;
+      font-size: 1.45rem;
+      margin-bottom: 16px;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+    }
+
+    .section:nth-child(even) h2::before {
+      background: var(--accent-purple);
+    }
+
     h3 {
-        color: #34495e;
+      font-size: 1.15rem;
+      margin: 12px 0;
+      color: #fff;
     }
+
     p {
-        margin-bottom: 15px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
     }
-    ul, ol {
-        margin-bottom: 20px;
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
     }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Visualization Box Wrappers */
     .visual-container {
-        text-align: center;
-        margin: 30px 0;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background-color: #fafafa;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 24px;
+      border-radius: var(--radius);
+      margin: 28px 0;
     }
+
     .visual-caption {
-        font-style: italic;
-        margin-top: 10px;
-        color: #555;
+      font-size: 0.8rem;
+      font-style: italic;
+      margin-top: 14px;
+      color: var(--text-muted);
+      text-align: center;
     }
 
-    /* CSS for Visualization 1: Gender Bias */
+    /* VISUALIZATION 1: Gender Bias */
     .chart-gender-bias {
-        width: 80%;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 16px;
     }
+
     .bias-bar-group {
-        display: flex;
-        align-items: center;
+      display: flex;
+      align-items: center;
     }
+
     .bias-label {
-        width: 150px;
-        text-align: right;
-        padding-right: 15px;
-        font-weight: bold;
+      width: 140px;
+      font-size: 0.82rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-align: right;
+      padding-right: 15px;
     }
+
     .bias-bar-container {
-        flex-grow: 1;
-        background-color: #eee;
-        border-radius: 4px;
-        overflow: hidden;
+      flex-grow: 1;
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      overflow: hidden;
     }
+
     .bias-bar {
-        height: 25px;
-        color: #fff;
-        text-align: right;
-        padding-right: 10px;
-        line-height: 25px;
-        border-radius: 4px;
+      height: 25px;
+      color: var(--bg);
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: bold;
+      text-align: right;
+      padding-right: 10px;
+      line-height: 23px;
+      border-radius: 4px;
     }
-    .male-bar { background-color: #3498db; width: 85%; }
-    .female-bar { background-color: #e74c3c; width: 42%; }
-    .total-apps { background-color: #7f8c8d; width: 100%; }
 
-    /* CSS for Visualization 2: Job Displacement */
+    .total-apps { background: var(--text-muted); width: 100%; color: var(--bg); }
+    .male-bar { background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-blue) 100%); width: 85%; }
+    .female-bar { background: linear-gradient(90deg, var(--accent-purple) 0%, #c084fc 100%); width: 42%; }
+
+    /* VISUALIZATION 2: Job Displacement Columns */
     .chart-job-vulnerability {
-        width: 90%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        height: 300px;
-        border-left: 2px solid #333;
-        border-bottom: 2px solid #333;
-        padding: 10px;
-    }
-    .vuln-bar-group {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 18%;
-    }
-    .vuln-bar {
-        width: 80%;
-        background-color: #27ae60;
-        color: white;
-        text-align: center;
-        padding-top: 5px;
-        border-radius: 4px 4px 0 0;
-    }
-    .vuln-label {
-        font-size: 0.85em;
-        margin-top: 8px;
-        text-align: center;
-        font-weight: bold;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 220px;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 10px 0;
+      margin-top: 16px;
     }
 
-    /* CSS for Visualization 3: Content Feedback Loop */
+    .vuln-bar-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 18%;
+    }
+
+    .vuln-bar {
+      width: 70%;
+      background: linear-gradient(to top, var(--accent-cyan) 0%, var(--accent-purple) 100%);
+      color: var(--bg);
+      font-family: var(--font-mono);
+      font-weight: bold;
+      font-size: 0.72rem;
+      text-align: center;
+      padding-top: 4px;
+      border-radius: 4px 4px 0 0;
+      box-shadow: 0 0 15px rgba(167, 139, 250, 0.15);
+    }
+
+    .vuln-label {
+      font-size: 0.75rem;
+      margin-top: 8px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* VISUALIZATION 3: Model Collapse Loop */
     .loop-container {
-        /*display: flex;*/
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
+
     .loop-box {
-        border: 2px solid #8e44ad;
-        border-radius: 8px;
-        padding: 15px;
-        /*width: 25%;*/
-        text-align: center;
-        background-color: #f9f0ff;
+      border: 1px solid var(--surface-border);
+      background: rgba(255, 255, 255, 0.01);
+      border-radius: 8px;
+      padding: 16px;
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+      transition: var(--transition);
     }
+
+    .loop-box:hover {
+      border-color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.02);
+    }
+
+    .loop-box h4 {
+      margin-bottom: 8px;
+      color: var(--accent-purple);
+      font-size: 0.9rem;
+    }
+
+    .loop-box p {
+      font-size: 0.8rem;
+      margin-bottom: 0;
+    }
+
     .arrow {
-        font-size: 2em;
-        color: #8e44ad;
+      font-size: 1.5rem;
+      color: var(--accent-purple);
+      animation: pulse-arrow 2s infinite;
     }
+
+    /* Perceived Risk Bars */
+    .risk-bars-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
     .bar {
-        height: 30px;
-        margin: 10px 0;
-        background-color: #1a73e8;
-        color: #fff;
-        text-align: right;
-        padding-right: 10px;
-        line-height: 30px;
-        border-radius: 4px;
+      height: 32px;
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.08) 0%, rgba(6, 182, 212, 0.25) 100%);
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding-left: 14px;
+      line-height: 30px;
+      border-radius: 6px;
+      transition: var(--transition);
     }
-    .loop-box h4 { margin: 0 0 10px 0; color: #8e44ad;}
-</style>
+
+    .bar:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 15px var(--accent-cyan-glow);
+    }
+
+    @keyframes pulse-arrow {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .loop-container {
+        flex-direction: column;
+      }
+      .arrow {
+        transform: rotate(90deg);
+      }
+      @keyframes pulse-arrow {
+        0%, 100% { transform: rotate(90deg) scale(1); opacity: 0.7; }
+        50% { transform: rotate(90deg) scale(1.15); opacity: 1; }
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>Navigating the Digital Frontier: Understanding the Risks Associated with AI</h1>
-</header>
+  <div class="blur-blob cyan"></div>
+  <div class="blur-blob purple"></div>
 
-<section id="introduction">
-    <p>Artificial Intelligence has rapidly transitioned from science fiction to the engine driving modern innovation. From optimizing supply chains to personalizing medical diagnoses, its benefits are profound. However, this powerful technology is a double-edged sword. As AI becomes more integrated into the fabric of society, we must critically examine the substantial risks it presents.</p>
-    <p>These risks are not just theoretical; they are tangible, immediate, and require urgent attention from technologists, policymakers, and the public alike.</p>
-</section>
+  <!-- RETURN HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
+      <nav>
+        <a href="index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
 
-<section id="bias">
-    <h2>1. Data Bias and Algorithmic Discrimination</h2>
-    <p>AI models are only as good as the data they are trained on. They learn patterns from vast datasets that often reflect historical inequalities and societal prejudices. If this training data is skewed or unrepresentative, the resulting AI will embed and amplify those biases, leading to discriminatory outcomes.</p>
+  <main class="container">
     
-    <p>We see this in facial recognition systems failing to identify people of color accurately, or predictive policing algorithms unfairly targeting specific neighborhoods. Perhaps one of the most visible impacts is in the hiring process.</p>
+    <!-- Hero Article Header -->
+    <div class="article-header">
+      <div class="tag-row">
+        <span class="tag cyan">AI Governance</span>
+        <span class="tag purple">Threat Modeling</span>
+      </div>
+      <h1>Understanding the Threat Landscape: Risks of AI</h1>
+      <div class="meta-row">
+        <span>Author: Rakesh Saha</span>
+        <span>•</span>
+        <span>⏱ 8 min read</span>
+        <span>•</span>
+        <span>Risk Management Series</span>
+      </div>
+    </div>
 
-    <div class="visual-container">
-        <h3>Visualization 1: The AI Hiring Gap</h3>
-        <p>A hypothetical hiring tool trained on 10 years of historic application data where male candidates were disproportionately selected (85%) for technical roles.</p>
+    <!-- Intro -->
+    <p class="section-intro">
+      Artificial Intelligence has transitioned from a theoretical computer science discipline to the underlying fabric driving modern innovation. However, as automated neural architectures integrate deeply into society, we must aggressively threat-model their vulnerabilities.
+    </p>
+
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>Data Bias and Algorithmic Discrimination</h2>
+      <p>
+        AI systems do not think—they generalize. Models learn behavioral patterns from vast training datasets that inherently capture historical inequality and human prejudice. Left unmonitored, models scale and automate these biases, executing discriminatory selections at speed.
+      </p>
+      <p>
+        This manifests across facial recognition software failing on darker skin tones, predictive policing tools focusing on skewed geographic areas, and recruitment filters disproportionately downgrading diverse applications.
+      </p>
+
+      <div class="visual-container">
+        <h3>Visualization 1: The Automated Selection Gap</h3>
+        <p>Simulation of an AI-powered hiring screening tool trained on 10 years of historical data where male candidates were disproportionately selected (85%) for technical roles.</p>
         <div class="chart-gender-bias">
-            <div class="bias-bar-group">
-                <div class="bias-label">Historical Pool</div>
-                <div class="bias-bar-container"><div class="bias-bar total-apps">100% of Applications</div></div>
-            </div>
-            <div class="bias-bar-group">
-                <div class="bias-label">AI Top Picks (Male)</div>
-                <div class="bias-bar-container"><div class="bias-bar male-bar">85%</div></div>
-            </div>
-            <div class="bias-bar-group">
-                <div class="bias-label">AI Top Picks (Female)</div>
-                <div class="bias-bar-container"><div class="bias-bar female-bar">42%</div></div>
-            </div>
+          <div class="bias-bar-group">
+            <div class="bias-label">Historical Baseline</div>
+            <div class="bias-bar-container"><div class="bias-bar total-apps">100% of Applications</div></div>
+          </div>
+          <div class="bias-bar-group">
+            <div class="bias-label">AI Selection (Male)</div>
+            <div class="bias-bar-container"><div class="bias-bar male-bar">85% Selected</div></div>
+          </div>
+          <div class="bias-bar-group">
+            <div class="bias-label">AI Selection (Female)</div>
+            <div class="bias-bar-container"><div class="bias-bar female-bar">42% Selected</div></div>
+          </div>
         </div>
-        <div class="visual-caption">Fig. 1: This chart illustrates how an AI hiring tool, inheriting past selection biases, might select male candidates at more than double the rate of equally qualified female candidates, despite aiming for objectivity.</div>
+        <div class="visual-caption">Fig. 1: Demonstrates how an AI system inheriting baseline human selection biases locks them in, choosing male candidates at double the rate of equally qualified females.</div>
+      </div>
     </div>
-</section>
 
-<section id="employment">
-    <h2>2. Economic Displacement and Job Market Upheaval</h2>
-    <p>The automation potential of AI extends far beyond simple, repetitive manual labor. Generative AI (like ChatGPT) and advanced cognitive systems are now capable of creative writing, coding, financial analysis, and customer service. This shifts the threat of displacement to white-collar professions.</p>
-    
-    <p>While AI will undoubtedly create new roles, the transition will be turbulent. Low- and middle-skill jobs face the highest risk of immediate displacement, potentially exacerbating wealth inequality and requiring a massive, rapid re-skilling of the workforce.</p>
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>Economic Displacement and Job Market Turbulence</h2>
+      <p>
+        The automation potential of generative transformers spans far beyond repetitive physical labor. Advanced Large Language Models (LLMs) and predictive engines operate on cognitive functions—generating code, writing analysis, executing audits, and managing user queries.
+      </p>
+      <p>
+        While new roles will emerge, the operational re-skilling required will disrupt job functions at a pace never seen in previous industrial transitions.
+      </p>
 
-    <div class="visual-container">
-        <h3>Visualization 2: Estimated Job Function Vulnerability to AI Automation</h3>
-        <p>A high-level view of which professional sectors are most susceptible to disruption by current-generation AI technologies.</p>
+      <div class="visual-container">
+        <h3>Visualization 2: Estimated Cognitive Susceptibility to AI Disruption</h3>
+        <p>A statistical analysis mapping specific functional areas showing overlap with current LLM capabilities.</p>
         <div class="chart-job-vulnerability">
-            <div class="vuln-bar-group">
-                <div class="vuln-bar" style="height: 80%;">80%</div>
-                <div class="vuln-label">Customer Service</div>
-            </div>
-            <div class="vuln-bar-group">
-                <div class="vuln-bar" style="height: 65%;">65%</div>
-                <div class="vuln-label">Routine Coding</div>
-            </div>
-            <div class="vuln-bar-group">
-                <div class="vuln-bar" style="height: 55%;">55%</div>
-                <div class="vuln-label">Basic Data Entry</div>
-            </div>
-            <div class="vuln-bar-group">
-                <div class="vuln-bar" style="height: 40%;">40%</div>
-                <div class="vuln-label">Technical Writing</div>
-            </div>
-            <div class="vuln-bar-group">
-                <div class="vuln-bar" style="height: 25%;">25%</div>
-                <div class="vuln-label">Creative Arts</div>
-            </div>
+          <div class="vuln-bar-group">
+            <div class="vuln-bar" style="height: 80%;">80%</div>
+            <div class="vuln-label">Support Triage</div>
+          </div>
+          <div class="vuln-bar-group">
+            <div class="vuln-bar" style="height: 65%;">65%</div>
+            <div class="vuln-label">Routine Code</div>
+          </div>
+          <div class="vuln-bar-group">
+            <div class="vuln-bar" style="height: 55%;">55%</div>
+            <div class="vuln-label">Data Entry</div>
+          </div>
+          <div class="vuln-bar-group">
+            <div class="vuln-bar" style="height: 40%;">40%</div>
+            <div class="vuln-label">Tech Writing</div>
+          </div>
+          <div class="vuln-bar-group">
+            <div class="vuln-bar" style="height: 25%;">25%</div>
+            <div class="vuln-label">Creative Art</div>
+          </div>
         </div>
-        <div class="visual-caption">Fig. 2: The percentage indicates estimated functional overlap with current AI capabilities. Customer service is highly vulnerable, while the intrinsic 'human touch' needed for deep creative arts remains lower risk.</div>
+        <div class="visual-caption">Fig. 2: The percentage indicates vulnerability based on capabilities of modern transformer engines. Intrinsic creative logic and emotional context remain low risk.</div>
+      </div>
     </div>
-</section>
 
-<section id="misinformation">
-    <h2>3. The Erosion of Truth and Spread of Misinformation</h2>
-    <p>Generative AI has democratized the creation of highly convincing fake content. Deepfakes—hyper-realistic forged video or audio—can be used to manipulate elections, destroy reputations, and incite civil unrest. Large Language Models (LLMs) can generate endless streams of plausible-sounding but factually incorrect information (hallucinations) at scale.</p>
+    <!-- Section 3 -->
+    <div class="section">
+      <h2>Erosion of Digital Truth & Model Collapse</h2>
+      <p>
+        Generative models have democratized high-fidelity deception. convicing audio clones and deepfake video streams are engineered to manipulate public opinion at scale. Furthermore, as AI outputs flood the open web, we face a critical systemic threat: **Model Collapse**.
+      </p>
+      <p>
+        If future AI models are trained on content generated by their predecessors rather than organic human data, they lose variance and quickly degrade into static, useless outputs.
+      </p>
 
-    <p>The danger is not just the volume of fake content, but the growing erosion of public trust in *all* information. If anything can be fake, how do we verify what is real? This problem is further compounded by a theoretical risk known as 'model collapse'.</p>
-
-    <div class="visual-container">
-        <h3>Visualization 3: The AI Content Feedback Loop ('Model Collapse')</h3>
-        <p>A conceptual flow demonstrating how AI models might degrade if they are continually trained on data generated by previous AI models.</p>
+      <div class="visual-container">
+        <h3>Visualization 3: The Model Collapse Feedback Loop</h3>
+        <p>Tracing how training neural networks on synthetic web outputs degrades quality across generations.</p>
         <div class="loop-container">
-            <div class="loop-box">
-                <h4>1. Initial Training</h4>
-                <p>AI model trains on <strong>human-generated</strong> (high-quality, diverse) data.</p>
-            </div>
-            <div class="arrow">➔</div>
-            <div class="loop-box">
-                <h4>2. Deployment</h4>
-                <p>The AI model <strong>generates vast amounts</strong> of content (text, images, code) onto the web.</p>
-            </div>
-            <div class="arrow">➔</div>
-            <div class="loop-box">
-                <h4>3. The Feedback Trap</h4>
-                <p>Future AI (Model v2) trains on <strong>synthetic</strong> web data, inheriting the *average* quality of v1, losing variance and introducing errors.</p>
-            </div>
+          <div class="loop-box">
+            <h4>Gen 1: Baseline</h4>
+            <p>AI trains on <strong>human-created</strong> inputs. High diversity, rich parameters, low baseline drift.</p>
+          </div>
+          <div class="arrow">➔</div>
+          <div class="loop-box">
+            <h4>Gen 2: Synthesis</h4>
+            <p>AI-generated content is deployed, saturating open web indexes with synthetic outputs.</p>
+          </div>
+          <div class="arrow">➔</div>
+          <div class="loop-box">
+            <h4>Gen 3: Degradation</h4>
+            <p>Model v2 trains on Gen 2 outputs. Statistical variance is lost, introducing recurring structural errors.</p>
+          </div>
         </div>
-        <div class="visual-caption">Fig. 3: This conceptual diagram shows the cyclical risk of training AI on its own output. Over generations, the diversity and factual accuracy of the AI’s output can degrade, leading to 'model collapse'.</div>
+        <div class="visual-caption">Fig. 3: Tracing how training models on synthetic outputs causes the architecture to collapse into high-error configurations over successive generations.</div>
+      </div>
     </div>
-</section>
 
-<section id="cybersecurity">
-    <h2>4. Cybersecurity and Dual-Use Risks</h2>
-    <p>AI tools can significantly lower the barrier of entry for cybercriminals. Generative AI can craft highly sophisticated phishing emails that mimic specific writing styles (spear-phishing) at scale. It can also be used to automatically identify vulnerabilities in software code, accelerating the creation of exploits and malware.</p>
-    <p>There is also the 'dual-use' problem: powerful AI systems developed for benevolent purposes (e.g., drug discovery) could be repurposed for malevolent ones (e.g., designing novel chemical weapons).</p>
-</section>
-
-<section id="existential">
-    <h2>5. The Challenge of Alignment and Existential Risk</h2>
-    <p>The long-term risk that dominates ethical discussions is the 'alignment problem'. This refers to the difficulty of ensuring that a superintelligent AI’s goals are perfectly aligned with human values and ethics. If we build a superintelligence that is highly effective at pursuing a goal, but that goal is subtly misaligned with human survival or well-being, the consequences could be catastrophic.</p>
-    <p>While speculative, the unprecedented nature of AI intelligence makes it necessary to plan for a future where humanity is not the smartest entity on the planet.</p>
-</section>
-
-<section id="chart-container">
-    <h2>6. Risk Impact Representation</h2>
-    <p>The following simplified representation shows perceived risk levels (illustrative data):</p>
-    <div class="chart-container">
-    <div class="bar" style="width:90%;">Cybersecurity Threats – 90%</div>
-    <div class="bar" style="width:85%;">Misinformation – 85%</div>
-    <div class="bar" style="width:80%;">Job Displacement – 80%</div>
-    <div class="bar" style="width:75%;">Privacy Violations – 75%</div>
-    <div class="bar" style="width:70%;">Bias & Discrimination – 70%</div>
-    <div class="bar" style="width:65%;">Loss of Control – 65%</div>
+    <!-- Section 4 -->
+    <div class="section">
+      <h2>Cybersecurity Amplification & Dual-Use</h2>
+      <p>
+        Machine learning represents a highly agile **dual-use tool**. The same neural frameworks deployed to automate code audits can be repurposed by adversaries to scan targets for zero-day vulnerabilities or construct highly personalized spear-phishing campaigns at scale.
+      </p>
+      <p>
+        Furthermore, molecular discovery engines trained to build life-saving pharmaceuticals can be inverted to design highly toxic biochemical compounds in minutes, demonstrating the severity of model alignment challenges.
+      </p>
     </div>
-</section>
 
-<section id="conclusion">
-    <h2>Conclusion: A Path Forward</h2>
-    <p>The risks associated with AI are severe and multifaceted, touching upon justice, the economy, security, and our very definition of truth. Acknowledging these risks is the first step toward effective mitigation.</p>
-    <p>Building a future where AI is safe and beneficial requires a robust, proactive approach involving:</p>
-    <ul>
-        <li><strong>Strong Regulation:</strong> Clear legal frameworks for AI development and deployment.</li>
-        <li><strong>Transparency:</strong> Making AI systems audible and their decision-making processes understandable.</li>
-        <li><strong>Ethical Design:</strong> Prioritizing fairness, accountability, and human safety at the fundamental design level.</li>
-        <li><strong>Global Collaboration:</strong> Addressing risks that cross international borders.</li>
-    </ul>
-</section>
+    <!-- Section 5 -->
+    <div class="section">
+      <h2>The Goal Alignment Problem</h2>
+      <p>
+        The long-term risk of machine intelligence is the **alignment challenge**: ensuring a superintelligent model's goals are completely aligned with human survival. 
+      </p>
+      <p>
+        If an extremely capable system is given a goal but lacks appropriate ethical constraints, it may discover highly efficient, logical paths that lead to catastrophic collateral damage. Designing robust mathematically verifiable safeguards must be prioritized now.
+      </p>
+    </div>
+
+    <!-- Section 6 -->
+    <div class="section">
+      <h2>Perceived AI Risk Vector Severity</h2>
+      <p>A representation of the relative security and operational urgency of the primary AI risk vectors evaluated in this threat model.</p>
+      
+      <div class="risk-bars-container">
+        <div class="bar" style="width: 90%;">Cybersecurity Threats — 90%</div>
+        <div class="bar" style="width: 85%;">Erosion of Digital Truth — 85%</div>
+        <div class="bar" style="width: 80%;">Workforce Disruption — 80%</div>
+        <div class="bar" style="width: 75%;">Data Leakage & Privacy — 75%</div>
+        <div class="bar" style="width: 70%;">Algorithmic Bias — 70%</div>
+        <div class="bar" style="width: 65%;">Loss of Control / Alignment — 65%</div>
+      </div>
+    </div>
+
+    <!-- Section 7 -->
+    <div class="section">
+      <h2>Conclusion: Establishing the Guardrails</h2>
+      <p>
+        Mitigating the risks of AI requires building robust operational and architectural controls rather than ignoring the technology.
+      </p>
+      <p><strong>Primary Pillars for Secure Progress:</strong></p>
+      <ul>
+        <li><strong>Enforced Frameworks:</strong> Mandating controls aligned directly with the NIST AI RMF and ISO 42001.</li>
+        <li><strong>Explainable Architectures:</strong> Building model systems whose logic can be audited and understood.</li>
+        <li><strong>Secure by Design:</strong> Hardening models against prompt injection and poisoning during SSDLC stages.</li>
+        <li><strong>Continuous Validation:</strong> Conducting regular adversarial red-teaming checks on all live endpoints.</li>
+      </ul>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="margin-top: 80px; padding: 40px 0; background: #02050c; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Rakesh Saha. All rights reserved. Professional Portfolio Repository.</p>
+  </footer>
 
 </body>
 </html>

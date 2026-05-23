@@ -4,227 +4,2005 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DevSecAIOps | DevSecOps | AI Security Enthusiast| DevSecOps Specialist</title>
-  <meta name="title" content="DevSecAIOps | Rakesh Saha | AI Security & DevSecOps Specialist">
-  <meta name="description" content="Portfolio of a Cybersecurity Practitioner specializing in DevSecAIOps, AI Governance, and Application Security Strategy. Explore articles on AI risk, Quantum security, and SSDLC.">
-  <meta name="keywords" content="DevSecOps, AI Security, Cyber Security, AI Governance, Application Security, SSDLC, Quantum Security, Rakesh Saha">
+  <title>Rakesh Saha | DevSecAIOps, AI Security & DevSecOps Specialist</title>
+  
+  <!-- Primary SEO Meta Tags -->
+  <meta name="title" content="Rakesh Saha | DevSecAIOps, AI Security & DevSecOps Specialist">
+  <meta name="description" content="Portfolio of Rakesh Saha, a Cybersecurity Leader with 21+ years of experience specializing in DevSecAIOps, AI Security Maturity Frameworks (NIST AI RMF, ISO 42001), Application Security, and Post-Quantum Cryptography (PQC).">
+  <meta name="keywords" content="DevSecOps, DevSecAIOps, AI Security, Cyber Security, AI Governance, NIST AI RMF, ISO 42001, Post-Quantum Cryptography, PQC, Application Security, SSDLC, Rakesh Saha, Cybersecurity Portfolio">
+  <meta name="author" content="Rakesh Saha">
   <meta name="robots" content="index, follow">
   
+  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://yourdomain.com/">
-  <meta property="og:title" content="DevSecAIOps | AI Security & DevSecOps Portfolio">
-  <meta property="og:description" content="Expert insights on AI Security Maturity Assessment, DevSecOps, and the future of Cybersecurity.">
-  <meta property="og:image" content="https://yourdomain.com/path-to-image.jpg">
+  <meta property="og:url" content="https://saharakesh.github.io/">
+  <meta property="og:title" content="Rakesh Saha | DevSecAIOps, AI Security & DevSecOps Portfolio">
+  <meta property="og:description" content="Explore advanced strategies in AI Security Maturity Assessments, DevSecOps automation, and Post-Quantum Cryptography by Rakesh Saha, a 21-year Cybersecurity Practitioner.">
+  <meta property="og:image" content="AI_Security.png">
 
+  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:title" content="DevSecAIOps | AI Security & DevSecOps Portfolio">
+  <meta property="twitter:url" content="https://saharakesh.github.io/">
+  <meta property="twitter:title" content="Rakesh Saha | DevSecAIOps, AI Security & DevSecOps Portfolio">
+  <meta property="twitter:description" content="Expert-level publications and interactive SaaS prototypes exploring AI Risk, shift-left DevSecOps toolchains, and Post-Quantum Cryptography.">
+  <meta property="twitter:image" content="AI_Security.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Rakesh Saha",
-  "url": "https://yourdomain.com",
-  "jobTitle": "DevSecOps & AI Security Consultant",
-  "sameAs": [
-    "https://www.linkedin.com/in/rakesh-saha-0480416/"
-  ],
-  "description": "Specialist in AI Security, DevSecOps, and Cybersecurity Strategy."
-}
-</script>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; }
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Rakesh Saha",
+    "url": "https://saharakesh.github.io",
+    "jobTitle": "DevSecOps & AI Security Consultant",
+    "sameAs": [
+      "https://www.linkedin.com/in/rakesh-saha-0480416/"
+    ],
+    "description": "21+ Years experienced Cybersecurity Leader specializing in DevSecAIOps, AI Security Governance (NIST AI RMF, ISO 42001), Application Security, and Post-Quantum Cryptography.",
+    "knowsAbout": [
+      "DevSecOps",
+      "AI Security",
+      "AI Governance",
+      "Post-Quantum Cryptography",
+      "Application Security",
+      "Cloud Security",
+      "NIST AI RMF",
+      "ISO 42001",
+      "SSDLC Automation",
+      "Secure by Design"
+    ]
+  }
+  </script>
 
+  <style>
+    /* ── DESIGN SYSTEM & CUSTOM VARIABLES ── */
+    :root {
+      --bg: #030712;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-inverse: #030712;
+      
+      /* Vibrant Cyberpunk/Security Theme Palette */
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-blue-glow: rgba(59, 130, 246, 0.15);
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
+
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── BASE RESET ── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Dynamic Grid Mesh Overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── GLASSMORPHISM GLASS STYLE ── */
+    .glass {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .glass:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f2937;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-cyan);
+    }
+
+    /* ── TYPOGRAPHY UTILITIES ── */
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #f9fafb;
+    }
+
+    p {
+      color: var(--text-muted);
+    }
+
+    .text-gradient-cyan {
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-purple {
+      background: linear-gradient(135deg, #a78bfa 0%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-emerald {
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ── LAYOUT CONTAINER ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── GLOWING BLUR BACKGROUND BLOBS ── */
+    .blur-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .blur-blob.cyan {
+      top: 10%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-cyan);
+    }
+
+    .blur-blob.purple {
+      top: 35%;
+      right: -5%;
+      width: 450px;
+      height: 450px;
+      background: var(--accent-purple);
+    }
+
+    .blur-blob.blue {
+      bottom: 15%;
+      left: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-blue);
+    }
+
+    /* ── HEADER NAVIGATION ── */
     header {
-      padding: 20px 50px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 0;
+    }
+
+    header .nav-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #020617;
-      position: sticky;
-      top: 0;
     }
 
-    header h1 { color: #38bdf8; }
-    nav a {
-      margin-left: 20px;
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 800;
       text-decoration: none;
-      color: #cbd5f5;
-      transition: 0.3s;
-    }
-    nav a:hover { color: #38bdf8; }
-
-    .hero {
-      padding: 20px 50px;
-      text-align: center;
-    }
-    .hero h2 { font-size: 40px; margin-bottom: 20px; }
-    .hero p { color: #94a3b8; }
-
-    .section {
-      padding: 60px 50px;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .section h2 {
-      margin-bottom: 30px;
-      color: #38bdf8;
+    .logo span {
+      color: var(--accent-cyan);
     }
 
-    .projects {
+    nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 4px 0;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-cyan);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-social {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-connect {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      transition: var(--transition);
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-connect:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 15px var(--accent-cyan-glow);
+    }
+
+    /* ── HERO SECTION ── */
+    .hero-section {
+      padding: 100px 0 60px;
+      position: relative;
+    }
+
+    .hero-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
       gap: 20px;
     }
 
-    .card {
-      background: #020617;
-      padding: 20px;
-      border-radius: 15px;
-      transition: transform 0.3s;
-      font-
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      color: var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      width: fit-content;
     }
-    .card:hover { transform: translateY(-5px); }
 
-    .card h3 { margin-bottom: 10px; }
-    .card p { font-size: 14px; color: #94a3b8; }
-
-    .card a {
+    .hero-badge span {
       display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-cyan);
+      animation: pulse 2s infinite;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5.5vw, 3.8rem);
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      line-height: 1.6;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
       margin-top: 10px;
-      color: #38bdf8;
-      text-decoration: none;
+      flex-wrap: wrap;
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #020617;
-      color: #94a3b8;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      margin-top: 20px;
-      background: #38bdf8;
-      color: #020617;
+    .btn-primary {
+      padding: 12px 28px;
       border-radius: 8px;
+      font-weight: 600;
       text-decoration: none;
+      transition: var(--transition);
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+      color: var(--bg);
+      border: none;
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.95;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.45);
+    }
+
+    .btn-secondary {
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      border: 1px solid var(--surface-border-hover);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--accent-cyan);
+      transform: translateY(-2px);
+    }
+
+    /* ── COCKPIT INTERACTIVE WIDGET (Hero Right) ── */
+    .cockpit-card {
+      padding: 24px;
+      font-family: var(--font-mono);
+      background: rgba(10, 15, 26, 0.7);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cockpit-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+
+    .cockpit-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .cockpit-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .cockpit-dot.red { background-color: var(--accent-red); }
+    .cockpit-dot.yellow { background-color: var(--accent-amber); }
+    .cockpit-dot.green { background-color: var(--accent-emerald); }
+
+    .cockpit-title {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-bottom: 16px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.04);
+      padding-bottom: 8px;
+    }
+
+    .status-label {
+      color: var(--text-muted);
+    }
+
+    .status-val {
       font-weight: 600;
     }
 
+    .status-val.pulse {
+      color: var(--accent-emerald);
+      animation: blink 2s infinite;
+    }
+
+    .grid-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat-mini {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 10px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mini-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .mini-val {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .chart-container {
+      margin-bottom: 16px;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 10px;
+      border-radius: 6px;
+      position: relative;
+    }
+
+    .cockpit-chart {
+      width: 100%;
+      height: 70px;
+    }
+
+    .chart-line {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 0;
+      animation: draw 8s linear infinite;
+    }
+
+    .chart-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .terminal-log {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      color: var(--accent-cyan);
+      max-height: 75px;
+      overflow-y: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .log-line {
+      opacity: 0.8;
+      white-space: nowrap;
+    }
+
+    .log-line.green {
+      color: var(--accent-emerald);
+    }
+
+    /* ── METRICS STRIP ── */
+    .metrics-section {
+      padding: 40px 0;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .metric-card {
+      padding: 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-value {
+      font-size: 2.8rem;
+      font-weight: 800;
+      line-height: 1;
+      font-family: var(--font-mono);
+    }
+
+    .metric-label {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+    }
+
+    /* ── CORE COMPETENCIES ── */
+    .competencies-section {
+      padding: 80px 0;
+    }
+
+    .competencies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .competency-card {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .comp-icon {
+      font-size: 2.2rem;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: rgba(6, 182, 212, 0.08);
+      margin-bottom: 8px;
+    }
+
+    .comp-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .comp-desc {
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .comp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .comp-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* ── ARTICLE & MASTERCLASS HUB ── */
+    .articles-section {
+      padding: 80px 0;
+    }
+
+    .filter-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+      color: var(--bg);
+      box-shadow: 0 4px 12px var(--accent-cyan-glow);
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .article-card {
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      height: 100%;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Interactive Hover Spotting Glow effect */
+    .article-card {
+      --mouse-x: 0px;
+      --mouse-y: 0px;
+      position: relative;
+    }
+
+    .article-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--glow-radial);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 0;
+    }
+
+    .article-card:hover::before {
+      opacity: 1;
+    }
+
+    .article-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      z-index: 1;
+    }
+
+    .article-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid;
+    }
+
+    .badge-ai {
+      color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
+
+    .badge-ops {
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .badge-crypto {
+      color: var(--accent-blue);
+      background: rgba(59, 130, 246, 0.08);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .badge-phil {
+      color: var(--accent-amber);
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.2);
+    }
+
+    .article-time {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .article-title {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      line-height: 1.35;
+      z-index: 1;
+      transition: var(--transition);
+    }
+
+    .article-card:hover .article-title {
+      color: var(--accent-cyan);
+    }
+
+    .article-desc {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      z-index: 1;
+    }
+
+    .article-link {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      z-index: 1;
+    }
+
+    .article-link span {
+      transition: var(--transition);
+    }
+
+    .article-card:hover .article-link span {
+      transform: translateX(4px);
+    }
+
+    /* ── FEATURED WORK SPOTLIGHT (SaaS & Report) ── */
+    .spotlight-section {
+      padding: 80px 0;
+      position: relative;
+    }
+
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .spotlight-content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .spotlight-badge {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-purple);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    .spotlight-title {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+
+    .spotlight-desc {
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .spotlight-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .spotlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.95rem;
+    }
+
+    .spotlight-item span {
+      color: var(--accent-cyan);
+      font-weight: bold;
+    }
+
+    .spotlight-ctas {
+      display: flex;
+      gap: 16px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* SaaS Preview Card Graphics */
+    .spotlight-graphic {
+      perspective: 1000px;
+    }
+
+    .saas-mockup {
+      transform: rotateY(-8deg) rotateX(4deg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: -20px 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(6, 182, 212, 0.05);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #090e1a;
+      transition: var(--transition);
+    }
+
+    .saas-mockup:hover {
+      transform: rotateY(-3deg) rotateX(2deg);
+      box-shadow: -10px 10px 40px rgba(0, 0, 0, 0.6), 0 0 50px rgba(6, 182, 212, 0.1);
+    }
+
+    .mockup-header {
+      background: #020617;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .mockup-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mockup-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #27272a;
+    }
+    .mockup-dot:nth-child(1) { background: var(--accent-red); }
+    .mockup-dot:nth-child(2) { background: var(--accent-amber); }
+    .mockup-dot:nth-child(3) { background: var(--accent-emerald); }
+
+    .mockup-title {
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .mockup-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mockup-dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mockup-header-left h4 {
+      font-size: 0.95rem;
+    }
+
+    .mockup-header-left span {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .mockup-score {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: var(--accent-emerald);
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .mockup-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+    }
+
+    .mockup-table th {
+      text-align: left;
+      color: var(--text-muted);
+      padding: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .mockup-table td {
+      padding: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .mockup-btn-yes {
+      background: var(--accent-emerald);
+      color: var(--bg);
+      border: none;
+      padding: 2px 6px;
+      border-radius: 2px;
+      font-weight: bold;
+      font-size: 0.55rem;
+    }
+
+    .mockup-btn-partial {
+      background: var(--accent-amber);
+      color: var(--bg);
+      border: none;
+      padding: 2px 6px;
+      border-radius: 2px;
+      font-weight: bold;
+      font-size: 0.55rem;
+    }
+
+    .mockup-insights {
+      border-left: 3px solid var(--accent-amber);
+      background: rgba(245, 158, 11, 0.05);
+      padding: 10px;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.65rem;
+    }
+
+    /* ── 21-YEAR JOURNEY ROADMAP (Timeline) ── */
+    .journey-section {
+      padding: 80px 0;
+      position: relative;
+    }
+
+    .timeline-container {
+      position: relative;
+      margin-top: 48px;
+      padding-left: 32px;
+    }
+
+    /* Central vertical track */
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-cyan) 0%, var(--accent-purple) 50%, var(--accent-blue) 100%);
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 48px;
+    }
+
+    .timeline-node:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Bullet indicator */
+    .timeline-indicator {
+      position: absolute;
+      left: -32px;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan-glow);
+      z-index: 2;
+      transition: var(--transition);
+    }
+
+    .timeline-node:nth-child(2) .timeline-indicator { border-color: var(--accent-purple); box-shadow: 0 0 10px var(--accent-purple-glow); }
+    .timeline-node:nth-child(3) .timeline-indicator { border-color: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue-glow); }
+    .timeline-node:nth-child(4) .timeline-indicator { border-color: var(--accent-emerald); }
+
+    .timeline-node:hover .timeline-indicator {
+      transform: scale(1.3);
+    }
+
+    .timeline-card {
+      padding: 24px;
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .timeline-year {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 10px;
+      border-radius: 4px;
+      color: var(--accent-cyan);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .timeline-node:nth-child(2) .timeline-year { color: var(--accent-purple); }
+    .timeline-node:nth-child(3) .timeline-year { color: var(--accent-blue); }
+    .timeline-node:nth-child(4) .timeline-year { color: var(--accent-emerald); }
+
+    .timeline-node-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .timeline-desc {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* ── CONTACT & CONNECT SECTION ── */
+    .contact-section {
+      padding: 80px 0 120px;
+      position: relative;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 48px;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-headline {
+      font-size: 2.25rem;
+      font-weight: 800;
+    }
+
+    .contact-pitch {
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .contact-methods {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .contact-method {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .contact-icon {
+      font-size: 1.5rem;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(6, 182, 212, 0.08);
+      border-radius: 8px;
+      color: var(--accent-cyan);
+    }
+
+    .contact-details h4 {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .contact-details a, .contact-details p {
+      font-size: 1rem;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .contact-details a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .contact-form {
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .form-input {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--surface-border);
+      padding: 12px 16px;
+      border-radius: 6px;
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan-glow);
+    }
+
+    textarea.form-input {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .btn-submit {
+      padding: 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
+      color: var(--bg);
+      box-shadow: 0 4px 12px var(--accent-cyan-glow);
+      transition: var(--transition);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #02050c;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 48px 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .footer-disclaimer {
+      font-size: 0.75rem !important;
+      opacity: 0.5;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+      }
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(6, 182, 212, 0);
+      }
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+      }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    @keyframes draw {
+      to { stroke-dashoffset: -600; }
+    }
+
+    /* ── RESPONSIVE STYLES ── */
+    @media (max-width: 992px) {
+      .hero-grid, .spotlight-grid, .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-content {
+        align-items: center;
+        text-align: center;
+      }
+
+      .hero-subtitle {
+        margin: 0 auto;
+      }
+
+      .hero-ctas {
+        justify-content: center;
+      }
+
+      .cockpit-card {
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .spotlight-graphic {
+        order: -1;
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none; /* Can build clean toggle but simple row fits modern standard */
+      }
+      
+      .nav-container {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .articles-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form {
+        padding: 24px;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Background Blur Glowing Vectors -->
+  <div class="blur-blob cyan"></div>
+  <div class="blur-blob purple"></div>
+  <div class="blur-blob blue"></div>
+
+  <!-- NAVIGATION HEADER -->
   <header>
-    <h1>DevSecAIOps, AI Governance, Quantum Security</h1>
-    <!--<nav>
-      <a href="#home">Home</a>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>-->
+    <div class="container nav-container">
+      <a href="#home" class="logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
+      <nav aria-label="Main Navigation">
+        <a href="#home">Home</a>
+        <a href="#competencies">Expertise</a>
+        <a href="#featured">Featured Project</a>
+        <a href="#articles">Articles</a>
+        <a href="#journey">My Journey</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-social">
+        <a href="https://www.linkedin.com/in/rakesh-saha-0480416/" target="_blank" rel="noopener" class="btn-connect" aria-label="Connect on LinkedIn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
   </header>
 
-  <section class="hero" id="home">
-    <p>Cybersecurity Practitioner | AI Enthusiast | DevSecOps Consultant | DevSecAIOps Consultant | Application & Product Security Strategy | 
-      AI Security & Governance | IOT & IT Security | Certified IT Security  | AI Governance & Security | Pre Sales | RFP, RFI GTM | 
-      Product Management  | Agile | CI CD | Azure, Terraform</p>
-    <!--<a href="#projects" class="btn">View My Work</a>-->
-  </section>
+  <main id="main-content">
 
-  <section class="section" id="projects">
-    <h2>My Articles</h2>
-    <div class="projects">
-      <div class="card">
-        <h3>Randomness is the order</h3>
-        <p>TIn the system of nature, what we perceive as "randomness" is rarely pure noise. Instead, it is often a highly sophisticated, hidden form of organization. Science generally views this through three distinct lenses:..</p>
-        <a href="randomness-is-the-order.html" aria-label="Read article on Randomness is the order" target="_blank">View Article</a>
-      </div>
-      <div class="card">
-        <h3>Browse the web without being tracked</h3>
-        <p>These days I am always afraid of being tracked by websites whenever I visit them. Everyone is asking for accepting cookie..</p>
-        <a href="stop-being-tracked.html" aria-label="Read article on Browse the web without being tracked"  target="_blank">View Article</a>
-      </div>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="home" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span></span> Live Status: Securing Enterprise AI
+          </div>
+          <h1 class="hero-title" id="hero-title">
+            Architecting <span class="text-gradient-cyan">DevSecAIOps</span> & <span class="text-gradient-purple">Quantum Defenses</span>
+          </h1>
+          <p class="hero-subtitle">
+            Pioneering the intersection of DevSecOps, Machine Learning Security, and Post-Quantum Cryptography. Designing automated, secure, and resilient guardrails for next-generation systems.
+          </p>
+          <div class="hero-ctas">
+            <a href="#articles" class="btn-primary">Explore Articles</a>
+            <a href="#featured" class="btn-secondary">View AI SaaS Prototype</a>
+          </div>
+        </div>
 
-      <div class="card">
-        <h3>Why AI finds English easier than Bengali</h3>
-        <p>I was checking how LLMs can reconstruct a sentence. Taking an example of Tagore's famous bengali song's line and checked LLM..</p>
-        <a href="english-vs-bengali-tokenization.html" target="_blank">View Article</a>
+        <!-- Simulated Active Tech Cockpit -->
+        <div class="spotlight-graphic">
+          <div class="cockpit-card">
+            <div class="cockpit-header">
+              <div class="cockpit-dots">
+                <span class="cockpit-dot red"></span>
+                <span class="cockpit-dot yellow"></span>
+                <span class="cockpit-dot green"></span>
+              </div>
+              <span class="cockpit-title">security-monitor.sys</span>
+            </div>
+            <div class="cockpit-body">
+              <div class="status-row">
+                <span class="status-label">DEFENSE SHIELD:</span>
+                <span class="status-val pulse">● ACTIVE & SECURE</span>
+              </div>
+              <div class="grid-stats">
+                <div class="stat-mini">
+                  <span class="mini-label">Maturity Level</span>
+                  <span class="mini-val text-gradient-cyan">Defined (55.2%)</span>
+                </div>
+                <div class="stat-mini">
+                  <span class="mini-label">Crypto Agility</span>
+                  <span class="mini-val text-gradient-purple">PQC-Enabled</span>
+                </div>
+                <div class="stat-mini">
+                  <span class="mini-label">AI GRC Framework</span>
+                  <span class="mini-val text-gradient-emerald">ISO 42001</span>
+                </div>
+                <div class="stat-mini">
+                  <span class="mini-label">SSDLC pipelines</span>
+                  <span class="mini-val">0 High Risks</span>
+                </div>
+              </div>
+              <div class="chart-container">
+                <svg class="cockpit-chart" viewBox="0 0 300 80">
+                  <path class="chart-line" d="M0,40 L30,42 L60,35 L90,55 L120,20 L150,48 L180,10 L210,65 L240,30 L270,45 L300,38" fill="none" stroke="#06b6d4" stroke-width="2" />
+                  <path class="chart-line-glow" d="M0,40 L30,42 L60,35 L90,55 L120,20 L150,48 L180,10 L210,65 L240,30 L270,45 L300,38" fill="none" stroke="#06b6d4" stroke-width="6" opacity="0.25" />
+                </svg>
+                <div class="chart-labels">
+                  <span>00:00 UTC</span>
+                  <span>08:00 UTC</span>
+                  <span>16:00 UTC</span>
+                </div>
+              </div>
+              <div class="terminal-log">
+                <div class="log-line">> init ai_risk_scan --rmf-nist</div>
+                <div class="log-line">> mapping controls... [1500 checked]</div>
+                <div class="log-line green">> status green: zero shadow models discovered</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="card">
-        <h3>AI Security maturity assessment framework</h3>
-        <p>DevSecOps with AI SSDLC is at the heart of the AI Security Maturity Assessment Framework. It helps in understanding "AS IS" 
-          model and then creating "TO BE" model..</p>
-        <a href="ai-security-assessment-framework.html" target="_blank" aria-label="Read article on AI Security maturity assessment framework">View Article</a>
+    <!-- IMPACT METRICS STRIP -->
+    <section class="metrics-section" aria-label="Key Performance Indicators">
+      <div class="container">
+        <div class="metrics-grid">
+          <div class="metric-card glass">
+            <span class="metric-value text-gradient-cyan">21+</span>
+            <span class="metric-label">Years in Cyber Security</span>
+          </div>
+          <div class="metric-card glass">
+            <span class="metric-value text-gradient-purple">15+</span>
+            <span class="metric-label">AI Security Domains Assessed</span>
+          </div>
+          <div class="metric-card glass">
+            <span class="metric-value text-gradient-emerald">13</span>
+            <span class="metric-label">Technical Publications</span>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <h3> AI Asset Discovery</h3>
-        <p>Automated Mechanisms to Discover AI/ML Models Across Environments
-        AI discovery requires a combination of cloud scanning, code analysis, API monitoring, and runtime inspection..</p>
-        <a href="automated-model-discovery.html" target="_blank" aria-label="Read article on AI Security asset discovery">View Article</a>
-      </div>
-      <div class="card">
-        <h3> AI Asset Inventory </h3>
-        <p>Inventory Management ensures that all AI assets (models, datasets, pipelines, APIs) are centrally tracked, updated, and governed throughout their lifecycle..</p>
-        <a href="ai-asset-inventory.html" target="_blank" aria-label="Read article on AI asset inventory">View Article</a>
-      </div>
-      
-      <div class="card">
-        <h3>Understanding the risk associated with AI</h3>
-        <p>Artificial Intelligence has rapidly transitioned from science fiction to the engine driving modern innovation.. </p>
-        <a href="ai-risks.html" target="_blank" aria-label="Read article on Understanding the risk associated with AI">View Article</a>
-      </div>
-      <div class="card">
-        <h3>Quantum secuirty and way ahead</h3>
-        <p>The rapid advancement of quantum computing represents a dual-edged sword for global security.. </p>
-        <a href="pqc.html" target="_blank" aria-label="Read article on Quantum secuirty and way ahead">View Article</a>
-      </div>
-      <div class="card">
-        <h3>Shifting security left- DevSecOps toolchain guide</h3>
-        <p>How embedding security tooling directly into your development pipeline reduces risk, accelerates delivery.. </p>
-        <a href="security_journey.html" target="_blank" aria-label="Read article on Shifting security left- DevSecOps toolchain guide">View Article</a>
-      </div>
-      <div class="card">
-        <h3>DevSecOps Evolution</h3>
-        <p>Having navigated the trenches of Application Security, DevSecOps, IT Security and IoT/Device Security.. </p>
-        <a href="security_journey.html" target="_blank" aria-label="Read article on DevSecOps Evolution">View Article</a>
-      </div>
-      <div class="card">
-        <h3>AI in DevSecOps</h3>
-        <p>DevSecOps is an evolution of DevOps that integrates security practices into every phase of the Software Development Life Cycle (SDLC).. </p>
-        <a href="ai-in-devsecops.html" target="_blank" aria-label="Read article on AI in DevSecOps">View Article</a>
-      </div>
-      <div class="card">
-        <h3>AI Security Breach</h3>
-        <p>Artificial Intelligence is rapidly transforming industries including BFSI, healthcare, retail, manufacturing, and government sectors. However,.. </p>
-        <a href="ai-security-breach-use-case.html" target="_blank" aria-label="Read article on AI in DevSecOps">View Article</a>
-      </div>
-      
+    </section>
 
-    </div>
-  </section>
+    <!-- CORE COMPETENCIES -->
+    <section class="competencies-section" id="competencies" aria-labelledby="comp-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Specialization</span>
+          <h2 class="section-title" id="comp-heading">Core Strategic Domains</h2>
+        </div>
+        <div class="competencies-grid">
+          <div class="competency-card glass">
+            <div class="comp-icon">🛡️</div>
+            <h3 class="comp-title">AI Governance & GRC</h3>
+            <p class="comp-desc text-muted">
+              Structuring model risk inventories and auditing against NIST AI RMF, ISO 42001, and GDPR. Architect of automated risk mapping and maturity score registers.
+            </p>
+            <div class="comp-tags">
+              <span class="comp-tag">NIST AI RMF</span>
+              <span class="comp-tag">ISO 42001</span>
+              <span class="comp-tag">GRC</span>
+            </div>
+          </div>
 
-  <section class="section" id="about">
-    <h2>About Me</h2>
-    <p>
-      Write about yourself here. Your experience, skills, and interests.
-    </p>
-  </section>
+          <div class="competency-card glass">
+            <div class="comp-icon">⚡</div>
+            <h3 class="comp-title">DevSecAIOps & SSDLC</h3>
+            <p class="comp-desc text-muted">
+              Weaving secure guardrails throughout continuous integration pipelines. Automating SAST, DAST, SCA, container, and infrastructure-as-code scanning.
+            </p>
+            <div class="comp-tags">
+              <span class="comp-tag">CI/CD Gates</span>
+              <span class="comp-tag">SAST/SCA</span>
+              <span class="comp-tag">Trivy</span>
+            </div>
+          </div>
 
-  <section class="section" id="contact">
-    <h2>Contact</h2>
-    <p>Email: itrakesh82@gmail.com</p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/rakesh-saha-0480416/" target="_blank" rel="noopener">Connect on Linkedin</a></p>
-  </section>
+          <div class="competency-card glass">
+            <div class="comp-icon">🌀</div>
+            <h3 class="comp-title">Post-Quantum Cryptography</h3>
+            <p class="comp-desc text-muted">
+              Assessing exposure to 'Harvest Now, Decrypt Later' threat models. Developing crypto-agility architecture roadmaps for enterprise-level cryptographic upgrades.
+            </p>
+            <div class="comp-tags">
+              <span class="comp-tag">PQC Transition</span>
+              <span class="comp-tag">Crypto-Agility</span>
+              <span class="comp-tag">NIST Standard</span>
+            </div>
+          </div>
 
+          <div class="competency-card glass">
+            <div class="comp-icon">🏗️</div>
+            <h3 class="comp-title">Product & Cloud Security</h3>
+            <p class="comp-desc text-muted">
+              Formulating secure-by-default blueprints, threat modeling product ecosystems, and configuring secure Kubernetes and Azure architectures.
+            </p>
+            <div class="comp-tags">
+              <span class="comp-tag">Threat Modeling</span>
+              <span class="comp-tag">Cloud Sec</span>
+              <span class="comp-tag">Kubernetes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPOTLIGHT: INTERACTIVE SAAS PROTOTYPE -->
+    <section class="spotlight-section" id="featured" aria-labelledby="featured-heading">
+      <div class="container spotlight-grid">
+        <!-- Interactive Preview -->
+        <div class="spotlight-graphic">
+          <div class="saas-mockup">
+            <div class="mockup-header">
+              <div class="mockup-dots">
+                <span class="mockup-dot"></span>
+                <span class="mockup-dot"></span>
+                <span class="mockup-dot"></span>
+              </div>
+              <span class="mockup-title">AI Security GRC Dashboard (SaaS Prototype)</span>
+            </div>
+            <div class="mockup-body">
+              <div class="mockup-dashboard-header">
+                <div class="mockup-header-left">
+                  <h4>GRC Assessment Dashboard</h4>
+                  <span>NIST AI RMF / ISO 42001 Compliance</span>
+                </div>
+                <div class="mockup-score">Overall Score: 68%</div>
+              </div>
+              
+              <table class="mockup-table">
+                <thead>
+                  <tr>
+                    <th>Sub-Category</th>
+                    <th>Risk Assessment Question</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Policies & Standards</td>
+                    <td>Do you maintain formally approved AI governance policies?</td>
+                    <td><button class="mockup-btn-yes">Yes (2)</button></td>
+                  </tr>
+                  <tr>
+                    <td>Risk Management</td>
+                    <td>Do you perform formal AI risk assessments prior to deployment?</td>
+                    <td><button class="mockup-btn-partial">Partial (1)</button></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="mockup-insights">
+                <strong>🚨 Top Recommendation:</strong> Establish a formalized AI governance framework aligned directly with the NIST AI Risk Management Framework.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="spotlight-content">
+          <span class="spotlight-badge">Featured Innovation Spotlight</span>
+          <h2 class="spotlight-title" id="featured-heading">SaaS Risk Assessment Prototype & Framework</h2>
+          <p class="spotlight-desc text-muted">
+            To empower enterprises to identify and manage AI-specific vulnerabilities, I developed a working <strong>AI Security GRC SaaS Prototype</strong> and a detailed 15-domain <strong>Maturity Assessment Report</strong> mapping controls against top standards.
+          </p>
+          <ul class="spotlight-list text-muted">
+            <li class="spotlight-item"><span>✓</span> <strong>Interactive Scoring SaaS:</strong> Active assessment builder scoring GRC policies, third-party pipelines, and compliance status.</li>
+            <li class="spotlight-item"><span>✓</span> <strong>15-Domain Maturity Report:</strong> Exhaustive slide-deck style report mapping threat modeling, GRC, shadow AI discovery, and access control.</li>
+            <li class="spotlight-item"><span>✓</span> <strong>Actionable Remediation:</strong> Real-time recommendation generator providing custom roadmaps based on maturity posture.</li>
+          </ul>
+          <div class="spotlight-ctas">
+            <a href="ai-security-assessment.html" class="btn-primary">Launch SaaS Demo</a>
+            <a href="ai-security-assessment-framework.html" class="btn-secondary">View Slide-Deck Report</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARTICLE HUB -->
+    <section class="articles-section" id="articles" aria-labelledby="articles-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Technical Repository</span>
+          <h2 class="section-title" id="articles-heading">Masterclasses & Publications</h2>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="filter-container" role="tablist" aria-label="Filter Articles">
+          <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Publications</button>
+          <button class="filter-btn" data-filter="ai-security" role="tab" aria-selected="false">AI Security & Governance</button>
+          <button class="filter-btn" data-filter="devsecops" role="tab" aria-selected="false">DevSecOps & SSDLC</button>
+          <button class="filter-btn" data-filter="quantum-privacy" role="tab" aria-selected="false">Quantum & Privacy</button>
+          <button class="filter-btn" data-filter="philosophy" role="tab" aria-selected="false">Tech Philosophy</button>
+        </div>
+
+        <!-- Dynamic Grid -->
+        <div class="articles-grid">
+          
+          <!-- Article 1 -->
+          <a href="ai-security-assessment-framework.html" class="article-card glass" data-category="ai-security">
+            <div class="article-card-header">
+              <span class="article-badge badge-ai">AI Security</span>
+              <span class="article-time">⏱ 12 min read</span>
+            </div>
+            <h3 class="article-title font-sans">AI Security Maturity Assessment Outcome</h3>
+            <p class="article-desc text-muted">
+              A comprehensive slides-inspired report documenting assessment frameworks, score distributions, and remediation roadmaps for enterprise AI models.
+            </p>
+            <span class="article-link">Read Case Study <span>→</span></span>
+          </a>
+
+          <!-- Article 2 -->
+          <a href="ai-security-assessment.html" class="article-card glass" data-category="ai-security">
+            <div class="article-card-header">
+              <span class="article-badge badge-ai">SaaS Prototype</span>
+              <span class="article-time">⏱ Interactive</span>
+            </div>
+            <h3 class="article-title font-sans">AI Security Assessment Dashboard</h3>
+            <p class="article-desc text-muted">
+              An interactive assessment builder illustrating NIST AI RMF mapping, compliance matrices, score evaluations, and real-time policy guidelines.
+            </p>
+            <span class="article-link">Try Prototype Demo <span>→</span></span>
+          </a>
+
+          <!-- Article 3 -->
+          <a href="ai-security-breach-use-case.html" class="article-card glass" data-category="ai-security">
+            <div class="article-card-header">
+              <span class="article-badge badge-ai">Case Study</span>
+              <span class="article-time">⏱ 8 min read</span>
+            </div>
+            <h3 class="article-title font-sans">Real-World AI Security Breaches</h3>
+            <p class="article-desc text-muted">
+              Investigating real-world threats including model poisoning, prompt injections, and API exfiltrations, and how maturity frameworks prevent them.
+            </p>
+            <span class="article-link">Explore Incidents <span>→</span></span>
+          </a>
+
+          <!-- Article 4 -->
+          <a href="automated-model-discovery.html" class="article-card glass" data-category="ai-security">
+            <div class="article-card-header">
+              <span class="article-badge badge-ai">Architecture</span>
+              <span class="article-time">⏱ 6 min read</span>
+            </div>
+            <h3 class="article-title font-sans">Automated AI Asset Discovery</h3>
+            <p class="article-desc text-muted">
+              Techniques for scanning pipelines, repositories, and network proxy requests to continuously identify shadow AI and unauthorized LLM endpoints.
+            </p>
+            <span class="article-link">View Architecture <span>→</span></span>
+          </a>
+
+          <!-- Article 5 -->
+          <a href="ai-asset-inventory.html" class="article-card glass" data-category="ai-security">
+            <div class="article-card-header">
+              <span class="article-badge badge-ai">Inventory</span>
+              <span class="article-time">⏱ 5 min read</span>
+            </div>
+            <h3 class="article-title font-sans">AI Asset Inventory Management</h3>
+            <p class="article-desc text-muted">
+              How to establish a centralized model registry log capturing datasets, hyperparameters, model lineage, endpoints, and governance metadata.
+            </p>
+            <span class="article-link">Read Standard <span>→</span></span>
+          </a>
+
+          <!-- Article 6 -->
+          <a href="ai-risks.html" class="article-card glass" data-category="ai-security">
+            <div class="article-card-header">
+              <span class="article-badge badge-ai">AI Governance</span>
+              <span class="article-time">⏱ 8 min read</span>
+            </div>
+            <h3 class="article-title font-sans">Understanding the Risks of AI</h3>
+            <p class="article-desc text-muted">
+              Analyzing core risk taxonomies including hallucinatory drift, intellectual property leakage, societal bias, and regulatory pressure.
+            </p>
+            <span class="article-link">Read Publication <span>→</span></span>
+          </a>
+
+          <!-- Article 7 -->
+          <a href="devsecops-article.html" class="article-card glass" data-category="devsecops">
+            <div class="article-card-header">
+              <span class="article-badge badge-ops">DevSecOps</span>
+              <span class="article-time">⏱ 9 min read</span>
+            </div>
+            <h3 class="article-title font-sans">Shifting Security Left: Pipeline Masterclass</h3>
+            <p class="article-desc text-muted">
+              A comprehensive technical guide for constructing high-integrity commit gates, automated SAST, DAST, SCA dependency scanning, and IaC reviews.
+            </p>
+            <span class="article-link">Read Masterclass <span>→</span></span>
+          </a>
+
+          <!-- Article 8 -->
+          <a href="ai-in-devsecops.html" class="article-card glass" data-category="devsecops">
+            <div class="article-card-header">
+              <span class="article-badge badge-ops">DevSecAIOps</span>
+              <span class="article-time">⏱ 7 min read</span>
+            </div>
+            <h3 class="article-title font-sans">AI in DevSecOps: Secure Delivery</h3>
+            <p class="article-desc text-muted">
+              Exploring how machine learning transforms software development pipelines, automating secure code audits and anomaly detection logs.
+            </p>
+            <span class="article-link">Read Article <span>→</span></span>
+          </a>
+
+          <!-- Article 9 -->
+          <a href="security_journey.html" class="article-card glass" data-category="devsecops">
+            <div class="article-card-header">
+              <span class="article-badge badge-ops">Retrospective</span>
+              <span class="article-time">⏱ 10 min read</span>
+            </div>
+            <h3 class="article-title font-sans">From Firewalls to Quantum Shadows</h3>
+            <p class="article-desc text-muted">
+              A 21-year retrospect reflecting on the massive paradigms shifts: from network borders and physical hardware to automated CI/CD and predictive AI defense.
+            </p>
+            <span class="article-link">Read Retrospect <span>→</span></span>
+          </a>
+
+          <!-- Article 10 -->
+          <a href="pqc.html" class="article-card glass" data-category="quantum-privacy">
+            <div class="article-card-header">
+              <span class="article-badge badge-crypto">Quantum</span>
+              <span class="article-time">⏱ 7 min read</span>
+            </div>
+            <h3 class="article-title font-sans">Quantum Security & The Way Ahead</h3>
+            <p class="article-desc text-muted">
+              Confronting the threat of 'Harvest Now, Decrypt Later'. Designing crypto-agility pipelines to deploy math-based Post-Quantum Cryptography locks.
+            </p>
+            <span class="article-link">Read Cryptography <span>→</span></span>
+          </a>
+
+          <!-- Article 11 -->
+          <a href="stop-being-tracked.html" class="article-card glass" data-category="quantum-privacy">
+            <div class="article-card-header">
+              <span class="article-badge badge-crypto">Privacy</span>
+              <span class="article-time">⏱ 6 min read</span>
+            </div>
+            <h3 class="article-title font-sans">Browse the Web Without Being Tracked</h3>
+            <p class="article-desc text-muted">
+              Advanced personal privacy mechanics, configuring secure browser profiles, filtering tracking telemetry, and cookies containment.
+            </p>
+            <span class="article-link">Read Guide <span>→</span></span>
+          </a>
+
+          <!-- Article 12 -->
+          <a href="english-vs-bengali-tokenization.html" class="article-card glass" data-category="philosophy">
+            <div class="article-card-header">
+              <span class="article-badge badge-phil">NLP</span>
+              <span class="article-time">⏱ 5 min read</span>
+            </div>
+            <h3 class="article-title font-sans">LLMs and Language Reconstruction</h3>
+            <p class="article-desc text-muted">
+              A technical study demonstrating tokenization inefficiencies in Bengali vs English, measuring parameter overhead and inference costs in LLMs.
+            </p>
+            <span class="article-link">Read Research <span>→</span></span>
+          </a>
+
+          <!-- Article 13 -->
+          <a href="randomness-is-the-order.html" class="article-card glass" data-category="philosophy">
+            <div class="article-card-header">
+              <span class="article-badge badge-phil">Philosophy</span>
+              <span class="article-time">⏱ 6 min read</span>
+            </div>
+            <h3 class="article-title font-sans">The Architecture of Randomness</h3>
+            <p class="article-desc text-muted">
+              A philosophical inquiry into the hidden organization within perceived chaos, evaluated through physics, computing, and thermodynamics.
+            </p>
+            <span class="article-link">Read Philosophy <span>→</span></span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 21-YEAR JOURNEY ROADMAP -->
+    <section class="journey-section" id="journey" aria-labelledby="journey-heading">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Roadmap</span>
+          <h2 class="section-title" id="journey-heading">21-Year Cybersecurity Journey</h2>
+        </div>
+
+        <div class="timeline-container">
+          <!-- Era 1 -->
+          <div class="timeline-node">
+            <span class="timeline-indicator" aria-hidden="true"></span>
+            <div class="timeline-card glass">
+              <div class="timeline-header">
+                <h3 class="timeline-node-title">Traditional Security Foundations</h3>
+                <span class="timeline-year">2005 – 2011</span>
+              </div>
+              <p class="timeline-desc text-muted">
+                Pioneering network border defenses, physical server hardening, enterprise firewalls, and early intrusion detection/prevention systems (IDS/IPS). Focused on high-integrity hardware security perimeters.
+              </p>
+            </div>
+          </div>
+
+          <!-- Era 2 -->
+          <div class="timeline-node">
+            <span class="timeline-indicator" aria-hidden="true"></span>
+            <div class="timeline-card glass">
+              <div class="timeline-header">
+                <h3 class="timeline-node-title">Product Security & Secure-by-Default</h3>
+                <span class="timeline-year">2012 – 2017</span>
+              </div>
+              <p class="timeline-desc text-muted">
+                Championed Product Security DNA. Formulated structured pre-deployment Threat Modeling strategies, introduced robust application security principles, and mentored teams on Secure SDLC.
+              </p>
+            </div>
+          </div>
+
+          <!-- Era 3 -->
+          <div class="timeline-node">
+            <span class="timeline-indicator" aria-hidden="true"></span>
+            <div class="timeline-card glass">
+              <div class="timeline-header">
+                <h3 class="timeline-node-title">DevSecOps & Cloud Automation</h3>
+                <span class="timeline-year">2018 – 2022</span>
+              </div>
+              <p class="timeline-desc text-muted">
+                Spearheaded continuous delivery automated guardrails. Integrated SAST/DAST/SCA scanning, container integrity audits, and Infrastructure-as-code (IaC) linting within production CI/CD pipelines.
+              </p>
+            </div>
+          </div>
+
+          <!-- Era 4 -->
+          <div class="timeline-node">
+            <span class="timeline-indicator" aria-hidden="true"></span>
+            <div class="timeline-card glass">
+              <div class="timeline-header">
+                <h3 class="timeline-node-title">DevSecAIOps & Post-Quantum defense</h3>
+                <span class="timeline-year">2023 – Present</span>
+              </div>
+              <p class="timeline-desc text-muted">
+                Leading secure machine learning integrations (DevSecAIOps) and building NIST AI RMF GRC registers. Designing math-based Post-Quantum Cryptography transition paths to combat harvest-now-decrypt-later vectors.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section" id="contact" aria-labelledby="contact-heading">
+      <div class="container contact-grid">
+        <div class="contact-info">
+          <span class="section-subtitle">Collaborate</span>
+          <h2 class="contact-headline" id="contact-heading">Build Resilient Systems Together</h2>
+          <p class="contact-pitch text-muted">
+            Looking to establish robust NIST AI RMF pipelines, formulate crypto-agile transitions, automate SSDLC checks, or strengthen product security DNA? Connect to consult or explore collaborative opportunities.
+          </p>
+          
+          <div class="contact-methods">
+            <div class="contact-method">
+              <div class="contact-icon">✉</div>
+              <div class="contact-details">
+                <h4>Direct Email</h4>
+                <a href="mailto:itrakesh82@gmail.com">itrakesh82@gmail.com</a>
+              </div>
+            </div>
+
+            <div class="contact-method">
+              <div class="contact-icon">🌐</div>
+              <div class="contact-details">
+                <h4>Professional Profile</h4>
+                <a href="https://www.linkedin.com/in/rakesh-saha-0480416/" target="_blank" rel="noopener">Connect on LinkedIn</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Beautiful Glass Contact Form -->
+        <form class="contact-form glass" action="mailto:itrakesh82@gmail.com" method="post" enctype="text/plain" aria-label="Contact Form">
+          <div class="form-group">
+            <label class="form-label" for="form-name">Name</label>
+            <input class="form-input" type="text" id="form-name" name="name" required placeholder="Jane Doe">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="form-email">Email Address</label>
+            <input class="form-input" type="email" id="form-email" name="email" required placeholder="jane@enterprise.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="form-message">Consultation / Message</label>
+            <textarea class="form-input" id="form-message" name="message" required placeholder="Briefly describe your security initiative or project proposal..."></textarea>
+          </div>
+          <button class="btn-submit" type="submit">Submit Request</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
   <footer>
-    <p>This website is for educational purpose only.</p>
+    <div class="container">
+      <p>&copy; 2026 Rakesh Saha. All rights reserved.</p>
+      <p class="footer-disclaimer">This website is for professional and educational portfolio presentation purposes only.</p>
+    </div>
   </footer>
+
+  <!-- INTERACTIVE FUNCTIONALITIES (Javascript) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // ── MOUSE-TRACKING DYNAMIC GLOW EFFECT ──
+      const cards = document.querySelectorAll('.article-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+
+      // ── DYNAMIC ARTICLE FILTERING ──
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const articleCards = document.querySelectorAll('.article-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Update active button state
+          filterBtns.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+
+          const filterVal = btn.getAttribute('data-filter');
+
+          // Smoothly toggle articles
+          articleCards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            
+            if (filterVal === 'all' || cardCategory === filterVal) {
+              card.style.display = 'flex';
+              // Animate visibility entry
+              setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
+              }, 10);
+            } else {
+              card.style.opacity = '0';
+              card.style.transform = 'scale(0.95)';
+              // Match transition time
+              setTimeout(() => {
+                card.style.display = 'none';
+              }, 300);
+            }
+          });
+        });
+      });
+
+      // ── RE-INDEX ARIA TABS LOGIC ──
+      filterBtns.forEach((btn, idx) => {
+        btn.addEventListener('keydown', e => {
+          if (e.key === 'ArrowRight' && filterBtns[idx + 1]) {
+            filterBtns[idx + 1].focus();
+          } else if (e.key === 'ArrowLeft' && filterBtns[idx - 1]) {
+            filterBtns[idx - 1].focus();
+          }
+        });
+      });
+
+    });
+  </script>
 
 </body>
 </html>

@@ -1,274 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>21 Years in Security: From Firewalls to Quantum Shadows</title>
-    <style>
-        :root {
-            --primary-blue: #2563eb;
-            --secondary-slate: #1e293b;
-            --accent-cyan: #06b6d4;
-            --bg-light: #f8fafc;
-            --text-dark: #0f172a;
-            --text-muted: #475569;
-            --white: #ffffff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>21 Years in Security: From Firewalls to Quantum Shadows | Rakesh Saha</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            line-height: 1.7;
-            color: var(--text-dark);
-            background-color: var(--bg-light);
-            margin: 0;
-            padding: 0;
-        }
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
 
-        .container {
-            max-width: 850px;
-            margin: 40px auto;
-            padding: 40px;
-            background: var(--white);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-        }
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
 
-        .author-badge {
-            background: var(--primary-blue);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
 
-        h1 {
-            font-size: 2.8rem;
-            color: var(--secondary-slate);
-            margin-top: 20px;
-            line-height: 1.2;
-        }
+    /* Grid mesh overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .intro-text {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            border-left: 4px solid var(--accent-cyan);
-            padding-left: 20px;
-            margin: 30px 0;
-        }
+    .blur-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
 
-        h2 {
-            color: var(--primary-blue);
-            font-size: 1.8rem;
-            margin-top: 40px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
-        }
+    .blur-blob.cyan {
+      top: 10%;
+      left: 5%;
+      width: 350px;
+      height: 350px;
+      background: var(--accent-cyan);
+    }
 
-        h3 {
-            color: var(--secondary-slate);
-            font-size: 1.4rem;
-            margin-top: 25px;
-        }
+    .blur-blob.purple {
+      bottom: 10%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-purple);
+    }
 
-        .analogy-box {
-            background: #eff6ff;
-            border-radius: 12px;
-            padding: 25px;
-            margin: 25px 0;
-            font-style: italic;
-            border: 1px solid #dbeafe;
-        }
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
 
-        .analogy-box strong {
-            color: var(--primary-blue);
-            font-style: normal;
-        }
+    /* STICKY HEADER NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 0;
+      margin-bottom: 48px;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 30px 0;
-            background: var(--white);
-        }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        th {
-            background: var(--secondary-slate);
-            color: white;
-            padding: 15px;
-            text-align: left;
-        }
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
 
-        td {
-            padding: 15px;
-            border: 1px solid #e2e8f0;
-        }
+    .logo span {
+      color: var(--accent-cyan);
+    }
 
-        .checklist {
-            list-style: none;
-            padding: 0;
-        }
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: transparent;
+    }
 
-        .checklist li {
-            background: #f1f5f9;
-            margin-bottom: 10px;
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-        }
+    nav a:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
 
-        .checklist input {
-            margin-right: 15px;
-            transform: scale(1.2);
-        }
+    /* ARTICLE HERO HEADER */
+    .article-header {
+      margin-bottom: 40px;
+    }
 
-        .footer-note {
-            margin-top: 60px;
-            padding: 30px;
-            background: var(--secondary-slate);
-            color: var(--white);
-            border-radius: 12px;
-            text-align: center;
-        }
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
 
-        img.featured-img {
-            width: 100%;
-            border-radius: 12px;
-            margin-bottom: 30px;
-        }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
 
-        @media (max-width: 600px) {
-            .container { padding: 20px; margin: 10px; }
-            h1 { font-size: 2rem; }
-            table { display: block; overflow-x: auto; }
-        }
-    </style>
+    .tag.cyan {
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .tag.purple {
+      color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 2.8rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* SECTION CARD STYLES */
+    .section-intro {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.75;
+      border-left: 3px solid var(--accent-cyan);
+      padding-left: 20px;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 32px;
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-bottom: 16px;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+    }
+
+    .section:nth-child(even) h2::before {
+      background: var(--accent-purple);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 24px 0 12px;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Highlight box style */
+    .analogy-box {
+      background: rgba(59, 130, 246, 0.04);
+      border-left: 3px solid var(--accent-blue);
+      padding: 20px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 20px 0;
+      font-style: italic;
+      color: #e5e7eb;
+    }
+
+    .analogy-box strong {
+      color: var(--accent-blue);
+      font-style: normal;
+    }
+
+    /* Checklist block */
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .checklist li {
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      margin-bottom: 12px;
+      padding: 16px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .checklist li:hover {
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .checklist input[type="checkbox"] {
+      margin-right: 16px;
+      transform: scale(1.3);
+      accent-color: var(--accent-cyan);
+      cursor: pointer;
+    }
+
+    /* Table Design */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    th {
+      background-color: rgba(6, 182, 212, 0.08);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <span class="author-badge">Deep Insight:</span>
-        <h1>From Firewalls to Phantoms: My Journey in Securing the Digital Frontier</h1>
-    </header>
+  <div class="blur-blob cyan"></div>
+  <div class="blur-blob purple"></div>
 
-    <!--<img src="AI_Security.png" alt="AI and Quantum Security Evolution" class="featured-img">-->
+  <!-- RETURN HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
+      <nav>
+        <a href="index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
 
-    <p class="intro-text">
-        In the world of technology, 21 years is several lifetimes. Having navigated the trenches of <strong>Application Security, DevSecOps, IT Security and IoT/Device Security</strong>, I've seen security evolved from an afterthought to the very core of product DNA.
+  <main class="container">
+    
+    <!-- Hero Article Header -->
+    <div class="article-header">
+      <div class="tag-row">
+        <span class="tag cyan">Career Journey</span>
+        <span class="tag purple">Retrospective</span>
+      </div>
+      <h1>From Firewalls to Phantoms: 21 Years in Security</h1>
+      <div class="meta-row">
+        <span>Author: Rakesh Saha</span>
+        <span>•</span>
+        <span>⏱ 10 min read</span>
+        <span>•</span>
+        <span>Retrospective Series</span>
+      </div>
+    </div>
+
+    <!-- Intro -->
+    <p class="section-intro">
+      In technology, 21 years spans multiple lifetimes. Having navigated the trenches of Application Security, DevSecOps, IT Security, and IoT/Device validation, I have seen security transform from a final product gatekeeper to the very fabric of system DNA.
     </p>
 
-    <section>
-        <h2>1. The DevSecOps Revolution</h2>
-        <p>In the past, security was a "checkpoint" at the end of production. If the car didn't have brakes, you found out only after it was built. <strong>DevSecOps</strong> changes that by integrating security into the assembly line itself.</p>
-        
-        <div class="concept-card">
-            <ul>
-                <li><strong>Automated Guardrails:</strong> Tools that scan code for vulnerabilities the moment a developer hits "save."</li>
-                <li><strong>Shift-Left:</strong> Moving security testing to the earliest possible stage of development.</li>
-                <li><strong>The Feedback Loop:</strong> Real-time monitoring that tells developers exactly how their code is behaving in the wild.</li>
-            </ul>
-        </div>
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>The DevSecOps Revolution</h2>
+      <p>
+        In traditional delivery models, security was a final checkpoint before production release. If the product lacked brakes, engineers discovered it only after compilation. 
+      </p>
+      <p>
+        <strong>DevSecOps</strong> rewrites this paradigm by integrating automated, continuous scanning filters directly into the assembly line itself.
+      </p>
+      <ul>
+        <li><strong>Automated Guardrails:</strong> Launching static analysis (SAST) and secrets scanning hooks the millisecond a developer pushes a commit.</li>
+        <li><strong>Enforced Shift-Left:</strong> Resolving security anomalies at the earliest stage of product design rather than staging.</li>
+        <li><strong>Feedback Integration:</strong> Routing live pipeline alerts directly into developer ticket queues for real-time remediation.</li>
+      </ul>
+    </div>
 
-        <div class="diagram-placeholder"></div>
-    </section>
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>Building Security into the Product DNA</h2>
+      <p>
+        Product security is not an add-on; it is an organic, structural requirement. I teach my teams that security must be incorporated into the initial architectural blueprints.
+      </p>
+      
+      <div class="analogy-box">
+        <strong>The Chassis Analogy:</strong> You do not glue brakes onto a high-speed vehicle after assembly; the braking caliper system is designed directly into the chassis. That is what building security into product DNA means.
+      </div>
 
-    <section>
-        <h2>2. Building Security into the Product DNA</h2>
-        <p>Product Security means that safety isn't an "add-on"—it's a biological requirement. I teach my teams that security must be part of the architectural blueprints.</p>
-        
-        <div class="teacher-note">
-            <strong>Analogy:</strong> You don't glue brakes onto a car; the braking system is designed into the chassis. That is Product DNA.
-        </div>
+      <p><strong>Primary Strategic Rules:</strong></p>
+      <ul>
+        <li><strong>Pre-Build Threat Modeling:</strong> Cataloging potential attack paths and designing corresponding mitigations before coding begins.</li>
+        <li><strong>Secure by Default:</strong> Engineering systems to operate securely out-of-the-box, ensuring users do not require expert configurations to remain protected.</li>
+      </ul>
+    </div>
 
-        <div class="concept-card">
-            <h3>Key Principles:</h3>
-            <p><strong>Threat Modeling:</strong> Mapping out every possible way an attacker might try to break the system before we build it.</p>
-            <div class="diagram-placeholder"></div>
-            <p><strong>Secure by Default:</strong> The product should be secure out of the box. Users shouldn't have to be experts to stay safe.</p>
-        </div>
-    </section>
+    <!-- Section 3 -->
+    <div class="section">
+      <h2>The New Frontier: AI and the Predictive Shield</h2>
+      <p>
+        We are executing a massive paradigm shift from **Reactive Defense** (relying on signatures after a breach) to **Predictive Protection** (mitigating attack attempts in real time). AI is the engine powering this transition.
+      </p>
+      <ul>
+        <li><strong>Log & Traffic Anomaly Detection:</strong> Models study system behaviors to isolate and contain anomalies within milliseconds.</li>
+        <li><strong>Defeating AI Phishing:</strong> Deploying neural filters that identify the subtle structural and linguistic markers indicating machine-engineered email traps.</li>
+      </ul>
+    </div>
 
-    <section>
-        <h2>3. The New Frontier: AI and the Predictive Shield</h2>
-        <p>We are moving from "Reactive" (waiting for an attack) to "Predictive" (preventing an attack before it happens). AI is the engine behind this shift.</p>
-        
-        <div class="concept-card">
-            <p><strong>Anomaly Detection:</strong> AI learns the "heartbeat" of your network. If a user's behavior changes—even slightly—the AI flags it as a potential threat in milliseconds.</p>
-            <p><strong>Countering AI-driven Phishing:</strong> As hackers use AI to write perfect emails, we use AI to detect the microscopic patterns that reveal a machine-written trap.</p>
-        </div>
-        
-        <div class="diagram-placeholder"></div>
-    </section>
+    <!-- Section 4 -->
+    <div class="section">
+      <h2>The Quantum Shadow</h2>
+      <p>
+        Quantum computing represents the "Final Boss" of cryptographic architectures. While mature computers are still emerging, their ability to break public-key encryption demands immediate preparation.
+      </p>
+      <ul>
+        <li><strong>SNDL Capture Prevention:</strong> Protecting data today against "Store Now, Decrypt Later" strategies.</li>
+        <li><strong>Post-Quantum Cryptography:</strong> Integrating mathematics-based lattice cryptography keys that resist quantum factoring.</li>
+      </ul>
+    </div>
 
-    <section>
-        <h2>4. The Quantum Shadow</h2>
-        <p>Quantum computing is the "Final Boss." While it isn't fully here yet, its ability to break current encryption means we must act now.</p>
-        
-        <div class="concept-card">
-            <p><strong>Harvest Now, Decrypt Later:</strong> Adversaries are stealing encrypted data today, waiting for the day a Quantum computer can unlock it in the future.</p>
-            <p><strong>Post-Quantum Cryptography (PQC):</strong> We are currently building new mathematical locks that even a Quantum computer cannot pick.</p>
-        </div>
+    <!-- Section 5 -->
+    <div class="section">
+      <h2>The Expert's Toolkit</h2>
+      
+      <h3>Leadership Readiness Checklist:</h3>
+      <ul class="checklist">
+        <li>
+          <input type="checkbox" id="check1" checked disabled>
+          <label for="check1"><strong>SNDL Inventory:</strong> Identify and isolate sensitive data vulnerable to harvest-now strategies.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="check2" checked disabled>
+          <label for="check2"><strong>Crypto-Agility Architecture:</strong> Ensure systems can swap encryption algorithms via simple configuration updates.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="check3" checked disabled>
+          <label for="check3"><strong>IoT Segmentations:</strong> Logically isolate smart devices and IoT endpoints from core business networks.</label>
+        </li>
+      </ul>
 
-        <div class="diagram-placeholder"></div>
-    </section>
-    <hr>
-
-    <h2>The Expert’s Toolkit</h2>
-    
-    <h3>Leadership Readiness Checklist</h3>
-    <ul class="checklist">
-        <li><input type="checkbox"> <strong>Inventory:</strong> Identify data vulnerable to "Store Now, Decrypt Later".</li>
-        <li><input type="checkbox"> <strong>Crypto-Agility:</strong> Ensure products can update encryption via software patches.</li>
-        <li><input type="checkbox"> <strong>IoT Hygiene:</strong> Segment smart devices from core business networks.</li>
-    </ul>
-
-    
-
-    <h3>The "Security-to-Human" Translator</h3>
-    <table>
+      <h3>The "Security-to-Human" Translator:</h3>
+      <p>Simplifying complex technical concepts into intuitive real-world analogies to drive business alignment:</p>
+      
+      <table>
         <thead>
-            <tr>
-                <th>Term</th>
-                <th>The "Expert's" Example</th>
-            </tr>
+          <tr>
+            <th>Security Concept</th>
+            <th>The Intuitive Analogy</th>
+          </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><strong>DevSecOps</strong></td>
-                <td>Checking a car's engine while it's on the assembly line, not after it's on the road.</td>
-            </tr>
-            <tr>
-                <td><strong>Zero Trust</strong></td>
-                <td>Just because you have a key to the front door doesn't mean you have the key to every room.</td>
-            </tr>
-            <tr>
-                <td><strong>Deepfakes</strong></td>
-                <td>A digital "mask" and voice changer perfect enough to fool a bank.</td>
-            </tr>
-            <tr>
-                <td><strong>PQC</strong></td>
-                <td>Developing a lock that a "super-key" (Quantum Computer) hasn't been designed to open yet.</td>
-            </tr>
-            <tr>
-                <td><strong>Attack Surface</strong></td>
-                <td>The total sum of every window and door in your house.</td>
-            </tr>
+          <tr>
+            <td><strong>DevSecOps</strong></td>
+            <td>Checking a car's engine continuously on the assembly line, rather than testing the brakes after it's on the highway.</td>
+          </tr>
+          <tr>
+            <td><strong>Zero Trust</strong></td>
+            <td>Just because a guest has a key to the front door does not mean they have authorization to open every safe in the house.</td>
+          </tr>
+          <tr>
+            <td><strong>Deepfakes</strong></td>
+            <td>A digital mask and voice changer designed so perfectly that it can successfully bypass biometric bank verification.</td>
+          </tr>
+          <tr>
+            <td><strong>PQC</strong></td>
+            <td>Designing a new complex door lock that a "super-key" (Quantum Computer) has not been engineered to pick.</td>
+          </tr>
+          <tr>
+            <td><strong>Attack Surface</strong></td>
+            <td>The sum of every window, door, and lock structure in your building.</td>
+          </tr>
         </tbody>
-    </table>
-
-    <div>
-        <p><strong>Conclusion:</strong> After 21 years, the mission remains the same: Protecting the human at the other end of the screen. Security is a culture, not just a tool.</p>
+      </table>
     </div>
-</div>
+
+    <!-- Conclusion -->
+    <div class="section">
+      <h2>Conclusion</h2>
+      <p>
+        After 21 years of engineering, the fundamental mission remains unchanged: **Protecting the human at the other end of the screen**. Security is not just a tool—it is a continuous culture.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="margin-top: 80px; padding: 40px 0; background: #02050c; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Rakesh Saha. All rights reserved. Professional Portfolio Repository.</p>
+  </footer>
 
 </body>
 </html>

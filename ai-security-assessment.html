@@ -1,210 +1,648 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Security Assessment SaaS</title><style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background: #f4f7fb;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Security GRC Assessment SaaS | Rakesh Saha</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-/* Sidebar */
-.sidebar {
-    width: 250px;
-    height: 100vh;
-    background: #0b3c5d;
-    color: white;
-    position: fixed;
-    padding: 20px;
-}
+  <style>
+    :root {
+      --bg: #030712;
+      --sidebar-bg: #070b15;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
 
-.sidebar h2 {
-    font-size: 18px;
-}
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.sidebar ul li {
-    padding: 10px 0;
-    cursor: pointer;
-}
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-/* Main */
-.main {
-    margin-left: 270px;
-    padding: 20px;
-}
+    /* Grid overlay only for main content area */
+    .main::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.012) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-/* Header */
-.header {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+    /* ── SIDEBAR NAVIGATION ── */
+    .sidebar {
+      width: 260px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--surface-border);
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      position: fixed;
+      height: 100vh;
+      z-index: 10;
+    }
 
-/* Cards */
-.card {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
+    .sidebar-header {
+      margin-bottom: 32px;
+    }
 
-/* Table */
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+    .sidebar-logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
 
-th, td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-}
+    .sidebar-logo span {
+      color: var(--accent-cyan);
+    }
 
-th {
-    background: #e9f0f7;
-}
+    .sidebar h2 {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      font-family: var(--font-mono);
+    }
 
-/* Buttons */
-.btn {
-    padding: 6px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    .sidebar-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
-.yes { background: #4caf50; color: white; }
-.partial { background: #ff9800; color: white; }
-.no { background: #f44336; color: white; }
+    .sidebar-item {
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-/* Recommendation */
-.recommendation {
-    background: #fff3cd;
-    padding: 10px;
-    border-left: 5px solid #ffc107;
-    margin-top: 10px;
-    border-radius: 4px;
-}
-</style></head><body><div class="sidebar">
-    <h2>AI Security SaaS</h2>
-    <ul>
-        <li>Dashboard</li>
-        <li>Assessments</li>
-        <li>Reports</li>
-        <li>Compliance</li>
-        <li>Settings</li>
-    </ul>
-</div><div class="main"><div class="header">
-    <h3>GRC Assessment Dashboard</h3>
-    <div>
-        <strong>Overall Score:</strong> 68%
+    .sidebar-item.active, .sidebar-item:hover {
+      background: rgba(6, 182, 212, 0.08);
+      color: #fff;
+    }
+
+    .sidebar-item.active {
+      border-left: 3px solid var(--accent-cyan);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-return {
+      text-decoration: none;
+      color: var(--accent-cyan);
+      font-size: 0.82rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-cyan);
+      padding: 8px 16px;
+      border-radius: 6px;
+      width: 100%;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .btn-return:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 10px var(--accent-cyan-glow);
+    }
+
+    /* ── MAIN CONTENT PANEL ── */
+    .main {
+      margin-left: 260px;
+      flex-grow: 1;
+      padding: 32px;
+      position: relative;
+      z-index: 1;
+      max-width: calc(100vw - 260px);
+    }
+
+    /* Sticky Dashboard Header */
+    .header {
+      background: rgba(3, 7, 18, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--surface-border);
+      padding: 16px 24px;
+      border-radius: var(--radius);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .header-left h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .header-left span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .header-score {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: var(--accent-emerald);
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.05);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 28px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      border-color: var(--surface-border-hover);
+    }
+
+    .card h4 {
+      font-size: 1.15rem;
+      margin-bottom: 20px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Question Table Design */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    th {
+      background-color: rgba(6, 182, 212, 0.05);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+
+    .col-cat {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      width: 140px;
+    }
+
+    .col-q {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .col-score {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--accent-cyan);
+      text-align: center;
+      width: 70px;
+    }
+
+    .col-ctrl {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-purple);
+      width: 180px;
+    }
+
+    /* Interactive Button Groups */
+    .btn-group {
+      display: flex;
+      gap: 6px;
+      width: 180px;
+    }
+
+    .btn {
+      padding: 4px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      background: transparent;
+      color: var(--text-muted);
+      flex: 1;
+    }
+
+    .btn.yes.active {
+      background: var(--accent-emerald);
+      color: var(--bg);
+      border-color: var(--accent-emerald);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn.partial.active {
+      background: var(--accent-amber);
+      color: var(--bg);
+      border-color: var(--accent-amber);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn.no.active {
+      background: var(--accent-red);
+      color: var(--bg);
+      border-color: var(--accent-red);
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+    }
+
+    .btn:hover {
+      border-color: var(--accent-cyan);
+      color: #fff;
+    }
+
+    /* Recommendation boxes */
+    .recommendation {
+      background: rgba(245, 158, 11, 0.04);
+      border-left: 3px solid var(--accent-amber);
+      padding: 12px 16px;
+      border-radius: 0 6px 6px 0;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+    }
+
+    .recommendation-label {
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-amber);
+      margin-bottom: 2px;
+      display: block;
+      font-weight: bold;
+    }
+
+    /* Insights lists */
+    .card-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .card-list li span {
+      font-weight: bold;
+    }
+
+    .card-list li span.warn { color: var(--accent-amber); }
+    .card-list li span.err { color: var(--accent-red); }
+    .card-list li span.check { color: var(--accent-emerald); }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 20px;
+        border-right: none;
+        border-bottom: 1px solid var(--surface-border);
+      }
+      .sidebar-header {
+        margin-bottom: 16px;
+        text-align: center;
+      }
+      .sidebar h2, .sidebar-menu {
+        display: none; /* Keep simplified header */
+      }
+      .main {
+        margin-left: 0;
+        max-width: 100%;
+        padding: 20px;
+      }
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      tr {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 16px 0;
+      }
+      th {
+        display: none;
+      }
+      td {
+        border: none;
+        padding: 4px 0;
+        width: 100% !important;
+        text-align: left !important;
+      }
+      .btn-group {
+        margin-top: 10px;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
     </div>
-</div>
+    
+    <h2>SaaS Control Panel</h2>
+    <ul class="sidebar-menu">
+      <li class="sidebar-item active">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20H5V4h5v16m12 0h-5V4h5v16M12 4v16h-2V4h2z"/></svg>
+        Dashboard
+      </li>
+      <li class="sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m-2 10H7v-2h10v2m0-4H7V7h10v2z"/></svg>
+        Assessments
+      </li>
+      <li class="sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2m1 17h-2v-2h2v2m2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2a2 2 0 0 0-2 2H7a5 5 0 0 1 10 0c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+        Reports
+      </li>
+      <li class="sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-10 10a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        Compliance
+      </li>
+    </ul>
 
-<!-- Assessment Table -->
-<div class="card">
-    <h4>Governance, Risk & Compliance</h4>
+    <div class="sidebar-footer">
+      <a href="index.html" class="btn-return">← Back to Portfolio</a>
+    </div>
+  </aside>
 
-    <table>
-        <tr>
+  <!-- MAIN CONTENT PANEL -->
+  <main class="main">
+    
+    <!-- STICKY HEADER -->
+    <div class="header">
+      <div class="header-left">
+        <h3>GRC Assessment Cockpit</h3>
+        <span>Model Posture Mapping Prototype</span>
+      </div>
+      <div class="header-score">
+        Overall score: 68% (Defined)
+      </div>
+    </div>
+
+    <!-- Active Assessment Table Card -->
+    <div class="card">
+      <h4>🛡️ Governance, Risk & Compliance Checkoff</h4>
+      
+      <table>
+        <thead>
+          <tr>
             <th>Sub-Category</th>
-            <th>Question</th>
-            <th>Response</th>
+            <th>Maturity Question</th>
+            <th>Response Option</th>
             <th>Score</th>
             <th>Control Mapping</th>
-        </tr>
-
-        <tr>
-            <td>Policies & Standards</td>
-            <td>Do you maintain formally approved AI governance policies aligned with enterprise security and risk frameworks?</td>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Row 1 -->
+          <tr>
+            <td class="col-cat">Policies &amp; Standards</td>
+            <td class="col-q">Do you maintain formally approved AI governance policies aligned with enterprise frameworks?</td>
             <td>
-                <button class="btn yes">Yes</button>
+              <div class="btn-group">
+                <button class="btn yes active">Yes</button>
                 <button class="btn partial">Partial</button>
                 <button class="btn no">No</button>
+              </div>
             </td>
-            <td>2</td>
-            <td>NIST AI RMF GOV / ISO 42001</td>
-        </tr>
-
-        <tr>
-            <td colspan="5">
-                <div class="recommendation">
-                    Create and formally approve AI governance policies aligned with enterprise risk and security frameworks.
-                </div>
+            <td class="col-score">2 / 2</td>
+            <td class="col-ctrl">ISO 42001 / NIST AI RMF</td>
+          </tr>
+          <tr>
+            <td colspan="5" style="padding: 0 16px 16px;">
+              <div class="recommendation">
+                <span class="recommendation-label">Security Directive</span>
+                Successfully established. AI governance policies are actively operationalized and reviewed annually.
+              </div>
             </td>
-        </tr>
+          </tr>
 
-        <tr>
-            <td>Risk Management</td>
-            <td>Do you perform formal AI risk assessments prior to deployment?</td>
+          <!-- Row 2 -->
+          <tr>
+            <td class="col-cat">Risk Management</td>
+            <td class="col-q">Do you perform formal AI threat modeling and risk assessments prior to staging model updates?</td>
             <td>
+              <div class="btn-group">
+                <button class="btn yes">Yes</button>
+                <button class="btn partial active">Partial</button>
+                <button class="btn no">No</button>
+              </div>
+            </td>
+            <td class="col-score">1 / 2</td>
+            <td class="col-ctrl">NIST AI RMF (MAP)</td>
+          </tr>
+          <tr>
+            <td colspan="5" style="padding: 0 16px 16px;">
+              <div class="recommendation">
+                <span class="recommendation-label">Required Action</span>
+                Deploy structured, pre-deployment threat modeling logs for neural networks using specialized attack vector frameworks.
+              </div>
+            </td>
+          </tr>
+
+          <!-- Row 3 -->
+          <tr>
+            <td class="col-cat">Compliance Audit</td>
+            <td class="col-q">Do you map all integrated machine learning workloads to regulatory frameworks like GDPR or the EU AI Act?</td>
+            <td>
+              <div class="btn-group">
                 <button class="btn yes">Yes</button>
                 <button class="btn partial">Partial</button>
-                <button class="btn no">No</button>
+                <button class="btn no active">No</button>
+              </div>
             </td>
-            <td>1</td>
-            <td>NIST AI RMF MAP</td>
-        </tr>
-
-        <tr>
-            <td colspan="5">
-                <div class="recommendation">
-                    Implement structured pre-deployment AI risk assessments with scoring, ownership, and mitigation tracking.
-                </div>
+            <td class="col-score">0 / 2</td>
+            <td class="col-ctrl">EU AI Act / GDPR</td>
+          </tr>
+          <tr>
+            <td colspan="5" style="padding: 0 16px 16px;">
+              <div class="recommendation" style="border-left-color: var(--accent-red); background: rgba(239,68,68,0.03);">
+                <span class="recommendation-label" style="color: var(--accent-red);">Critical Gap Remediation</span>
+                Establish a centralized AI compliance map indexing sensitive training pipelines to limit regulatory liability under GDPR.
+              </div>
             </td>
-        </tr>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-        <tr>
-            <td>Compliance</td>
-            <td>Do you map AI systems to applicable regulatory requirements such as GDPR?</td>
-            <td>
-                <button class="btn yes">Yes</button>
-                <button class="btn partial">Partial</button>
-                <button class="btn no">No</button>
-            </td>
-            <td>0</td>
-            <td>ISO 42001</td>
-        </tr>
+    <!-- Insights Card -->
+    <div class="card">
+      <h4>🔍 Automated AI Security Insights</h4>
+      <ul class="card-list">
+        <li>
+          <span class="warn">⚠️ Warning</span> 
+          <span>Pre-deployment model risk assessments are inconsistently executed across squads.</span>
+        </li>
+        <li>
+          <span class="err">❗ Critical</span> 
+          <span>Regulatory classification mapping is currently incomplete on production endpoints.</span>
+        </li>
+        <li>
+          <span class="check">✓ Healthy</span> 
+          <span>Model weight permissions and encryption controls are passing standard baselines.</span>
+        </li>
+      </ul>
+    </div>
 
-        <tr>
-            <td colspan="5">
-                <div class="recommendation">
-                    Map each AI system to applicable regulations and maintain audit-ready compliance documentation.
-                </div>
-            </td>
-        </tr>
+    <!-- Recommendations Card -->
+    <div class="card">
+      <h4>📋 Strategic Priorities Roadmap</h4>
+      <ul class="card-list">
+        <li>
+          <span class="check">1.</span> 
+          <span>Establish a formal corporate AI GRC oversight board chaired by security stakeholders.</span>
+        </li>
+        <li>
+          <span class="check">2.</span> 
+          <span>Integrate automated data privacy scans inside ML training and ETL pipeline runtimes.</span>
+        </li>
+        <li>
+          <span class="check">3.</span> 
+          <span>Deploy token-rate controls and payload filters on all external model API gates.</span>
+        </li>
+      </ul>
+    </div>
 
-    </table>
-</div>
+  </main>
 
-<!-- Insights -->
-<div class="card">
-    <h4>AI Security Insights</h4>
-    <ul>
-        <li>⚠️ Missing formal AI governance policies</li>
-        <li>⚠️ Risk assessments not consistently applied</li>
-        <li>❗ Compliance mapping incomplete</li>
-    </ul>
-</div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Small script to make button prototype interactive
+      const btnGroups = document.querySelectorAll('.btn-group');
+      btnGroups.forEach(group => {
+        const btns = group.querySelectorAll('.btn');
+        btns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Adjust score dynamically for presentation effect
+            const scoreTd = group.closest('tr').querySelector('.col-score');
+            const recBox = group.closest('tr').nextElementSibling.querySelector('.recommendation');
+            
+            if (btn.classList.contains('yes')) {
+              scoreTd.textContent = "2 / 2";
+              recBox.style.borderLeftColor = "var(--accent-emerald)";
+              recBox.style.background = "rgba(16, 185, 129, 0.03)";
+              recBox.querySelector('.recommendation-label').textContent = "Security Directive";
+              recBox.querySelector('.recommendation-label').style.color = "var(--accent-emerald)";
+            } else if (btn.classList.contains('partial')) {
+              scoreTd.textContent = "1 / 2";
+              recBox.style.borderLeftColor = "var(--accent-amber)";
+              recBox.style.background = "rgba(245, 158, 11, 0.03)";
+              recBox.querySelector('.recommendation-label').textContent = "Required Action";
+              recBox.querySelector('.recommendation-label').style.color = "var(--accent-amber)";
+            } else {
+              scoreTd.textContent = "0 / 2";
+              recBox.style.borderLeftColor = "var(--accent-red)";
+              recBox.style.background = "rgba(239, 68, 68, 0.03)";
+              recBox.querySelector('.recommendation-label').textContent = "Critical Gap Remediation";
+              recBox.querySelector('.recommendation-label').style.color = "var(--accent-red)";
+            }
+          });
+        });
+      });
+    });
+  </script>
 
-<!-- Recommendation Summary -->
-<div class="card">
-    <h4>Top Recommendations</h4>
-    <ul>
-        <li>Establish AI governance framework aligned with NIST AI RMF</li>
-        <li>Implement automated risk assessment workflows</li>
-        <li>Integrate compliance checks into CI/CD pipelines</li>
-    </ul>
-</div>
-
-</div></body>
+</body>
 </html>

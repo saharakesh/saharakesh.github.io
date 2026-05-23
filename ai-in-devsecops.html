@@ -1,206 +1,512 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI in DevSecOps: Transforming Secure Software Delivery</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 40px;
-            color: #333;
-        }
-        h1, h2, h3 {
-            color: #0b3d91;
-        }
-        code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 20px 0;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #0b3d91;
-            color: white;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI in DevSecOps: Transforming Secure Software Delivery | Rakesh Saha</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* Grid mesh overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .blur-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .blur-blob.cyan {
+      top: 15%;
+      right: 5%;
+      width: 350px;
+      height: 350px;
+      background: var(--accent-cyan);
+    }
+
+    .blur-blob.purple {
+      bottom: 15%;
+      left: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-purple);
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* STICKY HEADER NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 0;
+      margin-bottom: 48px;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+
+    .logo span {
+      color: var(--accent-cyan);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: transparent;
+    }
+
+    nav a:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
+
+    /* ARTICLE HERO HEADER */
+    .article-header {
+      margin-bottom: 40px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
+
+    .tag.cyan {
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .tag.purple {
+      color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 2.8rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* SECTION CARD STYLES */
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 32px;
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-bottom: 16px;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+    }
+
+    .section:nth-child(even) h2::before {
+      background: var(--accent-purple);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 24px 0 12px;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Highlight Callout */
+    .highlight {
+      background: rgba(59, 130, 246, 0.04);
+      border-left: 3px solid var(--accent-blue);
+      padding: 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-top: 18px;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    /* Table Design */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    th {
+      background-color: rgba(6, 182, 212, 0.08);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+  </style>
 </head>
 <body>
 
-<h1>AI in DevSecOps: Transforming Secure Software Delivery</h1>
+  <div class="blur-blob cyan"></div>
+  <div class="blur-blob purple"></div>
 
-<h2>1. What is DevSecOps?</h2>
-<p>
-DevSecOps is an evolution of DevOps that integrates <strong>security practices</strong> into every phase of the Software Development Life Cycle (SDLC). Instead of treating security as a final checkpoint, DevSecOps embeds it continuously—from planning and coding to testing and deployment.
-</p>
+  <!-- RETURN HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
+      <nav>
+        <a href="index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
 
-<p><strong>Core Principles:</strong></p>
-<ul>
-    <li>Shift-left security (early integration)</li>
-    <li>Automation of security controls</li>
-    <li>Continuous monitoring and feedback</li>
-    <li>Collaboration between Dev, Sec, and Ops teams</li>
-</ul>
+  <main class="container">
+    
+    <!-- Hero Article Header -->
+    <div class="article-header">
+      <div class="tag-row">
+        <span class="tag cyan">DevSecAIOps</span>
+        <span class="tag purple">Machine Learning</span>
+      </div>
+      <h1>AI in DevSecOps: Transforming Secure Software Delivery</h1>
+      <div class="meta-row">
+        <span>Author: Rakesh Saha</span>
+        <span>•</span>
+        <span>⏱ 7 min read</span>
+        <span>•</span>
+        <span>Automation Series</span>
+      </div>
+    </div>
 
-<h2>2. What is AI?</h2>
-<p>
-Artificial Intelligence (AI) refers to systems that can simulate human intelligence to perform tasks such as learning, reasoning, pattern recognition, and decision-making.
-</p>
+    <!-- Intro -->
+    <p class="section-intro">
+      Artificial Intelligence is no longer just a buzzword—it is the modern force multiplier transforming the Software Development Life Cycle. Integrating intelligent agents directly into deployment pipelines enables security and speed to thrive together.
+    </p>
 
-<p><strong>Key AI Capabilities Relevant to DevSecOps:</strong></p>
-<ul>
-    <li>Machine Learning (ML)</li>
-    <li>Natural Language Processing (NLP)</li>
-    <li>Anomaly Detection</li>
-    <li>Predictive Analytics</li>
-</ul>
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>Understanding DevSecOps</h2>
+      <p>
+        DevSecOps is the natural evolution of software engineering, integrating **automated security controls** into every phase of development, shifting audit gates left to the point of code creation.
+      </p>
+      <p><strong>Core Structural Pillars:</strong></p>
+      <ul>
+        <li><strong>Shift-Left:</strong> Moving vulnerability detection closer to the IDE rather than release environments.</li>
+        <li><strong>Pipeline Automation:</strong> Injecting standard linting, library auditing, and structural tests into CI/CD jobs.</li>
+        <li><strong>Continuous Feedback:</strong> Feeding staging and runtime alerts back into developer tickets.</li>
+        <li><strong>Cohesive Culture:</strong> Building cooperative workflows across Dev, Sec, and Ops teams.</li>
+      </ul>
+    </div>
 
-<h2>3. Applicability of AI in DevSecOps</h2>
-<p>
-AI enhances DevSecOps by automating complex security processes, reducing manual effort, and improving accuracy.
-</p>
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>The Core AI Capabilities</h2>
+      <p>
+        Modern Artificial Intelligence provides systems with the capability to ingest logs, extract semantic context, identify anomalies, and formulate predictions.
+      </p>
+      <p><strong>Pivotal Technologies in DevSecOps:</strong></p>
+      <ul>
+        <li><strong>Machine Learning (ML):</strong> Formulating behavioral baselines across complex infrastructures.</li>
+        <li><strong>Natural Language Processing (NLP):</strong> Comprehending semantic intentions within raw source code structures.</li>
+        <li><strong>Anomaly Detection:</strong> Picking out micro-signals pointing to security compromises.</li>
+        <li><strong>Predictive Analytics:</strong> Forecasting resource strains and database performance bottlenecks.</li>
+      </ul>
+    </div>
 
-<h3>Key Areas of Application:</h3>
-<ul>
-    <li><strong>Code Analysis:</strong> AI identifies vulnerabilities in code using pattern recognition.</li>
-    <li><strong>Threat Detection:</strong> Detects anomalies and zero-day attacks.</li>
-    <li><strong>Automated Testing:</strong> Intelligent test case generation and prioritization.</li>
-    <li><strong>Dependency Risk Analysis:</strong> Detects vulnerable open-source libraries.</li>
-    <li><strong>Security Incident Response:</strong> AI-driven triage and remediation suggestions.</li>
-    <li><strong>Infrastructure Monitoring:</strong> Predicts failures and detects misconfigurations.</li>
-</ul>
+    <!-- Section 3 -->
+    <div class="section">
+      <h2>Applicability of AI in DevSecOps</h2>
+      <p>
+        Applying AI inside pipelines elevates GRC metrics by automating manual triages, tuning scanner noise, and providing real-time remediation hints.
+      </p>
+      <h3>Key Strategic Areas:</h3>
+      <ul>
+        <li><strong>Intelligent Code Auditing:</strong> Utilizing semantic parsing to discover critical flaws (OWASP Top 10) in real time.</li>
+        <li><strong>Zero-Day Anomaly Scans:</strong> Flagging suspicious traffic and API queries before signature records are updated.</li>
+        <li><strong>Optimized QA Testing:</strong> Automating test-suite selection, pruning redundant test executions, and creating smart checks.</li>
+        <li><strong>Supply Chain Risk:</strong> Gauging vulnerability metrics and license compatibility across deep nested open-source packages.</li>
+        <li><strong>AI Triage & Remediation:</strong> Resolving alerts and suggesting secure patch suggestions directly inside pull requests.</li>
+      </ul>
+    </div>
 
-<h2>4. Steps to Adopt AI in DevSecOps</h2>
+    <!-- Section 4 -->
+    <div class="section">
+      <h2>Steps to Adopt AI in DevSecOps</h2>
+      
+      <h3>Step 1 — Maturity Evaluation</h3>
+      <p>Measure the "AS IS" state of pipelines. Gauge where engineers spend the most manual effort (e.g. reviewing false positives) to target AI implementations.</p>
 
-<h3>Step 1: Assess Current DevSecOps Maturity</h3>
-<p>
-Evaluate existing pipelines, security tools, and processes. Identify gaps where AI can provide value, such as manual testing or delayed threat detection.
-</p>
+      <h3>Step 2 — Define Key Use Cases</h3>
+      <p>Select low-risk, high-return integrations like automated secrets validation, log anomaly indexing, or pipeline resource scaling.</p>
 
-<h3>Step 2: Define Use Cases</h3>
-<p>
-Select high-impact use cases like:
-</p>
-<ul>
-    <li>Automated vulnerability detection</li>
-    <li>Log anomaly detection</li>
-    <li>CI/CD pipeline optimization</li>
-</ul>
+      <h3>Step 3 — Log Aggregation & Data Prep</h3>
+      <p>Compile clean security history, repository commits, and pipeline logs. Normalize this data to train high-accuracy anomaly detection models.</p>
 
-<h3>Step 3: Data Collection & Preparation</h3>
-<p>
-AI models rely on high-quality data. Collect logs, code repositories, vulnerability databases, and normalize them for training.
-</p>
+      <h3>Step 4 — Select the Right Toolchains</h3>
+      <p>Deploy AI-augmented scanners (Snyk, Semgrep), predictive container validators, and dynamic cloud monitors that fit natively into pipelines.</p>
 
-<h3>Step 4: Select AI Tools & Platforms</h3>
-<p>
-Choose tools that integrate with your CI/CD pipeline:
-</p>
-<ul>
-    <li>AI-powered SAST/DAST tools</li>
-    <li>Security analytics platforms</li>
-    <li>AIOps tools</li>
-</ul>
+      <h3>Step 5 — Enforce the CI/CD Integration</h3>
+      <p>Embed audits inside standard commit jobs: Code Commit triggers AI Code Scan; Container Build initiates dependency tree analysis; Deploy triggers runtime monitoring.</p>
 
-<h3>Step 5: Integrate AI into CI/CD Pipeline</h3>
-<p>
-Embed AI-driven tools into pipeline stages:
-</p>
-<ul>
-    <li>Code commit → AI code scan</li>
-    <li>Build → dependency risk analysis</li>
-    <li>Deploy → runtime anomaly detection</li>
-</ul>
+      <h3>Step 6 — Establish the Learning Loop</h3>
+      <p>Continuous training is vital. Feed production security triage resolutions back into model inputs to continuously lower false positive curves.</p>
 
-<h3>Step 6: Continuous Learning & Feedback</h3>
-<p>
-Implement feedback loops to improve AI models. Use real-world incidents to retrain and refine detection capabilities.
-</p>
+      <h3>Step 7 — Enforce explainable GRC</h3>
+      <p>Preserve transparent explanation records. Audit AI-driven actions to ensure model outputs comply with ISO 42001 governance policies.</p>
+    </div>
 
-<h3>Step 7: Governance & Compliance</h3>
-<p>
-Ensure AI models comply with regulatory standards and maintain transparency, explainability, and auditability.
-</p>
+    <!-- Section 5 -->
+    <div class="section">
+      <h2>Strategic Organizational Benefits</h2>
+      <ul>
+        <li><strong>Sub-Second Triage:</strong> Compressing vulnerability analysis durations from days to minutes.</li>
+        <li><strong>High Precision:</strong> Substantially reducing security alert fatigue by tuning out false positives.</li>
+        <li><strong>Autonomous Execution:</strong> Relieving operations teams of repetitive pipeline maintenance.</li>
+        <li><strong>Proactive Hardening:</strong> Isolating anomalous paths before compromises can occur.</li>
+        <li><strong>Enterprise Scalability:</strong> Analyzing vast, globally distributed multi-cloud architectures efficiently.</li>
+      </ul>
+    </div>
 
-<h2>5. Benefits of AI Adoption in DevSecOps</h2>
+    <!-- Section 6 -->
+    <div class="section">
+      <h2>Comparative Study: Pre-AI vs Post-AI Adoption</h2>
+      <p>Below is a structured analysis detailing operational parameters before and after embedding AI within a large enterprise CI/CD pipeline.</p>
 
-<ul>
-    <li><strong>Faster Vulnerability Detection:</strong> Reduced detection time from days to minutes</li>
-    <li><strong>Improved Accuracy:</strong> Lower false positives</li>
-    <li><strong>Automation:</strong> Reduced manual intervention</li>
-    <li><strong>Proactive Security:</strong> Predict threats before they occur</li>
-    <li><strong>Scalability:</strong> Handles large-scale systems efficiently</li>
-    <li><strong>Cost Optimization:</strong> Reduced breach and remediation costs</li>
-</ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Security Metric</th>
+            <th>Pre-AI Adoption</th>
+            <th>Post-AI Adoption (DevSecAIOps)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Vulnerability Detection Time</strong></td>
+            <td>48 - 72 hours</td>
+            <td>5 - 10 minutes</td>
+          </tr>
+          <tr>
+            <td><strong>False Positive Ratio</strong></td>
+            <td>30%</td>
+            <td>8%</td>
+          </tr>
+          <tr>
+            <td><strong>Mean Time to Remediate (MTTR)</strong></td>
+            <td>5 - 7 days</td>
+            <td>1 - 2 days</td>
+          </tr>
+          <tr>
+            <td><strong>Escaped Incidents per Month</strong></td>
+            <td>12 incidents</td>
+            <td>3 incidents</td>
+          </tr>
+          <tr>
+            <td><strong>Manual Security Triage Effort</strong></td>
+            <td>High / Constant</td>
+            <td>Reduced by 60%</td>
+          </tr>
+          <tr>
+            <td><strong>Release Frequency</strong></td>
+            <td>Weekly Batches</td>
+            <td>Continuous Daily</td>
+          </tr>
+        </tbody>
+      </table>
 
-<h2>6. Comparative Study: Pre-AI vs Post-AI Adoption</h2>
+      <div class="highlight">
+        <strong>Strategic takeaway:</strong> Embedding machine intelligence proves that pipeline security does not have to compromise release velocity. They thrive together.
+      </div>
+    </div>
 
-<p><strong>Case Study: Enterprise CI/CD Pipeline Transformation</strong></p>
+    <!-- Section 7 -->
+    <div class="section">
+      <h2>Conclusion</h2>
+      <p>
+        AI is no longer just an optional enhancement in software engineering—it is a critical <strong>force multiplier</strong>. Transitioning from manual security processes to intelligent, autonomous pipelines is the only way to safeguard the speed of modern cloud ecosystems.
+      </p>
+      <p>
+        The future of DevSecOps lies in completely **self-healing security fabrics**, where models continuously study behaviors, configure patches, and harden runtimes in real time.
+      </p>
+    </div>
 
-<table>
-    <tr>
-        <th>Metric</th>
-        <th>Pre-AI Adoption</th>
-        <th>Post-AI Adoption</th>
-    </tr>
-    <tr>
-        <td>Vulnerability Detection Time</td>
-        <td>48-72 hours</td>
-        <td>5-10 minutes</td>
-    </tr>
-    <tr>
-        <td>False Positives</td>
-        <td>30%</td>
-        <td>8%</td>
-    </tr>
-    <tr>
-        <td>Mean Time to Remediate (MTTR)</td>
-        <td>5-7 days</td>
-        <td>1-2 days</td>
-    </tr>
-    <tr>
-        <td>Security Incidents per Month</td>
-        <td>12</td>
-        <td>3</td>
-    </tr>
-    <tr>
-        <td>Manual Effort</td>
-        <td>High</td>
-        <td>Reduced by 60%</td>
-    </tr>
-    <tr>
-        <td>Deployment Frequency</td>
-        <td>Weekly</td>
-        <td>Daily</td>
-    </tr>
-</table>
+  </main>
 
-<p>
-<strong>Key Insight:</strong> AI not only improves security posture but also accelerates delivery velocity, proving that security and speed can coexist.
-</p>
-
-<h2>7. Conclusion</h2>
-
-<p>
-AI is no longer optional in modern DevSecOps—it is a <strong>force multiplier</strong>. By embedding intelligence into security processes, organizations can transition from reactive defense to proactive risk management.
-</p>
-
-<p>
-The future of DevSecOps lies in <strong>autonomous security pipelines</strong>, where AI continuously learns, adapts, and defends systems in real time. Organizations that adopt AI early will gain a significant competitive advantage in both security and software delivery.
-</p>
+  <!-- Footer -->
+  <footer style="margin-top: 80px; padding: 40px 0; background: #02050c; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Rakesh Saha. All rights reserved. Professional Portfolio Repository.</p>
+  </footer>
 
 </body>
 </html>

@@ -1,287 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Browse the Internet Without Being Tracked</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.7;
-            margin: 0;
-            padding: 0;
-            background: #f4f6f8;
-            color: #333;
-        }
-        header {
-            background: #0b3d91;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        main {
-            padding: 20px;
-            max-width: 900px;
-            margin: auto;
-            background: #fff;
-        }
-        h1, h2, h3 {
-            color: #0b3d91;
-        }
-        code {
-            background: #eef;
-            padding: 3px 6px;
-            border-radius: 4px;
-        }
-        .box {
-            padding: 15px;
-            border-left: 5px solid #0b3d91;
-            background: #eef4ff;
-            margin: 20px 0;
-        }
-        .warning {
-            border-left-color: #d9534f;
-            background: #ffecec;
-        }
-        ul {
-            margin-left: 20px;
-        }
-        footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 14px;
-            background: #eee;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Browse the Internet Without Being Tracked | Rakesh Saha</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
+
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* Grid mesh overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .blur-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .blur-blob.cyan {
+      top: 10%;
+      left: 5%;
+      width: 350px;
+      height: 350px;
+      background: var(--accent-cyan);
+    }
+
+    .blur-blob.purple {
+      bottom: 10%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-purple);
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* STICKY HEADER NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 0;
+      margin-bottom: 48px;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+
+    .logo span {
+      color: var(--accent-cyan);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: transparent;
+    }
+
+    nav a:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
+
+    /* ARTICLE HERO HEADER */
+    .article-header {
+      margin-bottom: 40px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
+
+    .tag.cyan {
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .tag.purple {
+      color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 2.8rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* SECTION CARD STYLES */
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 32px;
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-bottom: 16px;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+    }
+
+    .section:nth-child(even) h2::before {
+      background: var(--accent-purple);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 24px 0 12px;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Highlight box wrappers */
+    .box {
+      background: rgba(59, 130, 246, 0.04);
+      border-left: 3px solid var(--accent-blue);
+      padding: 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 20px 0;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    .box.warning {
+      border-left-color: var(--accent-red);
+      background: rgba(239, 68, 68, 0.04);
+      color: #fca5a5;
+    }
+
+    .box.warning strong {
+      color: var(--accent-red);
+    }
+
+    /* Inline elements */
+    code {
+      font-family: var(--font-mono);
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      color: var(--accent-cyan);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+  </style>
 </head>
 <body>
 
-<main>
-<h2>A Practical Security Guide for Privacy-Conscious Users</h2>
-<h2>1. Introduction</h2>
-<p>
-Every time you browse the internet, your activities are monitored by multiple entities — websites, advertisers, data brokers, and even your internet service provider (ISP). These entities build behavioral profiles to influence decisions, serve targeted ads, and sometimes exploit vulnerabilities.
-</p>
+  <div class="blur-blob cyan"></div>
+  <div class="blur-blob purple"></div>
 
-<p>
-As security practitioners, understanding <strong>how tracking works</strong> and <strong>how to mitigate it</strong> is critical for protecting digital privacy.
-</p>
+  <!-- RETURN HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
+      <nav>
+        <a href="index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
 
-<div class="box">
-<strong>Key Idea:</strong> You are not just using the internet — you are constantly generating data that others monetize.
-</div>
+  <main class="container">
+    
+    <!-- Hero Article Header -->
+    <div class="article-header">
+      <div class="tag-row">
+        <span class="tag cyan">Privacy</span>
+        <span class="tag purple">Self-Defense</span>
+      </div>
+      <h1>Browse the Internet Without Being Tracked</h1>
+      <div class="meta-row">
+        <span>Author: Rakesh Saha</span>
+        <span>•</span>
+        <span>⏱ 6 min read</span>
+        <span>•</span>
+        <span>Digital Self-Defense Series</span>
+      </div>
+    </div>
 
-<h2>2. How Tracking Works (Technical Overview)</h2>
+    <!-- Intro -->
+    <p class="section-intro">
+      Every time you navigate online, your activities are aggressively cataloged by networks of telemetry trackers, ISPs, and marketing data hubs compiling behavioral profiles. Securing your personal data demands implementing strict privacy-centric browser practices.
+    </p>
 
-<h3>2.1 Cookies & Session Tracking</h3>
-<p>
-Websites store <code>cookies</code> in your browser to maintain sessions and track behavior.
-</p>
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>How Tracking Works: A Technical Overview</h2>
+      <p>
+        Trackers utilize multi-layered fingerprinting techniques to isolate and identify devices, even when standard cookies are cleared.
+      </p>
 
-<ul>
-<li><strong>First-party cookies:</strong> Used by the website itself</li>
-<li><strong>Third-party cookies:</strong> Used by advertisers across multiple sites</li>
-</ul>
+      <h3>Cookies & Session Logs:</h3>
+      <ul>
+        <li><strong>First-Party Cookies:</strong> Saved locally by the site to preserve basic session preferences and cart structures.</li>
+        <li><strong>Third-Party Cookies:</strong> Saved by cross-site ad brokers to map your navigation history across completely different sites.</li>
+      </ul>
 
-<h3>2.2 Browser Fingerprinting</h3>
-<p>
-Even without cookies, your browser can be uniquely identified using:
-</p>
-<ul>
-<li>User-Agent</li>
-<li>Installed fonts</li>
-<li>Screen resolution</li>
-<li>Canvas rendering</li>
-</ul>
+      <h3>Browser Fingerprinting:</h3>
+      <p>
+        An advanced identification route that constructs a unique hash utilizing your specific system configs:
+      </p>
+      <ul>
+        <li>User-agent strings and language settings.</li>
+        <li>System font registries.</li>
+        <li>Hardware display resolution and device pixel ratio.</li>
+        <li>Canvas and WebGL rendering signatures.</li>
+      </ul>
 
-<h3>2.3 IP Tracking</h3>
-<p>
-Your IP address reveals your approximate location and ISP.
-</p>
+      <h3>IP & Location Mapping:</h3>
+      <p>Your public IP address constantly exposes your geographic coordinates and Internet Service Provider (ISP).</p>
 
-<h3>2.4 Behavioral Analytics</h3>
-<p>
-Modern trackers analyze:
-</p>
-<ul>
-<li>Mouse movements</li>
-<li>Scrolling behavior</li>
-<li>Click patterns</li>
-</ul>
+      <div class="box warning">
+        <strong>Technical Alert:</strong> Blocking standard cookies does not prevent browser fingerprinting. Your system signature remains highly unique.
+      </div>
+    </div>
 
-<div class="box warning">
-<strong>Important:</strong> Even if you block cookies, fingerprinting can still track you.
-</div>
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>Privacy Practices: What You SHOULD Do</h2>
+      
+      <h3>Use Privacy-First Browsers:</h3>
+      <ul>
+        <li><strong>Firefox (Hardened):</strong> The best candidate for deep customization. Turn on custom privacy configs and harden telemetries.</li>
+        <li><strong>Brave Browser:</strong> Excellent out-of-the-box protection. Blocks trackers, scripts, and fingerprinting by default.</li>
+      </ul>
 
-<h2>3. What You SHOULD Do</h2>
+      <h3>Activate Core Protection Shields:</h3>
+      <ul>
+        <li>Set tracking protections to "Strict".</li>
+        <li>Configure settings to block all third-party cookies by default.</li>
+      </ul>
 
-<h3>3.1 Use Privacy-Focused Browsers</h3>
-<ul>
-<li>Use browsers like <strong>Brave</strong> or <strong>Firefox</strong></li>
-<li>Disable telemetry and tracking features</li>
-</ul>
+      <h3>Enforce Protective Browser Extensions:</h3>
+      <ul>
+        <li><strong>uBlock Origin:</strong> The absolute gold standard in wide-spectrum content filtering.</li>
+        <li><strong>Privacy Badger:</strong> An AI-based tracker blocker that flags trackers based on behavioral patterns.</li>
+      </ul>
 
-<h3>3.2 Enable Tracking Protection</h3>
-<p>
-Turn on:
-</p>
-<ul>
-<li>Strict tracking protection</li>
-<li>Block third-party cookies</li>
-</ul>
+      <h3>Enforce VPN or Tor:</h3>
+      <ul>
+        <li>Use a trustworthy paid VPN to mask your location and encrypt ISP queries.</li>
+        <li>Deploy the **Tor Browser** for highly anonymous, onion-routed communication.</li>
+      </ul>
 
-<h3>3.3 Use Extensions</h3>
-<ul>
-<li><strong>uBlock Origin</strong> (ad blocker)</li>
-<li><strong>Privacy Badger</strong> (tracker blocker)</li>
-<li><strong>HTTPS Everywhere</strong></li>
-</ul>
+      <div class="box">
+        <strong>Operational Hint:</strong> Using Private Browsing (Incognito) resets local storage, but it does NOT mask your network activity or prevent ISP logging. Always pair it with a VPN and content filters.
+      </div>
+    </div>
 
-<h3>3.4 Use VPN or Tor</h3>
-<p>
-Mask your IP using:
-</p>
-<ul>
-<li>VPN for general use</li>
-<li>Tor for high anonymity</li>
-</ul>
+    <!-- Section 3 -->
+    <div class="section">
+      <h2>Privacy Pitfalls: What You SHOULD NOT Do</h2>
+      
+      <h3>Do Not Remain Constantly Logged In:</h3>
+      <p>Staying signed into main profiles (like Google or social accounts) enables trackers to link your search queries directly to your identity.</p>
 
-<h3>3.5 Regularly Clear Data</h3>
-<p>
-Delete:
-</p>
-<ul>
-<li>Cookies</li>
-<li>Cache</li>
-<li>Browsing history</li>
-</ul>
+      <h3>Avoid Free VPN services:</h3>
+      <div class="box warning">
+        <strong>Strategic Takeaway:</strong> If you are not paying for the product, <strong>you are the product</strong>. Free VPN networks frequently sell traffic logs to marketing aggregators.
+      </div>
 
-<h3>3.6 Use Separate Profiles</h3>
-<p>
-Example:
-</p>
-<ul>
-<li>Profile 1: Banking</li>
-<li>Profile 2: Social media</li>
-<li>Profile 3: General browsing</li>
-</ul>
+      <h3>Do Not Blindly Accept Cookies:</h3>
+      <p>Spend the extra 3 seconds to select "Reject All" or custom-disable tracking cookies on cookie banners.</p>
 
-<div class="box">
-<strong>Pro Tip:</strong> Use incognito mode with tracker blockers — but remember, it does NOT make you anonymous.
-</div>
+      <h3>Avoid Redundant Extensions:</h3>
+      <p>Excessive plugins increase your unique browser fingerprinting signature and expand your vulnerability vectors.</p>
+    </div>
 
-<h2>4. What You SHOULD NOT Do</h2>
+    <!-- Section 4 -->
+    <div class="section">
+      <h2>Real-World Example: Telemetry Loop</h2>
+      <p>Imagine you search for <code>"running shoes"</code> on a generic shopping site.</p>
+      <ul>
+        <li>Third-party cookies save your interest.</li>
+        <li>The data is shared with marketing aggregators.</li>
+        <li>You are instantly targeted with shoe ads on completely unrelated platforms.</li>
+      </ul>
+      <p><strong>To Prevent This:</strong> Hardened profiles isolate cookies, making it impossible for third-party trackers to correlate your search history across different domains.</p>
+    </div>
 
-<h3>4.1 Do Not Stay Logged In Everywhere</h3>
-<p>
-Being logged into Google, Facebook, or other platforms enables cross-site tracking.
-</p>
+    <!-- Section 5 -->
+    <div class="section">
+      <h2>Advanced Hardening for Engineers</h2>
+      <ul>
+        <li>Disable WebRTC (which can leak real IP addresses behind VPNs).</li>
+        <li>Block Canvas and WebGL APIs inside Firefox configs.</li>
+        <li>Deploy custom local DNS filters (like Pi-hole or NextDNS) to block trackers at the gateway.</li>
+        <li>Execute high-risk tasks inside isolated Virtual Machines (VMs).</li>
+      </ul>
+    </div>
 
-<h3>4.2 Avoid Free VPNs</h3>
-<p>
-If the product is free, <strong>you are the product</strong>. Many free VPNs log and sell user data.
-</p>
+    <!-- Section 6 -->
+    <div class="section">
+      <h2>Understanding the Trade-offs</h2>
+      <p>Absolute privacy requires sacrificing convenience. We must evaluate where we stand:</p>
+      <ul>
+        <li><strong>Friction vs. Speed:</strong> Blocking script executions often breaks complex web elements.</li>
+        <li><strong>Anonymity vs. Performance:</strong> Onion routing through the Tor network introduces structural latency.</li>
+      </ul>
+      <div class="box">
+        <strong>Security Baseline:</strong> 100% anonymity is virtually impossible. Your goal is simply to minimize your active attack surface.
+      </div>
+    </div>
 
-<h3>4.3 Do Not Blindly Accept Cookies</h3>
-<p>
-Always choose:
-</p>
-<ul>
-<li>"Reject All"</li>
-<li>Or customize cookie preferences</li>
-</ul>
+    <!-- Section 7 -->
+    <div class="section">
+      <h2>Conclusion</h2>
+      <p>
+        Data tracking is the default online state. Securing your privacy is a continuous technical practice rather than a one-time configuration.
+      </p>
+      <p>
+        As a security practitioner, treat digital privacy as an engineering challenge—**reducing attack vectors, maintaining data hygiene, and asserting control over your digital exhaust**.
+      </p>
+    </div>
 
-<h3>4.4 Avoid Excessive Extensions</h3>
-<p>
-Extensions can:
-</p>
-<ul>
-<li>Track your activity</li>
-<li>Inject malicious scripts</li>
-</ul>
+  </main>
 
-<h3>4.5 Do Not Reuse Accounts Everywhere</h3>
-<p>
-Using the same login across multiple services increases correlation risk.
-</p>
-
-<div class="box warning">
-<strong>Common Mistake:</strong> Using incognito mode and thinking you are invisible — you are NOT.
-</div>
-
-<h2>5. Real-World Example</h2>
-
-<h3>Scenario: Online Shopping Tracking</h3>
-<p>
-You search for <code>"running shoes"</code> on an e-commerce site.
-</p>
-
-<ul>
-<li>Cookies track your visit</li>
-<li>Ad trackers share data across platforms</li>
-<li>You start seeing shoe ads on social media</li>
-</ul>
-
-<h3>How to Prevent It</h3>
-<ul>
-<li>Use private browsing + ad blocker</li>
-<li>Search via a privacy search engine</li>
-<li>Clear cookies after session</li>
-</ul>
-
-<h2>6. Advanced Techniques (For Security Practitioners)</h2>
-
-<ul>
-<li>Use hardened browsers (disable WebRTC, Canvas, WebGL)</li>
-<li>Run browser inside VM or sandbox</li>
-<li>Use DNS filtering (Pi-hole, NextDNS)</li>
-<li>Rotate user agents cautiously</li>
-</ul>
-
-<h2>7. Trade-offs You Must Understand</h2>
-
-<ul>
-<li>Privacy vs Convenience</li>
-<li>Security vs Usability</li>
-<li>Performance vs Protection</li>
-</ul>
-
-<p>
-Example:
-</p>
-<ul>
-<li>Blocking scripts may break websites</li>
-<li>Tor browsing is slower</li>
-</ul>
-
-<div class="box">
-<strong>Reality Check:</strong> 100% anonymity is nearly impossible — aim for reducing your tracking surface.
-</div>
-
-<h2>8. Recommended Setup (Practical Stack)</h2>
-
-<ul>
-<li><strong>Browser:</strong> Firefox (hardened)</li>
-<li><strong>Extensions:</strong> uBlock Origin + Privacy Badger</li>
-<li><strong>Network:</strong> Paid VPN + Secure DNS</li>
-<li><strong>Behavior:</strong> Separate profiles + minimal login</li>
-</ul>
-
-<h2>9. Conclusion</h2>
-
-<p>
-Tracking on the internet is not optional — it is the default. However, with the right tools and practices, you can significantly reduce your digital footprint.
-</p>
-
-<p>
-As a security practitioner, your goal should not be absolute invisibility but <strong>risk reduction, awareness, and control over your data</strong>.
-</p>
-
-</main>
-
-<footer>
-    <p>© 2026 Privacy & Security Awareness | Designed for Educational Use</p>
-</footer>
+  <!-- Footer -->
+  <footer style="margin-top: 80px; padding: 40px 0; background: #02050c; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Rakesh Saha. All rights reserved. Professional Portfolio Repository.</p>
+  </footer>
 
 </body>
 </html>

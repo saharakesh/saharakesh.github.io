@@ -1,185 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLMs and Language Reconstruction</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.7;
-            margin: 40px;
-            color: #333;
-        }
-        h1, h2, h3 {
-            color: #1a73e8;
-        }
-        code {
-            background: #f4f4f4;
-            padding: 4px 6px;
-            border-radius: 4px;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-        }
-        .highlight {
-            background: #eef5ff;
-            padding: 10px;
-            border-left: 4px solid #1a73e8;
-            margin: 15px 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f0f0f0;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLMs & Language Reconstruction: Bengali vs English | Rakesh Saha</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* Grid mesh overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .blur-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .blur-blob.cyan {
+      top: 10%;
+      left: 5%;
+      width: 350px;
+      height: 350px;
+      background: var(--accent-cyan);
+    }
+
+    .blur-blob.purple {
+      bottom: 10%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-purple);
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* STICKY HEADER NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 0;
+      margin-bottom: 48px;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+
+    .logo span {
+      color: var(--accent-cyan);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: transparent;
+    }
+
+    nav a:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
+
+    /* ARTICLE HERO HEADER */
+    .article-header {
+      margin-bottom: 40px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
+
+    .tag.cyan {
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .tag.purple {
+      color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 2.8rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* SECTION CARD STYLES */
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 32px;
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-bottom: 16px;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+    }
+
+    .section:nth-child(even) h2::before {
+      background: var(--accent-purple);
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 24px 0 12px;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Highlight Callouts */
+    .highlight {
+      background: rgba(167, 139, 250, 0.04);
+      border-left: 3px solid var(--accent-purple);
+      padding: 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-top: 18px;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+      font-family: var(--font-mono);
+    }
+
+    .section:nth-child(odd) .highlight {
+      border-left-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.04);
+    }
+
+    /* Inline Code */
+    code {
+      font-family: var(--font-mono);
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      color: var(--accent-cyan);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+
+    /* Table Design */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    th {
+      background-color: rgba(6, 182, 212, 0.08);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
+  <div class="blur-blob cyan"></div>
+  <div class="blur-blob purple"></div>
 
-<h1>Why LLMs Perform Better on Jumbled English Sentences than Bengali</h1>
+  <!-- RETURN HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
+      <nav>
+        <a href="index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
 
-<h2>Introduction</h2>
-<p>
-Large Language Models (LLMs) like ChatGPT are remarkably good at reconstructing meaningful English sentences from jumbled words. However, the same capability often appears weaker for Bengali. This is due to differences in training data, tokenization, linguistic structure, and probabilistic prediction mechanisms.
-</p>
+  <main class="container">
+    
+    <!-- Hero Article Header -->
+    <div class="article-header">
+      <div class="tag-row">
+        <span class="tag cyan">NLP Research</span>
+        <span class="tag purple">Tokenization</span>
+      </div>
+      <h1>Why LLMs Perform Better on Jumbled English than Bengali</h1>
+      <div class="meta-row">
+        <span>Author: Rakesh Saha</span>
+        <span>•</span>
+        <span>⏱ 5 min read</span>
+        <span>•</span>
+        <span>Tech Philosophy Series</span>
+      </div>
+    </div>
 
-<h2>1. How LLMs Predict Words</h2>
+    <!-- Intro -->
+    <p class="section-intro">
+      Large Language Models (LLMs) display a remarkable capability to reconstruct coherent English sentences from jumbled inputs. However, the same capability is significantly weaker in low-resource languages like Bengali. Let's analyze the underlying statistical parameters causing this disparity.
+    </p>
 
-<div class="highlight">
-P(w₁, w₂, ..., wₙ) = Π P(wᵢ | w₁, ..., wᵢ₋₁)
-</div>
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>How LLMs Predict Words</h2>
+      <p>
+        Transformers do not comprehend language logically; they evaluate statistical confidence using probability chains over sequences of discrete tokens.
+      </p>
 
-<p>
-The model predicts the next token based on prior tokens using learned probabilities.
-</p>
+      <div class="highlight">
+        Mathematical probability chain:<br>
+        P(w₁, w₂, ..., wₙ) = Π P(wᵢ | w₁, ..., wᵢ₋₁)
+      </div>
 
-<ul>
-    <li><b>Tokenization:</b> Text split into tokens</li>
-    <li><b>Embeddings:</b> Tokens converted to vectors</li>
-    <li><b>Attention:</b> Captures relationships</li>
-    <li><b>Probability:</b> Selects most likely next token</li>
-</ul>
+      <p>
+        The prediction pipeline consists of four major steps:
+      </p>
+      <ul>
+        <li><strong>Tokenization:</strong> Slicing raw text blocks into integer tokens using sub-word dictionaries.</li>
+        <li><strong>Semantic Embeddings:</strong> Mapping token indexes into high-dimensional vector spaces.</li>
+        <li><strong>Attention Layers:</strong> Dynamic weight matrices evaluating relative token context.</li>
+        <li><strong>Softmax Prediction:</strong> Selecting the next token showing the highest probabilistic likelihood.</li>
+      </ul>
+    </div>
 
-<h2>2. Example: English Reconstruction</h2>
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>Case Study: English Reconstruction</h2>
+      <p>Reconstructing jumbled English sentences yields high-accuracy results due to rigid syntactic structures and high-resource training corpora.</p>
+      
+      <p><strong>Input Payload:</strong></p>
+      <p><code>percent nine genius and perspiration ninety percent is one inspiration</code></p>
+      
+      <p><strong>Output Result:</strong></p>
+      <div class="highlight">
+        "Genius is one percent inspiration and ninety-nine percent perspiration."
+      </div>
+      
+      <p>
+        The model resolves this perfectly because the quote exists repeatedly in its historical pre-training index.
+      </p>
+      
+      <h3>Why English Reconstruction Excels:</h3>
+      <ul>
+        <li><strong>High Training Volume:</strong> Trillions of English tokens establish massive phrase familiarity.</li>
+        <li><strong>Strong Phrase Anchors:</strong> Idioms and common quotes possess highly predictable attention patterns.</li>
+        <li><strong>Rigid Syntax (SVO):</strong> The Subject-Verb-Object (SVO) pattern limits possible permutations.</li>
+      </ul>
+    </div>
 
-<p><b>Input:</b></p>
-<code>percent nine genius and perspiration ninety percent is one inspiration</code>
+    <!-- Section 3 -->
+    <div class="section">
+      <h2>Case Study: Bengali Reconstruction</h2>
+      <p>reconstructing jumbled Bengali sentences introduces significant contextual ambiguity, leading to poor or disjointed outputs.</p>
+      
+      <p><strong>Input Payload:</strong></p>
+      <p><code>বেলা সুরে সুর সাঁঝবেলাতে তোমার যে মেলাতে আমার যায় সুরে</code></p>
+      
+      <p><strong>Expected Output:</strong></p>
+      <div class="highlight">
+        "আমার সাঁঝবেলাতে যে তোমার সুরে সুরে মেলাতে যায়।"
+      </div>
+      
+      <h3>Why Bengali Reconstruction Struggles:</h3>
+      <ul>
+        <li><strong>Low-Resource Training:</strong> Substantially smaller training datasets cause lower prediction confidence.</li>
+        <li><strong>Free Word Order:</strong> Bengali's syntactic structure allows words to shift position without losing semantic coherence, creating massive alternative permutations.</li>
+        <li><strong>Morphological Complexity:</strong> Suffixes and inflections generate unique token variants, splitting baseline word associations.</li>
+        <li><strong>Sub-Word Tokenization Scarcity:</strong> Standard tokenizers split Bengali words into fragments, diluting semantic boundaries.</li>
+      </ul>
+    </div>
 
-<p><b>Output:</b></p>
-<div class="highlight">
-“Genius is one percent inspiration and ninety-nine percent perspiration.”
-</div>
+    <!-- Section 4 -->
+    <div class="section">
+      <h2>Comparative Language Evaluation</h2>
+      <p>A comparison of the linguistic and training parameters that dictate LLM reconstruction capabilities in English and Bengali.</p>
 
-<p>
-This works well because the model has seen this famous quote frequently.
-</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Linguistic Aspect</th>
+            <th>English Pipeline</th>
+            <th>Bengali Pipeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Training Corpus Volume</strong></td>
+            <td>Extremely High (Trillions of tokens)</td>
+            <td>Low to Moderate</td>
+          </tr>
+          <tr>
+            <td><strong>Phrase Familiarity Confidence</strong></td>
+            <td>High (Strong attention baselines)</td>
+            <td>Low (Sparse association chains)</td>
+          </tr>
+          <tr>
+            <td><strong>Word Order Flexibility</strong></td>
+            <td>Rigid Subject-Verb-Object (SVO)</td>
+            <td>Highly Flexible (SOV baseline)</td>
+          </tr>
+          <tr>
+            <td><strong>Tokenization Quality</strong></td>
+            <td>Clean, whole-word mappings</td>
+            <td>Frequent sub-word fragmentations</td>
+          </tr>
+          <tr>
+            <td><strong>Reconstruction Accuracy</strong></td>
+            <td>High (&gt;90% accuracy on common prompts)</td>
+            <td>Lower, frequent semantic drift</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-<h3>Why it works:</h3>
-<ul>
-    <li>High-frequency training data</li>
-    <li>Strong phrase patterns</li>
-    <li>Fixed sentence structure</li>
-</ul>
+    <!-- Section 5 -->
+    <div class="section">
+      <h2>Processing Logic</h2>
+      <p>The sequence of operations when an LLM evaluates and reconstructs jumbled inputs:</p>
+      <ol>
+        <li><strong>Token Identification:</strong> Converting raw inputs into integer index vectors.</li>
+        <li><strong>Pattern Identification:</strong> Attention heads search for historical quote fragments or associations.</li>
+        <li><strong>Permutation Evaluation:</strong> Simulating possible syntax connections.</li>
+        <li><strong>Probability Selection:</strong> Outputting the phrase configuration matching the highest softmax confidence.</li>
+      </ol>
+    </div>
 
-<h2>3. Example: Bengali Reconstruction</h2>
+    <!-- Section 6 -->
+    <div class="section">
+      <h2>Data Scarcity vs. Linguistic Limitation</h2>
+      <p>
+        The lower accuracy in Bengali is **not** an inherent flaw of the language itself. Rather, it is a reflection of statistical confidence. Because LLMs operate on mathematical probability, a language with lower training resources yields lower confidence outputs.
+      </p>
+    </div>
 
-<p><b>Input:</b></p>
-<code>বেলা সুরে সুর সাঁঝবেলাতে তোমার যে মেলাতে আমার যায় সুরে</code>
+    <!-- Section 7 -->
+    <div class="section">
+      <h2>Paths to Optimization</h2>
+      <p>To bridge the language gap and build high-fidelity multilingual models, developers should focus on: </p>
+      <ul>
+        <li><strong>Curating High-Quality Corpora:</strong> Ingesting clean, grammatically rich Bengali training data.</li>
+        <li><strong>Custom Tokenizers:</strong> Designing token dictionaries specifically for Bengali syntax and morphology.</li>
+        <li><strong>Targeted Fine-Tuning:</strong> Fine-tuning models with specialized Bengali literature and technical texts.</li>
+        <li><strong>Context-Rich Prompting:</strong> Providing explicit syntax guidelines in the prompt system.</li>
+      </ul>
+    </div>
 
-<p><b>Expected Output:</b></p>
-<div class="highlight">
-“আমার সাঁঝবেলাতে যে তোমার সুরে সুরে মেলাতে যায়।”
-</div>
+    <!-- Conclusion -->
+    <div class="section">
+      <h2>Conclusion</h2>
+      <p>
+        LLMs reconstruct sentences by evaluating statistical probabilities over learned patterns. English excels due to massive historical pre-training resources and rigid syntax constraints. Bengali's morphological depth and flexible word order introduce natural ambiguities, making it an excellent case study in low-resource language optimization.
+      </p>
+    </div>
 
-<h3>Why it is harder:</h3>
+  </main>
 
-<ul>
-    <li><b>Lower training frequency</b></li>
-    <li><b>Flexible word order</b></li>
-    <li><b>Morphological complexity</b></li>
-    <li><b>Tokenization challenges</b></li>
-    <li><b>Weak phrase anchors</b></li>
-</ul>
-
-<h2>4. Comparison</h2>
-
-<table>
-    <tr>
-        <th>Aspect</th>
-        <th>English</th>
-        <th>Bengali</th>
-    </tr>
-    <tr>
-        <td>Training Data</td>
-        <td>High</td>
-        <td>Moderate/Low</td>
-    </tr>
-    <tr>
-        <td>Phrase Familiarity</td>
-        <td>High</td>
-        <td>Low</td>
-    </tr>
-    <tr>
-        <td>Word Order</td>
-        <td>Rigid</td>
-        <td>Flexible</td>
-    </tr>
-    <tr>
-        <td>Tokenization</td>
-        <td>Strong</td>
-        <td>Weaker</td>
-    </tr>
-    <tr>
-        <td>Accuracy</td>
-        <td>High</td>
-        <td>Lower</td>
-    </tr>
-</table>
-
-<h2>5. Internal Processing Steps</h2>
-
-<ol>
-    <li>Token identification</li>
-    <li>Pattern recognition</li>
-    <li>Probability maximization</li>
-    <li>Sentence generation</li>
-</ol>
-
-<h2>6. Not a Language Limitation</h2>
-<p>
-This is not because the model cannot understand Bengali. It is due to statistical confidence based on available data and structure.
-</p>
-
-<h2>7. Improvements</h2>
-
-<ul>
-    <li>More Bengali training data</li>
-    <li>Better tokenization</li>
-    <li>Fine-tuning with Bengali corpus</li>
-    <li>Better prompts</li>
-</ul>
-
-<h2>Conclusion</h2>
-
-<p>
-LLMs reconstruct sentences by maximizing probability over learned patterns. English performs better due to higher training exposure and rigid structure. Bengali introduces ambiguity and complexity, making reconstruction more challenging.
-</p>
-
-</div>
+  <!-- Footer -->
+  <footer style="margin-top: 80px; padding: 40px 0; background: #02050c; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Rakesh Saha. All rights reserved. Professional Portfolio Repository.</p>
+  </footer>
 
 </body>
 </html>

@@ -20,6 +20,55 @@
     --glow: 0 0 40px rgba(0,229,255,0.08);
   }
 
+  /* Sticky return header */
+  .return-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 15, 26, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+    padding: 16px 24px;
+    margin-bottom: 24px;
+  }
+  .nav-container {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo-link {
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    color: #fff;
+  }
+  .logo-link span {
+    color: #00e5ff;
+  }
+  .back-btn {
+    text-decoration: none;
+    color: #00e5ff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    padding: 6px 14px;
+    border-radius: 4px;
+    background: transparent;
+  }
+  .back-btn:hover {
+    background: rgba(0, 229, 255, 0.08);
+    border-color: #00e5ff;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.15);
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -482,9 +531,19 @@
     .pipeline-inner { min-width: 520px; }
     .cta-block { padding: 28px 20px; }
   }
-</style>
 </head>
 <body>
+
+<!-- RETURN HEADER -->
+<div class="return-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo-link">
+      <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+    </a>
+    <a href="index.html" class="back-btn">← Back to Portfolio</a>
+  </div>
+</div>
+
 <div class="wrapper">
 
   <!-- HEADER -->

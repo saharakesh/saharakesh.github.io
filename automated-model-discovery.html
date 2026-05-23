@@ -1,203 +1,475 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Asset Discovery Mechanisms</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated AI Asset Discovery Mechanisms | Rakesh Saha</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-<style>
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f4f7fb;
-  margin: 0;
-  padding: 20px;
-  color: #333;
-}
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
 
-.container {
-  max-width: 1100px;
-  margin: auto;
-}
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-h1 {
-  color: #0b3d91;
-  text-align: center;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
 
-.section {
-  background: #ffffff;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 8px;
-  border-left: 6px solid #0b3d91;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
 
-h2 {
-  color: #0b3d91;
-}
+    /* Grid overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-ul {
-  margin-top: 10px;
-}
+    .blur-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
 
-li {
-  margin-bottom: 8px;
-}
+    .blur-blob.cyan {
+      top: 10%;
+      left: 5%;
+      width: 350px;
+      height: 350px;
+      background: var(--accent-cyan);
+    }
 
-.code {
-  background: #272822;
-  color: #f8f8f2;
-  padding: 10px;
-  border-radius: 5px;
-  font-family: monospace;
-  margin-top: 10px;
-}
+    .blur-blob.purple {
+      bottom: 10%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-purple);
+    }
 
-.highlight {
-  background: #e8f0fe;
-  padding: 12px;
-  border-left: 4px solid #1a73e8;
-  margin-top: 10px;
-  border-radius: 4px;
-}
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
 
-.footer {
-  margin-top: 30px;
-  padding: 15px;
-  background: #0b3d91;
-  color: white;
-  border-radius: 6px;
-  text-align: center;
-}
-</style>
+    /* STICKY HEADER NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 0;
+      margin-bottom: 48px;
+    }
 
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+
+    .logo span {
+      color: var(--accent-cyan);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: transparent;
+    }
+
+    nav a:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
+
+    /* ARTICLE HERO HEADER */
+    .article-header {
+      margin-bottom: 40px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
+
+    .tag.cyan {
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .tag.purple {
+      color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 2.8rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* SECTION CARD STYLES */
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 32px;
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-bottom: 16px;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+    }
+
+    .section:nth-child(even) h2::before {
+      background: var(--accent-purple);
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Highlight Callouts */
+    .highlight {
+      background: rgba(59, 130, 246, 0.04);
+      border-left: 3px solid var(--accent-blue);
+      padding: 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-top: 18px;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    .section:nth-child(even) .highlight {
+      border-left-color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.04);
+    }
+
+    /* Code blocks */
+    .code {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px;
+      border-radius: var(--radius);
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: var(--accent-cyan);
+      margin-top: 18px;
+      overflow-x: auto;
+    }
+
+    .code-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: block;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
+  <div class="blur-blob cyan"></div>
+  <div class="blur-blob purple"></div>
 
-<h1>Automated Mechanisms to Discover AI/ML Models Across Environments</h1>
+  <!-- RETURN HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
+      <nav>
+        <a href="index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
 
-<p>
-Organizations must implement automated mechanisms to continuously discover AI/ML models across 
-cloud, on-prem, SaaS, and runtime environments. Below are practical approaches used in real-world scenarios.
-</p>
+  <main class="container">
+    
+    <!-- Hero Article Header -->
+    <div class="article-header">
+      <div class="tag-row">
+        <span class="tag cyan">AI Discovery</span>
+        <span class="tag purple">Shadow AI Scan</span>
+      </div>
+      <h1>Automated Mechanisms to Discover AI & ML Models Across Environments</h1>
+      <div class="meta-row">
+        <span>Author: Rakesh Saha</span>
+        <span>•</span>
+        <span>⏱ 6 min read</span>
+        <span>•</span>
+        <span>Discovery Architecture Series</span>
+      </div>
+    </div>
 
-<div class="section">
-<h2>1. Cloud-Native Discovery</h2>
-<ul>
-<li>Integrate with AWS SageMaker, Azure ML, GCP Vertex AI</li>
-<li>Use APIs to list models and endpoints</li>
-<li>Schedule periodic discovery scans</li>
-<li>Auto-tag assets with owner, environment, and risk</li>
-</ul>
+    <!-- Intro -->
+    <p class="section-intro">
+      Organizations must deploy autonomous scanning systems to continuously identify, classify, and register machine learning models operating across cloud clusters, internal subnets, SaaS packages, and dynamic API traffic.
+    </p>
 
-<div class="highlight">
-Tools: AWS Config, Azure Resource Graph, GCP Asset Inventory
-</div>
-</div>
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>Cloud-Native Discovery</h2>
+      <p>Continuous cloud discovery targets dedicated machine learning hosting planes where models are officially managed.</p>
+      <ul>
+        <li><strong>Native Endpoints:</strong> Scan serverless instances like AWS SageMaker, Azure Machine Learning, and Vertex AI (GCP).</li>
+        <li><strong>Telemetry Graphing:</strong> Query structural APIs to resolve active endpoint statuses and metadata.</li>
+        <li><strong>Auto-Classification:</strong> Parse resources to auto-tag deployment assets with corresponding business owners and risk levels.</li>
+      </ul>
+      <div class="highlight">
+        <strong>Implementation Tooling:</strong> Leverage AWS Config rules, Azure Resource Graph queries, and GCP Asset Inventory logs to map cloud ML deployments.
+      </div>
+    </div>
 
-<div class="section">
-<h2>2. MLOps Platform Integration</h2>
-<ul>
-<li>Integrate with MLflow, Kubeflow, Databricks</li>
-<li>Sync model registry and experiment tracking</li>
-<li>Track model versions and datasets</li>
-<li>Capture deployment status</li>
-</ul>
-</div>
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>MLOps Platform Integration</h2>
+      <p>Integrating MLOps platforms targets registries where engineering teams log baseline experiments and register models.</p>
+      <ul>
+        <li><strong>Platform Syncing:</strong> Establish active hooks with MLflow, Databricks registries, and Kubeflow configurations.</li>
+        <li><strong>Dataset Traceability:</strong> Link operational models with specific backing datasets and parameters.</li>
+        <li><strong>Version History:</strong> Capture promotional history logs as assets graduate to production.</li>
+      </ul>
+    </div>
 
-<div class="section">
-<h2>3. Code Repository Scanning</h2>
-<ul>
-<li>Scan GitHub, GitLab, Bitbucket repositories</li>
-<li>Detect model files (.pkl, .onnx, .h5)</li>
-<li>Identify ML libraries (TensorFlow, PyTorch)</li>
-<li>Detect model loading patterns</li>
-</ul>
+    <!-- Section 3 -->
+    <div class="section">
+      <h2>Code Repository Scanning</h2>
+      <p>Scanning static repositories exposes models built directly inside custom applications before they are deployed.</p>
+      <ul>
+        <li><strong>Static Scans:</strong> Continuously monitor GitHub, GitLab, and Bitbucket structures.</li>
+        <li><strong>Asset Discovery:</strong> Scan directory paths for serialized model binaries (like <code>.pkl</code>, <code>.onnx</code>, <code>.h5</code>).</li>
+        <li><strong>Library Fingerprints:</strong> Flag code imports pulling ML frameworks like TensorFlow or PyTorch.</li>
+        <li><strong>Instantiation Tracking:</strong> Scan code for functions that dynamically load weights.</li>
+      </ul>
+      <div class="code">
+        <span class="code-label">Discovered Instantiation Signature</span>
+        import joblib<br>
+        model = joblib.load("active_classifier.pkl") # Flagged by scanner
+      </div>
+    </div>
 
-<div class="code">
-joblib.load("fraud_model.pkl")
-</div>
-</div>
+    <!-- Section 4 -->
+    <div class="section">
+      <h2>API & Gateway Discovery</h2>
+      <p>Since modern Generative AI models are often consumed purely via APIs, scanning API gateways is crucial.</p>
+      <ul>
+        <li><strong>Gateway Telemetry:</strong> Monitor API routers like AWS API Gateway, Apigee, and Kong.</li>
+        <li><strong>Endpoint Detection:</strong> Scan endpoint logs for query routes like <code>/predict</code>, <code>/generate</code>, or <code>/chat</code>.</li>
+        <li><strong>Exposure Auditing:</strong> Flag endpoints offering public access without token authorizations.</li>
+      </ul>
+      <div class="highlight">
+        <strong>Strategic Takeaway:</strong> Generative models often exist purely as microservice API calls. API gateway scanning is the only way to catch them.
+      </div>
+    </div>
 
-<div class="section">
-<h2>4. API & Endpoint Discovery</h2>
-<ul>
-<li>Scan API gateways (Kong, Apigee, AWS API Gateway)</li>
-<li>Detect endpoints like /predict, /generate</li>
-<li>Monitor exposure of AI services</li>
-</ul>
+    <!-- Section 5 -->
+    <div class="section">
+      <h2>Runtime & Infrastructure Scanning</h2>
+      <p>Workload monitoring checks VM and container instances to identify active serving frameworks.</p>
+      <ul>
+        <li><strong>Workload Inspections:</strong> Audit live Docker containers, Kubernetes pods, and VM processes.</li>
+        <li><strong>Hardware Telemetry:</strong> Flag server instances showing GPU consumption indicative of neural network operations.</li>
+        <li><strong>Framework Matching:</strong> Identify active serving binaries (like TorchServe or TensorFlow Serving).</li>
+      </ul>
+    </div>
 
-<div class="highlight">
-GenAI applications often exist only as APIs and are not formally registered.
-</div>
-</div>
+    <!-- Section 6 -->
+    <div class="section">
+      <h2>SaaS & Shadow AI Discovery</h2>
+      <p>Shadow AI refers to employees using third-party AI services without security approval—a major source of data leakage.</p>
+      <ul>
+        <li><strong>Telemetry Filtering:</strong> Monitor corporate proxy logs for connections to ChatGPT, Gemini, or Copilot.</li>
+        <li><strong>CASB Integrations:</strong> Use Cloud Access Security Broker (CASB) rules to detect unauthorized corporate accounts.</li>
+        <li><strong>Key Audits:</strong> Scan developer configs to catch leaked API keys used in custom integrations.</li>
+      </ul>
+      <div class="highlight">
+        <strong>Threat Intel:</strong> Unregulated shadow AI is one of the highest risk factors, causing massive data leaks and intellectual property theft.
+      </div>
+    </div>
 
-<div class="section">
-<h2>5. Runtime / Infrastructure Scanning</h2>
-<ul>
-<li>Monitor Kubernetes, Docker, and VM workloads</li>
-<li>Detect GPU usage patterns</li>
-<li>Identify ML serving frameworks (TensorFlow Serving, TorchServe)</li>
-</ul>
-</div>
+    <!-- Section 7 -->
+    <div class="section">
+      <h2>Data Pipeline Inspection</h2>
+      <p>Analyzing pipelines catches inference steps executed inside regular ETL workflows.</p>
+      <ul>
+        <li><strong>Pipeline Scanning:</strong> Audit tasks running in Apache Airflow, Spark, or custom ETL jobs.</li>
+        <li><strong>Prediction Detection:</strong> Flag task commands that call inference steps like <code>model.predict()</code>.</li>
+        <li><strong>Data Lineage:</strong> Document the flow of sensitive datasets into training and evaluation stages.</li>
+      </ul>
+      <div class="code">
+        <span class="code-label">ETL Spark Task Flagged</span>
+        # Spark Inference Step<br>
+        prediction_df = active_model.transform(raw_features_df)
+      </div>
+    </div>
 
-<div class="section">
-<h2>6. SaaS & Shadow AI Discovery</h2>
-<ul>
-<li>Monitor usage of ChatGPT, Copilot, Gemini</li>
-<li>Use CASB/SSE tools (Netskope, Defender for Cloud Apps)</li>
-<li>Detect unauthorized API key usage</li>
-</ul>
+    <!-- Section 8 -->
+    <div class="section">
+      <h2>CMDB Asset Correlation</h2>
+      <p>Discovered assets must be mapped to corporate directories to resolve ownership and evaluate business impact.</p>
+      <ul>
+        <li><strong>CMDB Registration:</strong> Automatically inject verified models into enterprise directories like ServiceNow.</li>
+        <li><strong>Relationship Graphs:</strong> Graph dependencies showing which models link to specific client apps.</li>
+        <li><strong>Impact Trees:</strong> Establish clear escalations if vulnerability logs highlight critical flaws.</li>
+      </ul>
+    </div>
 
-<div class="highlight">
-Shadow AI is one of the highest-risk areas in AI security.
-</div>
-</div>
+    <!-- Key Takeaway -->
+    <div class="section">
+      <h2>Key Takeaway</h2>
+      <p>
+        AI discovery is not a single tool implementation—it requires a combined, defense-in-depth approach covering cloud logs, static code, API queries, and workload runtimes.
+      </p>
+      <div class="highlight">
+        <strong>Governance Rule:</strong> If you cannot see it, you cannot secure it. Prioritize discovering and mapping shadow AI systems.
+      </div>
+    </div>
 
-<div class="section">
-<h2>7. Data Pipeline Inspection</h2>
-<ul>
-<li>Scan Airflow, Spark, and ETL pipelines</li>
-<li>Detect inference steps like model.predict()</li>
-<li>Track feature engineering workflows</li>
-</ul>
+  </main>
 
-<div class="code">
-model.predict(data)
-</div>
-</div>
-
-<div class="section">
-<h2>8. CMDB & Asset Correlation</h2>
-<ul>
-<li>Integrate with ServiceNow or asset management tools</li>
-<li>Link models with applications and datasets</li>
-<li>Build AI asset relationship graphs</li>
-</ul>
-</div>
-
-<div class="section">
-<h2>Key Takeaway</h2>
-<p>
-AI discovery requires a combination of cloud scanning, code analysis, API monitoring, 
-and runtime inspection.
-</p>
-
-<div class="highlight">
-The biggest risk comes from unknown or shadow AI systems — discovering them is critical.
-</div>
-</div>
-
-<div class="footer">
-AI Security Assessment Framework | AI Inventory & Classification Module
-</div>
-
-</div>
+  <!-- Footer -->
+  <footer style="margin-top: 80px; padding: 40px 0; background: #02050c; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Rakesh Saha. All rights reserved. Professional Portfolio Repository.</p>
+  </footer>
 
 </body>
 </html>

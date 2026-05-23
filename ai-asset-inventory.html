@@ -1,200 +1,483 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Inventory Management Examples</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI System Inventory & Classification | Rakesh Saha</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-<style>
-body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background-color: #f4f7fb;
-  margin: 0;
-  padding: 20px;
-  color: #333;
-}
+  <style>
+    :root {
+      --bg: #030712;
+      --surface: rgba(17, 24, 39, 0.45);
+      --surface-hover: rgba(31, 41, 55, 0.65);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --surface-border-hover: rgba(6, 182, 212, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.15);
+      --accent-purple: #a78bfa;
+      --accent-purple-glow: rgba(167, 139, 250, 0.15);
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
 
-.container {
-  max-width: 1100px;
-  margin: auto;
-}
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-h1 {
-  color: #0b3d91;
-  text-align: center;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
 
-.section {
-  background: #ffffff;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 8px;
-  border-left: 6px solid #0b3d91;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
 
-h2 {
-  color: #0b3d91;
-}
+    /* Grid overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-ul {
-  margin-top: 10px;
-}
+    .blur-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.1;
+      pointer-events: none;
+    }
 
-li {
-  margin-bottom: 8px;
-}
+    .blur-blob.cyan {
+      top: 10%;
+      left: 5%;
+      width: 350px;
+      height: 350px;
+      background: var(--accent-cyan);
+    }
 
-.highlight {
-  background: #e8f0fe;
-  padding: 12px;
-  border-left: 4px solid #1a73e8;
-  margin-top: 10px;
-  border-radius: 4px;
-}
+    .blur-blob.purple {
+      bottom: 10%;
+      right: 5%;
+      width: 400px;
+      height: 400px;
+      background: var(--accent-purple);
+    }
 
-.code {
-  background: #272822;
-  color: #f8f8f2;
-  padding: 10px;
-  border-radius: 5px;
-  font-family: monospace;
-  margin-top: 10px;
-}
-</style>
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
 
+    /* STICKY HEADER NAVIGATION */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px 0;
+      margin-bottom: 48px;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      color: #fff;
+    }
+
+    .logo span {
+      color: var(--accent-cyan);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--accent-cyan);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--accent-cyan);
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: transparent;
+    }
+
+    nav a:hover {
+      background: var(--accent-cyan-glow);
+      box-shadow: 0 0 12px var(--accent-cyan-glow);
+    }
+
+    /* ARTICLE HERO HEADER */
+    .article-header {
+      margin-bottom: 40px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      border: 1px solid;
+    }
+
+    .tag.cyan {
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .tag.purple {
+      color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.5vw, 2.8rem);
+      line-height: 1.2;
+      font-weight: 800;
+      color: #f9fafb;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* SECTION CARD STYLES */
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 32px;
+      border-radius: var(--radius);
+      margin-bottom: 28px;
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.15);
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      margin-bottom: 16px;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 2px;
+    }
+
+    .section:nth-child(even) h2::before {
+      background: var(--accent-purple);
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Highlight Callouts */
+    .highlight {
+      background: rgba(59, 130, 246, 0.04);
+      border-left: 3px solid var(--accent-blue);
+      padding: 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-top: 18px;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    .section:nth-child(even) .highlight {
+      border-left-color: var(--accent-purple);
+      background: rgba(167, 139, 250, 0.04);
+    }
+
+    /* Technical code/details blocks */
+    .code {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px;
+      border-radius: var(--radius);
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: var(--accent-cyan);
+      margin-top: 18px;
+      overflow-x: auto;
+    }
+
+    .code-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+      display: block;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
+  <div class="blur-blob cyan"></div>
+  <div class="blur-blob purple"></div>
 
-<h1>AI System Inventory & Classification – Inventory Management Examples</h1>
+  <!-- RETURN HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">
+        <span>&lt;</span>RakeshSaha<span>.io /&gt;</span>
+      </a>
+      <nav>
+        <a href="index.html">← Back to Portfolio</a>
+      </nav>
+    </div>
+  </header>
 
-<p>
-Inventory Management ensures that all AI assets (models, datasets, pipelines, APIs) are centrally tracked, 
-updated, and governed throughout their lifecycle.
-</p>
+  <main class="container">
+    
+    <!-- Hero Article Header -->
+    <div class="article-header">
+      <div class="tag-row">
+        <span class="tag cyan">AI Governance</span>
+        <span class="tag purple">Asset Management</span>
+      </div>
+      <h1>AI System Inventory & Classification: Management Examples</h1>
+      <div class="meta-row">
+        <span>Owner: Rakesh Saha</span>
+        <span>•</span>
+        <span>⏱ 5 min read</span>
+        <span>•</span>
+        <span>Asset Registry Series</span>
+      </div>
+    </div>
 
-<div class="section">
-<h2>1. Centralized AI Inventory Registry</h2>
-<ul>
-<li>Maintain a single source of truth for all AI assets</li>
-<li>Store model name, version, owner, and deployment status</li>
-<li>Integrate with platforms like MLflow or ServiceNow CMDB</li>
-</ul>
+    <!-- Intro -->
+    <p class="section-intro">
+      Maintaining an accurate inventory ensures that all enterprise Artificial Intelligence assets (including models, datasets, execution pipelines, and APIs) are centrally tracked, versioned, updated, and governed throughout their entire software development lifecycle (SSDLC).
+    </p>
 
-<div class="highlight">
-Example: A centralized dashboard listing all production and non-production AI models across environments.
-</div>
-</div>
+    <!-- Section 1 -->
+    <div class="section">
+      <h2>Centralized AI Inventory Registry</h2>
+      <p>Establishing an active repository as a single source of truth prevents the emergence of shadow AI within internal development departments.</p>
+      <ul>
+        <li><strong>Unified Visibility:</strong> Maintain an exhaustive registry capturing model name, lineage, and business ownership.</li>
+        <li><strong>Deployment Posture:</strong> Track runtime versions and active hosting environments (Staging, UAT, Production).</li>
+        <li><strong>Native API Hooks:</strong> Integrate directly with model tracking services like MLflow, weights & biases, or enterprise ServiceNow systems.</li>
+      </ul>
+      <div class="highlight">
+        <strong>Management Strategy:</strong> Deploy a centralized dashboard compiling all production, pre-production, and experimental machine learning models across cloud instances.
+      </div>
+    </div>
 
-<div class="section">
-<h2>2. Automated Inventory Synchronization</h2>
-<ul>
-<li>Automatically sync inventory with cloud platforms (AWS, Azure, GCP)</li>
-<li>Update inventory when new models are deployed</li>
-<li>Remove or flag deprecated models</li>
-</ul>
+    <!-- Section 2 -->
+    <div class="section">
+      <h2>Automated Inventory Synchronization</h2>
+      <p>Manual lists go stale within days. Automated schedules must scan runtime configurations to ensure the database accurately mirrors active cloud states.</p>
+      <ul>
+        <li><strong>Continuous Scanning:</strong> Automatically synchronize records with core platforms like AWS, Microsoft Azure, and Google Cloud.</li>
+        <li><strong>Active Cataloging:</strong> Automatically inject newly compiled and registered endpoints into the database.</li>
+        <li><strong>Stale Deprecations:</strong> Instantly flag inactive, orphaned, or retired endpoints for secure removal.</li>
+      </ul>
+      <div class="highlight">
+        <strong>Management Strategy:</strong> Run a scheduled cron job pulling model deployment registries directly from AWS SageMaker and Azure ML engines every 6 hours.
+      </div>
+    </div>
 
-<div class="highlight">
-Example: A scheduled job that pulls model metadata from AWS SageMaker every 6 hours.
-</div>
-</div>
+    <!-- Section 3 -->
+    <div class="section">
+      <h2>Model-Dataset Linking</h2>
+      <p>A model cannot be securely evaluated without visibility into the training data utilized to construct it.</p>
+      <ul>
+        <li><strong>Audit Traceability:</strong> Link each compiled model directly to the specific datasets used in training and evaluation.</li>
+        <li><strong>Version Alignment:</strong> Catalog exact training data versions to ensure audit readiness.</li>
+        <li><strong>Risk Assessment:</strong> Capture dataset metadata to evaluate exposure to data poisoning or compliance violations.</li>
+      </ul>
+      <div class="code">
+        <span class="code-label">Active Linkage Map</span>
+        Model ID : Fraud_Detection_Classifier_v2.1<br>
+        Dataset  : Transaction_History_v5.4_2026<br>
+        Source   : Database Instance DB-SEC-09
+      </div>
+    </div>
 
-<div class="section">
-<h2>3. Model-Dataset Linking</h2>
-<ul>
-<li>Link each model with its training and validation datasets</li>
-<li>Track dataset versions used for training</li>
-<li>Ensure traceability for audits</li>
-</ul>
+    <!-- Section 4 -->
+    <div class="section">
+      <h2>Dependency Tracking</h2>
+      <p>AI models depend on deep stacks of underlying third-party open-source libraries and runtime frameworks.</p>
+      <ul>
+        <li><strong>SBOM Generation:</strong> Maintain detailed Software Bill of Materials (SBOM) of runtime frameworks (e.g., TensorFlow, PyTorch).</li>
+        <li><strong>Outdated Auditing:</strong> Continuously inventory specific versioning numbers of libraries.</li>
+        <li><strong>Vulnerability Warnings:</strong> Instantly flag components containing known vulnerabilities (CVEs).</li>
+      </ul>
+      <div class="highlight">
+        <strong>Management Strategy:</strong> Automatically trigger vulnerability alerts for active production models currently operating on vulnerable or deprecated library binaries.
+      </div>
+    </div>
 
-<div class="code">
-Model: Fraud_Model_v2  
-Dataset: Transactions_v5  
-</div>
-</div>
+    <!-- Section 5 -->
+    <div class="section">
+      <h2>Lifecycle Status Tracking</h2>
+      <p>Delineating asset stages establishes appropriate governance gates and operational privileges.</p>
+      <ul>
+        <li><strong>Clear Taxonomy:</strong> Categorize models across structured stages: Development, Testing, Production, or Retired.</li>
+        <li><strong>Audit Records:</strong> Capture historical logs of lifecycle promotions.</li>
+        <li><strong>Enforced Gates:</strong> Restrict production level access controls until SSDLC security criteria are checked off.</li>
+      </ul>
+      <div class="highlight">
+        <strong>Management Strategy:</strong> Promoting a model in the pipeline automatically sends promotions, status shifts, and ownership changes to the master inventory logs.
+      </div>
+    </div>
 
-<div class="section">
-<h2>4. Dependency Tracking</h2>
-<ul>
-<li>Track libraries and frameworks used (TensorFlow, PyTorch)</li>
-<li>Maintain version details of dependencies</li>
-<li>Identify vulnerable or outdated components</li>
-</ul>
+    <!-- Section 6 -->
+    <div class="section">
+      <h2>CMDB Integration</h2>
+      <p>To evaluate threat impact, ML endpoints must map to the larger business processes they support.</p>
+      <ul>
+        <li><strong>Application Linkage:</strong> Link ML models to corresponding client-facing applications.</li>
+        <li><strong>Impact Evaluation:</strong> Map potential outages or compromises to calculate downstream risk thresholds.</li>
+        <li><strong>Operational Context:</strong> Give responders operational context when triage alerts are fired.</li>
+      </ul>
+      <div class="highlight">
+        <strong>Management Strategy:</strong> Integrate neural chatbots with core enterprise service applications (like ServiceNow) to preserve context in change requests.
+      </div>
+    </div>
 
-<div class="highlight">
-Example: Detect models using outdated ML libraries with known vulnerabilities.
-</div>
-</div>
+    <!-- Section 7 -->
+    <div class="section">
+      <h2>Version Control & History</h2>
+      <p>Preserving robust development histories guarantees repeatable builds and seamless rollbacks.</p>
+      <ul>
+        <li><strong>Linear Lineage:</strong> Capture full, chronologically structured model revision logs.</li>
+        <li><strong>Hyperparameter Auditing:</strong> Log changes in training parameters, weight limits, and model configuration structures.</li>
+        <li><strong>Rollback Agile:</strong> Enable engineers to redeploy verified baseline models instantly in case of drift.</li>
+      </ul>
+      <div class="code">
+        <span class="code-label">Lineage Log Track</span>
+        v1.0 (Initial) → v1.2 (Optimized Weights) → v2.0 (Active Production) [Agile Rollback Verified]
+      </div>
+    </div>
 
-<div class="section">
-<h2>5. Lifecycle Status Tracking</h2>
-<ul>
-<li>Tag models as Development, Testing, Production, or Retired</li>
-<li>Maintain lifecycle history</li>
-<li>Track promotion between environments</li>
-</ul>
+    <!-- Section 8 -->
+    <div class="section">
+      <h2>Decommissioning & Secure Cleanup</h2>
+      <p>Deprecating inactive models reduces the attack surface and optimizes computing budgets.</p>
+      <ul>
+        <li><strong>Zombie Discovery:</strong> Identify inactive, low-traffic, or forgotten neural network endpoints.</li>
+        <li><strong>Orphan Alerts:</strong> Alert model owners when a model has not been queried for extended durations.</li>
+        <li><strong>Secure Erasure:</strong> Apply formal sanitization procedures to purge residual neural weights and data.</li>
+      </ul>
+      <div class="highlight">
+        <strong>Management Strategy:</strong> Flag model endpoints showing zero query logs for 90 days, placing them on an active decommissioning path.
+      </div>
+    </div>
 
-<div class="highlight">
-Example: A model moving from staging to production is automatically updated in the inventory.
-</div>
-</div>
+    <!-- Key Takeaway -->
+    <div class="section">
+      <h2>Key Takeaway</h2>
+      <p>
+        Robust AI inventory tracking is not a static one-time effort—it is a continuous operational practice requiring live synchronization and solid governance.
+      </p>
+      <div class="highlight">
+        Organizations that lack automated inventory systems quickly accumulate <strong>shadow AI integrations, compliance vulnerabilities, and unmonitored attack vectors</strong>.
+      </div>
+    </div>
 
-<div class="section">
-<h2>6. CMDB Integration</h2>
-<ul>
-<li>Integrate AI assets with enterprise asset management systems</li>
-<li>Link models to business applications and services</li>
-<li>Enable impact analysis</li>
-</ul>
+  </main>
 
-<div class="highlight">
-Example: A chatbot model linked to a customer service application in ServiceNow.
-</div>
-</div>
-
-<div class="section">
-<h2>7. Version Control & History</h2>
-<ul>
-<li>Maintain full version history of models</li>
-<li>Track changes in training data and parameters</li>
-<li>Enable rollback capability</li>
-</ul>
-
-<div class="code">
-v1 → v2 → v3 (Production)
-</div>
-</div>
-
-<div class="section">
-<h2>8. Decommissioning & Cleanup</h2>
-<ul>
-<li>Identify inactive or unused models</li>
-<li>Flag obsolete assets for removal</li>
-<li>Ensure secure deletion policies</li>
-</ul>
-
-<div class="highlight">
-Example: Models not accessed for 90 days are automatically flagged for review.
-</div>
-</div>
-
-<div class="section">
-<h2>Key Takeaway</h2>
-<p>
-Effective inventory management is not static—it requires continuous synchronization, 
-tracking, and governance across the AI lifecycle.
-</p>
-
-<div class="highlight">
-Organizations that fail in inventory management often suffer from <strong>shadow AI, compliance gaps, and unmanaged risk</strong>.
-</div>
-</div>
-
-</div>
+  <!-- Footer -->
+  <footer style="margin-top: 80px; padding: 40px 0; background: #02050c; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <p style="font-size: 0.85rem; color: var(--text-muted);">&copy; 2026 Rakesh Saha. All rights reserved. Professional Portfolio Repository.</p>
+  </footer>
 
 </body>
 </html>
