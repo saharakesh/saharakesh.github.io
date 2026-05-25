@@ -10,28 +10,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      color-scheme: light;
-      /* Premium palette — deep slate, champagne gold, crisp white */
-      --ink:        #0D1B2A;
-      --text:       #1E2D3D;
-      --muted:      #6B7C8D;
-      --paper:      #F7F8FA;
-      --white:      #FFFFFF;
-      --line:       #DDE3EA;
-      --navy:       #0D1B2A;
-      --gold:       #B8943F;
-      --gold-light: #F5EDD6;
-      --teal:       #0A7C71;
-      --green:      #1A7A4A;
-      --blue:       #1A4FBE;
-      --amber:      #C47D12;
-      --red:        #B02828;
-      --grey-mist:  #EEF1F5;
-      --mist:       #E6F3F1;
-      --blue-mist:  #E8EEFF;
-      --amber-mist: #FFF3DC;
-      --red-mist:   #FBEAEA;
-      --green-mist: #E8F5EF;
+      color-scheme: dark;
+      /* Premium cybersecurity dark-mode palette */
+      --ink:        #f3f4f6;
+      --text:       #e2e8f0;
+      --muted:      #94a3b8;
+      --paper:      #030712;
+      --white:      rgba(17, 24, 39, 0.45); /* Glass card background */
+      --line:       rgba(255, 255, 255, 0.05);
+      --navy:       #070b15;
+      --gold:       #06b6d4; /* Cybersecurity Cyan */
+      --gold-light: rgba(6, 182, 212, 0.15);
+      --teal:       #10b981;
+      --green:      #10b981;
+      --blue:       #3b82f6;
+      --amber:      #f59e0b;
+      --red:        #ef4444;
+      --grey-mist:  #1f2937;
+      --mist:       rgba(6, 182, 212, 0.04);
+      --blue-mist:  rgba(59, 130, 246, 0.04);
+      --amber-mist: rgba(245, 158, 11, 0.04);
+      --red-mist:   rgba(239, 68, 68, 0.04);
+      --green-mist: rgba(16, 185, 129, 0.04);
+      
+      --accent-purple: #a78bfa;
       font-family: 'DM Sans', system-ui, sans-serif;
       background: var(--paper);
       color: var(--text);
@@ -44,7 +46,7 @@
     /* ── Skip link ── */
     .skip-link {
       position: absolute; left: 1rem; top: -4rem; z-index: 10;
-      padding: 0.6rem 0.8rem; background: var(--white);
+      padding: 0.6rem 0.8rem; background: #111827;
       border: 1px solid var(--line); border-radius: 4px;
     }
     .skip-link:focus { top: 1rem; }
@@ -52,7 +54,7 @@
     /* ── Document header ── */
     .document-header {
       background: var(--navy);
-      color: var(--white);
+      color: #ffffff;
       padding: 1.4rem max(1.5rem, calc((100vw - 1200px) / 2));
       border-bottom: 3px solid var(--gold);
       display: flex;
@@ -133,7 +135,7 @@
       content: "";
       position: absolute; top: 0; left: 0; right: 0;
       height: 4px;
-      background: linear-gradient(90deg, var(--gold) 0%, #D4AF6A 50%, var(--gold) 100%);
+      background: linear-gradient(90deg, var(--gold) 0%, var(--accent-purple) 50%, var(--gold) 100%);
     }
     .slide::after {
       content: "";
@@ -207,7 +209,7 @@
     .cover-panel {
       padding: 4rem 3rem;
       background: var(--navy);
-      color: var(--white);
+      color: #ffffff;
       position: relative;
       overflow: hidden;
     }
@@ -218,7 +220,7 @@
       bottom: -60px; right: -60px;
       width: 220px; height: 220px;
       border-radius: 50%;
-      border: 40px solid rgba(184,148,63,0.15);
+      border: 40px solid rgba(6,182,212,0.1);
     }
     .cover-panel::after {
       content: "";
@@ -226,11 +228,11 @@
       top: 30px; right: 20px;
       width: 80px; height: 80px;
       border-radius: 50%;
-      border: 2px solid rgba(184,148,63,0.3);
+      border: 2px solid rgba(6,182,212,0.2);
     }
     .cover-panel .kicker { color: var(--gold); }
     .cover-panel h2 {
-      color: var(--white);
+      color: #ffffff;
       font-size: 2.6rem;
       line-height: 1.1;
       margin: 1rem 0 1.4rem;
@@ -242,7 +244,7 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0.6rem;
       padding: 2.5rem 2.2rem 2rem;
-      background: #F4F6F9;
+      background: rgba(255, 255, 255, 0.02);
     }
     .component-cloud span {
       display: grid;
@@ -252,7 +254,7 @@
       text-align: center;
       font-weight: 500;
       font-size: 0.78rem;
-      color: var(--navy);
+      color: var(--text);
       background: var(--white);
       border: 1px solid var(--line);
       border-radius: 4px;
@@ -261,11 +263,11 @@
     .cover-result {
       grid-column: 2;
       padding: 1.5rem 2.2rem 2.5rem;
-      background: #F4F6F9;
+      background: rgba(17, 24, 39, 0.35);
     }
     .cover-result h2 {
       font-size: 1.4rem;
-      color: var(--navy);
+      color: var(--gold);
       margin: 0 0 1.5rem;
     }
 
@@ -335,7 +337,7 @@
     }
     .band-row span {
       padding: 0.9rem 0.5rem;
-      color: var(--white);
+      color: #ffffff;
       text-align: center;
       font-weight: 600;
       font-size: 0.82rem;
@@ -351,7 +353,7 @@
       transform: translateX(-50%);
       padding: 0.3rem 0.55rem;
       background: var(--gold);
-      color: var(--white);
+      color: #ffffff;
       border-radius: 4px;
       font-family: 'DM Mono', monospace;
       font-size: 0.8rem;
@@ -393,7 +395,7 @@
     .data-table  tbody tr:last-child th { border-bottom: none; }
     .score-table thead th, .data-table thead th {
       background: var(--navy);
-      color: var(--white);
+      color: #ffffff;
       font-family: 'DM Mono', monospace;
       font-size: 0.73rem;
       letter-spacing: 0.07em;
@@ -425,7 +427,7 @@
     .heat-tile {
       min-height: 6rem;
       padding: 1rem;
-      color: var(--white);
+      color: #ffffff;
       background: var(--tile);
       border-radius: 6px;
       position: relative;
@@ -439,7 +441,7 @@
       border-radius: 50%;
       background: rgba(255,255,255,0.08);
     }
-    .heat-tile h3, .heat-tile strong, .heat-tile span { color: var(--white); }
+    .heat-tile h3, .heat-tile strong, .heat-tile span { color: #ffffff; }
     .heat-tile h3 { margin: 0 0 0.5rem; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 500; }
     .heat-tile strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; }
     .heat-tile span  { font-size: 0.75rem; opacity: 0.85; letter-spacing: 0.04em; }
@@ -514,12 +516,12 @@
       border-radius: 6px;
       border: 1px solid var(--line);
       background:
-        linear-gradient(to right, white 30%, rgba(255,255,255,0)),
-        linear-gradient(to right, rgba(255,255,255,0), white 70%) 100% 0,
-        radial-gradient(farthest-side at 0 50%, rgba(13,27,42,0.08), transparent),
-        radial-gradient(farthest-side at 100% 50%, rgba(13,27,42,0.08), transparent) 100% 0;
+        linear-gradient(to right, #030712 30%, rgba(3,7,18,0)),
+        linear-gradient(to right, rgba(3,7,18,0), #030712 70%) 100% 0,
+        radial-gradient(farthest-side at 0 50%, rgba(255,255,255,0.02), transparent),
+        radial-gradient(farthest-side at 100% 50%, rgba(255,255,255,0.02), transparent) 100% 0;
       background-repeat: no-repeat;
-      background-color: white;
+      background-color: #030712;
       background-size: 40px 100%, 40px 100%, 12px 100%, 12px 100%;
       background-attachment: local, local, scroll, scroll;
     }
@@ -544,7 +546,7 @@
       /* Cover slide stacks vertically */
       .cover { grid-template-columns: 1fr; }
       .cover-panel { padding: 2.5rem 1.5rem; }
-      .cover-result { grid-column: 1; padding: 1.5rem 1.5rem 2rem; background: #F4F6F9; }
+      .cover-result { grid-column: 1; padding: 1.5rem 1.5rem 2rem; background: rgba(17, 24, 39, 0.35); }
       .component-cloud { grid-template-columns: repeat(2, 1fr); padding: 1.5rem; }
 
       /* Grids collapse to single column */
@@ -628,7 +630,7 @@
     }
 
     @media print {
-      body { background: var(--white); }
+      body { background: #ffffff; }
       .document-header, nav.toc { box-shadow: none; }
       .slide {
         break-after: page; box-shadow: none;
@@ -636,9 +638,69 @@
       }
       a::after { content: " (" attr(href) ")"; font-size: 0.8em; color: var(--muted); }
     }
+
+    /* Sticky return header */
+    .return-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 14px 24px;
+      margin-bottom: 24px;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo-link {
+      font-size: 1.15rem;
+      font-weight: 800;
+      text-decoration: none;
+      font-family: 'DM Mono', monospace;
+      color: #fff;
+    }
+    .logo-link span {
+      color: #06b6d4;
+    }
+    .back-btn {
+      text-decoration: none;
+      color: #06b6d4;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      padding: 6px 14px;
+      border-radius: 4px;
+      background: transparent;
+    }
+    .back-btn:hover {
+      background: rgba(6, 182, 212, 0.08);
+      border-color: #06b6d4;
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.15);
+    }
   </style>
 </head>
 <body>
+  
+  <!-- RETURN HEADER -->
+  <div class="return-header">
+    <div class="nav-container">
+      <a href="index.html" class="logo-link">
+        <span>TOP</span>
+      </a>
+      <a href="index.html" class="back-btn">← Back to Portfolio</a>
+    </div>
+  </div>
+
   <a class="skip-link" href="#main-content">Skip to assessment content</a>
   <header class="document-header">
     <h1>AI Security Maturity Assessment Outcome</h1>
@@ -665,7 +727,7 @@
         <span>GRC</span><span>AI Inventory &amp; Classification</span><span>Data Security</span><span>Model Security</span><span>Threat Modeling</span><span>DevSecOps (AI SSDLC)</span><span>API Security</span><span>Infrastructure Security</span><span>Access Control</span><span>Monitoring &amp; Detection</span><span>Explainability &amp; Auditability</span><span>Ethical AI</span><span>Supply Chain Security</span><span>Red Teaming</span><span>Lifecycle Management</span>
       </div>
       <div class="cover-result">
-        <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;color:#0D1B2A;margin:0 0 1.5rem;">Final scale result: Defined</h2>
+        <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;color:var(--gold);margin:0 0 1.5rem;">Final scale result: Defined</h2>
         <div class="maturity-bar" role="img" aria-label="Maturity score 55.2 percent">
     <span class="score-pin" style="left:55.2%">55.2%</span>
     <div class="band-row"><span class="red">Initial</span><span class="amber">Developing</span><span class="blue">Defined</span><span class="teal">Managed</span><span class="green">Optimized</span></div>
@@ -722,7 +784,7 @@
       <div class="grid five">
         <article class="card red"><h3>Initial · 0-20</h3><p>Ad hoc or undocumented controls.</p></article><article class="card amber"><h3>Developing · 21-40</h3><p>Early repeatability, limited coverage.</p></article><article class="card blue"><h3>Defined · 41-60</h3><p>Documented and broadly implemented, but not yet consistently measured.</p></article><article class="card teal"><h3>Managed · 61-80</h3><p>Metrics, owners, evidence, and review cycles are operating.</p></article><article class="card green"><h3>Optimized · 81-100</h3><p>Continuous assurance and automated improvement loops.</p></article>
       </div>
-      <h3 style="text-align:center;margin-top:2rem;font-family:'Playfair Display',Georgia,serif;color:#0D1B2A;font-size:1.1rem;font-weight:600;letter-spacing:0.01em;">Overall result: 55.2% sits in the Defined band.</h3>
+      <h3 style="text-align:center;margin-top:2rem;font-family:'Playfair Display',Georgia,serif;color:var(--ink);font-size:1.1rem;font-weight:600;letter-spacing:0.01em;">Overall result: 55.2% sits in the Defined band.</h3>
     </section>
 
     <section class="slide" id="slide-5" aria-labelledby="slide-5-title">
@@ -1050,7 +1112,7 @@
         <article class="card amber"><h3>Assign owners</h3><p>Create named control owners and remediation due dates for every high-risk gap.</p></article>
         <article class="card green"><h3>Reassess</h3><p>Run a focused reassessment in 6 months and a full reassessment in 12 months.</p></article>
       </div>
-      <h3 style="text-align:center;margin-top:2rem;font-family:'Playfair Display',Georgia,serif;color:#0D1B2A;font-size:1.3rem;font-weight:700;letter-spacing:0.01em;padding:1.5rem;background:#F7F8FA;border-radius:6px;border:1px solid #DDE3EA;">Final sample result: 55.2% — Defined</h3>
+      <h3 style="text-align:center;margin-top:2rem;font-family:'Playfair Display',Georgia,serif;color:var(--ink);font-size:1.3rem;font-weight:700;letter-spacing:0.01em;padding:1.5rem;background:var(--navy);border-radius:6px;border:1px solid var(--line);">Final sample result: 55.2% — Defined</h3>
       <details class="sources">
         <summary>Reference basis</summary>
         <ul><li>Source workbook: AI_Security_Advisory_Tool.xlsx, 15 components and 1,500 questions.</li><li>NIST AI RMF Playbook: Govern, Map, Measure, Manage functions.</li><li>ISO/IEC 42001:2023 AI management system requirements.</li><li>OWASP Top 10 for LLM Applications 2025.</li><li>MITRE ATLAS adversarial AI knowledge base.</li><li>Cloud Security Alliance AI Controls Matrix.</li></ul>
