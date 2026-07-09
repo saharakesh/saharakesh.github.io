@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TransformIQ — SaaS Product Blueprint</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ink:        #0A0E1A;
+    --ink-muted:  #3D4460;
+    --ink-faint:  #8891AA;
+    --surface:    #F5F6FA;
+    --white:      #FFFFFF;
+    --signal:     #2563EB;   /* electric blue — primary CTA */
+    --signal-lt:  #EEF3FD;
+    --amber:      #F59E0B;
+    --amber-lt:   #FEF8EC;
+    --emerald:    #059669;
+    --emerald-lt: #ECFDF5;
+    --violet:     #7C3AED;
+    --violet-lt:  #F5F3FF;
+    --coral:      #E63946;
+    --coral-lt:   #FEF0F1;
+    --rule:       #E2E5EE;
+    --mono:       'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--ink);
+    letter-spacing: -0.5px;
+  }
+  .nav-brand span { color: var(--signal); }
+  .nav-links {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-links a:hover { background: var(--surface); color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 40px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--signal);
+    background: var(--signal-lt);
+    border: 1px solid #BFDBFE;
+    padding: 5px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--signal);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 68px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--signal);
+  }
+  .hero p {
+    font-size: 17px;
+    color: var(--ink-muted);
+    max-width: 620px;
+    margin: 0 auto 16px;
+    line-height: 1.7;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    text-align: center;
+  }
+  .hero-meta-item .val {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .hero-meta-item .lbl {
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+  }
+
+  /* ── SECTION CHROME ── */
+  .section {
+    padding: 80px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-divider {
+    height: 1px;
+    background: var(--rule);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--signal);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 4vw, 42px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .section-sub {
+    font-size: 15px;
+    color: var(--ink-muted);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  /* ── PROBLEM STRIP ── */
+  .problem-strip {
+    background: var(--ink);
+    color: var(--white);
+    padding: 64px 40px;
+  }
+  .problem-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .problem-inner .section-eyebrow { color: var(--amber); }
+  .problem-inner .section-title { color: var(--white); }
+  .problem-inner .section-sub { color: #8891AA; max-width: 640px; margin-bottom: 40px; }
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .pain-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .pain-card .icon { font-size: 24px; margin-bottom: 12px; }
+  .pain-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .pain-card p { font-size: 13px; color: #8891AA; line-height: 1.6; }
+
+  /* ── PRODUCT PILLARS ── */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .pillar-card {
+    border: 1.5px solid var(--rule);
+    border-radius: 16px;
+    padding: 32px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .pillar-card:hover {
+    border-color: var(--signal);
+    box-shadow: 0 8px 32px rgba(37,99,235,0.1);
+  }
+  .pillar-accent {
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 16px 0 0 16px;
+  }
+  .pillar-card .pill-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .pillar-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .pillar-card > p {
+    font-size: 13.5px;
+    color: var(--ink-muted);
+    margin-bottom: 20px;
+    line-height: 1.65;
+  }
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .feature-list li {
+    font-size: 13px;
+    color: var(--ink-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .feature-list li::before {
+    content: '→';
+    color: var(--signal);
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── ARCHITECTURE ── */
+  .arch-container {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 20px;
+    padding: 40px;
+  }
+  .arch-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .arch-layer {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    align-items: stretch;
+    gap: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--rule);
+  }
+  .arch-layer-label {
+    background: var(--ink);
+    color: var(--white);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .arch-layer-label .l-tag {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .arch-layer-label .l-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.3;
+  }
+  .arch-layer-body {
+    background: var(--white);
+    padding: 14px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .arch-chip {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+  .arch-chip.hl { background: var(--signal-lt); border-color: #BFDBFE; color: var(--signal); }
+  .arch-chip.hl-amber { background: var(--amber-lt); border-color: #FDE68A; color: #92400E; }
+  .arch-chip.hl-violet { background: var(--violet-lt); border-color: #DDD6FE; color: var(--violet); }
+  .arch-chip.hl-emerald { background: var(--emerald-lt); border-color: #A7F3D0; color: var(--emerald); }
+
+  /* ── ROADMAP ── */
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .rm-phase {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    position: relative;
+  }
+  .rm-phase::before {
+    content: '';
+    position: absolute;
+    left: 199px;
+    top: 48px;
+    bottom: -1px;
+    width: 1px;
+    background: var(--rule);
+    z-index: 0;
+  }
+  .rm-phase:last-child::before { display: none; }
+  .rm-left {
+    padding: 32px 24px 32px 0;
+    text-align: right;
+    position: relative;
+  }
+  .rm-dot {
+    position: absolute;
+    right: -9px;
+    top: 38px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 3px solid var(--white);
+    z-index: 1;
+  }
+  .rm-phase-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .rm-phase-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .rm-timeline {
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .rm-right {
+    padding: 32px 0 32px 32px;
+    border-left: 1px solid var(--rule);
+  }
+  .rm-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .rm-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--ink-muted);
+    line-height: 1.55;
+  }
+  .rm-item-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  /* ── MONETIZATION ── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
+  .pricing-card {
+    border: 1.5px solid var(--rule);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .pricing-card.featured {
+    border-color: var(--signal);
+    background: var(--ink);
+    color: var(--white);
+  }
+  .pricing-tier {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+  .pricing-card:not(.featured) .pricing-tier { color: var(--ink-muted); }
+  .pricing-card.featured .pricing-tier { color: var(--signal); }
+  .pricing-price {
+    font-family: 'Syne', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .pricing-card:not(.featured) .pricing-price { color: var(--ink); }
+  .pricing-card.featured .pricing-price { color: var(--white); }
+  .pricing-cadence {
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .pricing-card.featured .pricing-cadence { color: #8891AA; }
+  .pricing-desc {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .pricing-card:not(.featured) .pricing-desc { color: var(--ink-muted); }
+  .pricing-card.featured .pricing-desc { color: #CBD5E1; }
+  .pricing-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+  .pricing-features li {
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .pricing-card:not(.featured) .pricing-features li { color: var(--ink-muted); }
+  .pricing-card.featured .pricing-features li { color: #CBD5E1; }
+  .pricing-features li::before {
+    content: '✓';
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .pricing-card:not(.featured) .pricing-features li::before { color: var(--emerald); }
+  .pricing-card.featured .pricing-features li::before { color: var(--amber); }
+
+  /* ── GTM / METRICS ── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .metric-card .m-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .metric-card .m-lbl {
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-top: 6px;
+  }
+  .metric-card .m-note {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-top: 8px;
+  }
+
+  /* ── MOAT ── */
+  .moat-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  .moat-table th {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--rule);
+  }
+  .moat-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .moat-table tr:last-child td { border-bottom: none; }
+  .moat-table td:first-child {
+    font-weight: 600;
+    color: var(--ink);
+    width: 180px;
+  }
+  .moat-table td:nth-child(2) { color: var(--ink-muted); }
+  .badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .badge.high { background: var(--emerald-lt); color: var(--emerald); }
+  .badge.med { background: var(--amber-lt); color: #92400E; }
+  .badge.core { background: var(--signal-lt); color: var(--signal); }
+
+  /* ── CTA FOOTER ── */
+  .cta-section {
+    background: var(--ink);
+    padding: 80px 40px;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -1.5px;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .cta-section p {
+    font-size: 16px;
+    color: #8891AA;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+  .cta-chips {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .cta-chip {
+    font-size: 13px;
+    font-weight: 500;
+    color: #CBD5E1;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 10px 20px;
+    border-radius: 8px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 60px 24px 48px; }
+    .section { padding: 56px 24px; }
+    .problem-strip { padding: 48px 24px; }
+    .arch-layer { grid-template-columns: 1fr; }
+    .arch-layer-label { padding: 12px 16px; text-align: left; }
+    .rm-phase { grid-template-columns: 1fr; }
+    .rm-left { text-align: left; padding: 24px 0 0; }
+    .rm-dot { display: none; }
+    .rm-right { border-left: none; padding: 12px 0 24px; border-bottom: 1px solid var(--rule); }
+    .rm-phase::before { display: none; }
+    .cta-section { padding: 56px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Transform<span>IQ</span></div>
+  <ul class="nav-links">
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#pillars">Product</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#monetization">Pricing</a></li>
+    <li><a href="#gtm">GTM</a></li>
+    <li><a href="#moat">Moat</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">Product Blueprint · v1.0</div>
+  <h1>The Operating System<br>for <em>AI Transformation</em></h1>
+  <p>A one-stop SaaS platform that helps AI Transformation Leaders, AI Strategists, and CXOs recognize opportunities, select the right tools, build adoption roadmaps, and measure ROI — without switching between a dozen disconnected resources.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <div class="val">$47B</div>
+      <div class="lbl">AI Consulting TAM by 2030</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="val">78%</div>
+      <div class="lbl">Enterprises lack an AI roadmap</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="val">6</div>
+      <div class="lbl">Core Product Pillars</div>
+    </div>
+    <div class="hero-meta-item">
+      <div class="val">18mo</div>
+      <div class="lbl">MVP to Market Timeline</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROBLEM -->
+<div id="problem" class="problem-strip">
+  <div class="problem-inner">
+    <div class="section-eyebrow">The Problem Space</div>
+    <h2 class="section-title">Why AI Transformations Fail</h2>
+    <p class="section-sub">CXOs want to adopt AI but face a fragmented landscape — no single source of truth for assessment, tooling selection, governance, or outcome measurement.</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="icon">🧩</div>
+        <h4>Tool Sprawl</h4>
+        <p>100+ AI tools exist. Leaders waste months evaluating options with no structured framework to match tools to actual business problems.</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">🔍</div>
+        <h4>No Opportunity Lens</h4>
+        <p>Process owners can't systematically identify where AI creates the highest ROI impact without structured diagnostics.</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">🗺️</div>
+        <h4>Roadmap Vacuum</h4>
+        <p>Most orgs have ambition but no executable AI adoption roadmap tied to their maturity level, budget, or org readiness.</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">📊</div>
+        <h4>No ROI Visibility</h4>
+        <p>Post-adoption measurement is anecdotal. Leaders can't prove value to boards or justify further AI investment with data.</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">🏛️</div>
+        <h4>Governance Gaps</h4>
+        <p>Ethical AI, compliance, and risk frameworks are ad hoc — creating liability and slowing enterprise procurement.</p>
+      </div>
+      <div class="pain-card">
+        <div class="icon">🎓</div>
+        <h4>Capability Deficit</h4>
+        <p>Teams lack the skills to operationalize AI. There's no structured upskilling path tied to the org's specific transformation journey.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PILLARS -->
+<section id="pillars" class="section">
+  <div class="section-eyebrow">Product Vision</div>
+  <h2 class="section-title">Six Pillars of TransformIQ</h2>
+  <p class="section-sub">Each pillar solves a discrete failure mode. Together they form a closed-loop system — from diagnosis to execution to measurement.</p>
+  <div class="pillars-grid">
+
+    <div class="pillar-card">
+      <div class="pillar-accent" style="background: var(--signal);"></div>
+      <span class="pill-tag" style="background:var(--signal-lt); color:var(--signal);">Pillar 1</span>
+      <h3>AI Opportunity Scanner</h3>
+      <p>An AI-guided diagnostic that maps an org's business processes, data maturity, and strategic goals to a ranked list of AI use cases with estimated ROI and complexity scores.</p>
+      <ul class="feature-list">
+        <li>Process interview wizard (guided questionnaire)</li>
+        <li>Opportunity heatmap by department & impact tier</li>
+        <li>Use case library with 200+ pre-scored scenarios</li>
+        <li>Quick Win vs Strategic Bet classification</li>
+        <li>Exportable CXO-ready opportunity brief</li>
+      </ul>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-accent" style="background: var(--amber);"></div>
+      <span class="pill-tag" style="background:var(--amber-lt); color:#92400E;">Pillar 2</span>
+      <h3>AI Tool Intelligence Hub</h3>
+      <p>A curated, continuously updated knowledge base of 500+ AI tools, scored by use case fit, integration complexity, total cost of ownership, and enterprise readiness.</p>
+      <ul class="feature-list">
+        <li>Structured taxonomy across 40+ AI categories</li>
+        <li>Side-by-side comparison engine (up to 5 tools)</li>
+        <li>Fit Score™ — personalized match to org profile</li>
+        <li>Integration complexity & data privacy ratings</li>
+        <li>Vendor alerts: pricing changes, outages, M&A activity</li>
+      </ul>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-accent" style="background: var(--violet);"></div>
+      <span class="pill-tag" style="background:var(--violet-lt); color:var(--violet);">Pillar 3</span>
+      <h3>AI Transformation Roadmap Builder</h3>
+      <p>A dynamic, interactive roadmap generator that translates assessed opportunities into a phased adoption plan with milestones, team responsibilities, and budget estimates.</p>
+      <ul class="feature-list">
+        <li>Maturity-adaptive roadmap templates (3 levels)</li>
+        <li>Sprint-level Gantt view + strategic quarter view</li>
+        <li>Budget modeler with headcount & tooling cost breakdowns</li>
+        <li>Risk & dependency mapping per initiative</li>
+        <li>One-click PDF/PPTX export for board presentations</li>
+      </ul>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-accent" style="background: var(--emerald);"></div>
+      <span class="pill-tag" style="background:var(--emerald-lt); color:var(--emerald);">Pillar 4</span>
+      <h3>Process Optimization Engine</h3>
+      <p>An AI-powered process analysis module that identifies automation opportunities within existing workflows and simulates before/after scenarios with quantified efficiency gains.</p>
+      <ul class="feature-list">
+        <li>BPMN process intake (manual or auto-parse from docs)</li>
+        <li>Automation opportunity scoring per process step</li>
+        <li>AI simulation: hours saved, cost reduction, error rate</li>
+        <li>Change impact assessment for workforce planning</li>
+        <li>Optimization playbooks per industry vertical</li>
+      </ul>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-accent" style="background: var(--coral);"></div>
+      <span class="pill-tag" style="background:var(--coral-lt); color:var(--coral);">Pillar 5</span>
+      <h3>AI Governance & Risk Framework</h3>
+      <p>A compliance-aware governance layer that helps orgs build ethical AI policies, assess regulatory exposure, and maintain a living audit trail of AI decisions.</p>
+      <ul class="feature-list">
+        <li>Policy template library (EU AI Act, NIST, ISO 42001)</li>
+        <li>AI Risk Register with severity scoring</li>
+        <li>Vendor due diligence checklists</li>
+        <li>Bias & fairness assessment questionnaire</li>
+        <li>Continuous compliance monitoring dashboard</li>
+      </ul>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-accent" style="background: #0EA5E9;"></div>
+      <span class="pill-tag" style="background:#F0F9FF; color:#0369A1;">Pillar 6</span>
+      <h3>ROI & Innovation Dashboard</h3>
+      <p>A real-time measurement layer that connects AI initiatives to business outcomes — tracking value delivered, adoption velocity, and surfacing the next best innovation opportunity.</p>
+      <ul class="feature-list">
+        <li>KPI framework: efficiency, revenue, quality, velocity</li>
+        <li>Initiative tracker with actual vs projected ROI</li>
+        <li>AI adoption velocity metrics by team & function</li>
+        <li>Innovation signal feed (new tools, research, case studies)</li>
+        <li>Board-ready ROI report generator</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ARCHITECTURE -->
+<section id="architecture" class="section">
+  <div class="section-eyebrow">Technical Architecture</div>
+  <h2 class="section-title">Built on Your Stack.<br>Designed to Scale.</h2>
+  <p class="section-sub">Angular + Spring Boot + PostgreSQL core, extended with LLM orchestration, vector search, and a multi-tenant data isolation layer.</p>
+  <div class="arch-container">
+    <div class="arch-layers">
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <div class="l-tag">Layer 1</div>
+          <div class="l-name">Presentation Layer</div>
+        </div>
+        <div class="arch-layer-body">
+          <span class="arch-chip hl">Angular 17+ (SPA)</span>
+          <span class="arch-chip hl">Angular Material + Custom DS</span>
+          <span class="arch-chip">Nx Monorepo</span>
+          <span class="arch-chip">D3.js / Recharts (Dashboards)</span>
+          <span class="arch-chip">BPMN.io (Process Maps)</span>
+          <span class="arch-chip">PWA Support</span>
+        </div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <div class="l-tag">Layer 2</div>
+          <div class="l-name">API Gateway &amp; Services</div>
+        </div>
+        <div class="arch-layer-body">
+          <span class="arch-chip hl">Spring Boot 3.x (REST/GraphQL)</span>
+          <span class="arch-chip hl">Spring Security + OAuth2/OIDC</span>
+          <span class="arch-chip">Kong API Gateway</span>
+          <span class="arch-chip">Spring Cloud Gateway</span>
+          <span class="arch-chip hl-amber">Multi-tenant RBAC</span>
+          <span class="arch-chip">Rate Limiting & Quotas</span>
+          <span class="arch-chip">WebSockets (live updates)</span>
+        </div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <div class="l-tag">Layer 3</div>
+          <div class="l-name">AI Orchestration</div>
+        </div>
+        <div class="arch-layer-body">
+          <span class="arch-chip hl">LangChain4j / Spring AI</span>
+          <span class="arch-chip hl">RAG Pipeline (Retrieval-Augmented)</span>
+          <span class="arch-chip hl-violet">Claude Sonnet (Reasoning Engine)</span>
+          <span class="arch-chip hl-violet">OpenAI GPT-4o</span>
+          <span class="arch-chip">Prompt Version Manager</span>
+          <span class="arch-chip">A/B Prompt Testing</span>
+          <span class="arch-chip hl-amber">LLM Router (cost/quality optimizer)</span>
+        </div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <div class="l-tag">Layer 4</div>
+          <div class="l-name">Data &amp; Intelligence</div>
+        </div>
+        <div class="arch-layer-body">
+          <span class="arch-chip hl">PostgreSQL 16 (OLTP)</span>
+          <span class="arch-chip hl">pgvector (Semantic Search)</span>
+          <span class="arch-chip hl-emerald">Row-Level Security (Multi-tenant)</span>
+          <span class="arch-chip">Redis (Caching + Sessions)</span>
+          <span class="arch-chip">Apache Kafka (Event Streaming)</span>
+          <span class="arch-chip">ClickHouse (Analytics OLAP)</span>
+          <span class="arch-chip hl-amber">Liquibase (Schema Versioning)</span>
+        </div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <div class="l-tag">Layer 5</div>
+          <div class="l-name">Infrastructure &amp; DevOps</div>
+        </div>
+        <div class="arch-layer-body">
+          <span class="arch-chip hl">AWS / GCP Multi-cloud</span>
+          <span class="arch-chip">Kubernetes (EKS/GKE)</span>
+          <span class="arch-chip">ArgoCD (GitOps)</span>
+          <span class="arch-chip hl-emerald">SOC 2 Type II Controls</span>
+          <span class="arch-chip">DataDog Observability</span>
+          <span class="arch-chip">Terraform IaC</span>
+          <span class="arch-chip">GitHub Actions CI/CD</span>
+        </div>
+      </div>
+
+      <div class="arch-layer">
+        <div class="arch-layer-label">
+          <div class="l-tag">Layer 6</div>
+          <div class="l-name">Integrations</div>
+        </div>
+        <div class="arch-layer-body">
+          <span class="arch-chip">Salesforce CRM</span>
+          <span class="arch-chip">Jira / Linear</span>
+          <span class="arch-chip">Slack / Teams</span>
+          <span class="arch-chip">Workday / SAP</span>
+          <span class="arch-chip">Confluence</span>
+          <span class="arch-chip hl-amber">REST / Webhook SDK</span>
+          <span class="arch-chip">SAML 2.0 / SCIM</span>
+          <span class="arch-chip">Power BI / Tableau (embed)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="section">
+  <div class="section-eyebrow">Execution Roadmap</div>
+  <h2 class="section-title">From Zero to<br>Market Leader</h2>
+  <p class="section-sub">An 18-month phased build plan. Each phase ships independently valuable product, while compounding toward the full platform vision.</p>
+
+  <div class="roadmap">
+
+    <div class="rm-phase">
+      <div class="rm-left">
+        <div class="rm-phase-tag" style="color:var(--signal);">Phase 0</div>
+        <div class="rm-phase-title">Foundation</div>
+        <div class="rm-timeline">Months 1–2</div>
+        <div class="rm-dot" style="background:var(--signal);"></div>
+      </div>
+      <div class="rm-right">
+        <div class="rm-items">
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--signal);"></div>Finalize ICP, conduct 15 discovery interviews with AI Strategists and CDOs</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--signal);"></div>Define product taxonomy: opportunity types, tool categories, ROI metrics framework</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--signal);"></div>Architect multi-tenant data model with Row-Level Security in PostgreSQL</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--signal);"></div>Set up CI/CD pipeline, dev/staging/prod environments, observability stack</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--signal);"></div>Hire: 2 senior full-stack engineers, 1 AI/ML engineer, 1 product designer</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rm-phase">
+      <div class="rm-left">
+        <div class="rm-phase-tag" style="color:var(--amber);">Phase 1</div>
+        <div class="rm-phase-title">MVP Core</div>
+        <div class="rm-timeline">Months 3–6</div>
+        <div class="rm-dot" style="background:var(--amber);"></div>
+      </div>
+      <div class="rm-right">
+        <div class="rm-items">
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--amber);"></div>Build AI Opportunity Scanner v1 — guided questionnaire + static opportunity library</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--amber);"></div>Launch AI Tool Hub — 200 tools, structured taxonomy, basic comparison engine</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--amber);"></div>Roadmap Builder v1 — manual template-based, Gantt + quarter view, PDF export</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--amber);"></div>Auth, RBAC, org/team workspace, billing integration (Stripe)</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--amber);"></div>Onboard 5 design-partner companies for closed beta feedback loops</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rm-phase">
+      <div class="rm-left">
+        <div class="rm-phase-tag" style="color:var(--violet);">Phase 2</div>
+        <div class="rm-phase-title">AI Intelligence</div>
+        <div class="rm-timeline">Months 7–10</div>
+        <div class="rm-dot" style="background:var(--violet);"></div>
+      </div>
+      <div class="rm-right">
+        <div class="rm-items">
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--violet);"></div>Integrate LLM layer — Claude + GPT-4o for AI-driven opportunity analysis and tool recommendations</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--violet);"></div>RAG pipeline: ingest org documents, process maps, strategy docs for personalized analysis</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--violet);"></div>Process Optimization Engine v1 — BPMN intake, automation scoring, simulation model</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--violet);"></div>AI Governance module — policy templates, risk register, compliance checklist</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--violet);"></div>Fit Score™ algorithm — ML model trained on beta company outcomes</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--violet);"></div>Public launch on Product Hunt; target 500 signups in first 30 days</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rm-phase">
+      <div class="rm-left">
+        <div class="rm-phase-tag" style="color:var(--emerald);">Phase 3</div>
+        <div class="rm-phase-title">Scale & Network</div>
+        <div class="rm-timeline">Months 11–14</div>
+        <div class="rm-dot" style="background:var(--emerald);"></div>
+      </div>
+      <div class="rm-right">
+        <div class="rm-items">
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--emerald);"></div>ROI & Innovation Dashboard — KPI framework, real-time tracking, board report generator</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--emerald);"></div>Enterprise integrations: Salesforce, Jira, Slack, Workday, SAML/SCIM SSO</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--emerald);"></div>Benchmark Network — anonymized peer comparison data across industries</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--emerald);"></div>Partner marketplace — certified AI implementation partners, consulting firms</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:var(--emerald);"></div>SOC 2 Type II audit completion; enterprise procurement readiness</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rm-phase">
+      <div class="rm-left">
+        <div class="rm-phase-tag" style="color:#0EA5E9;">Phase 4</div>
+        <div class="rm-phase-title">Platform Lock-in</div>
+        <div class="rm-timeline">Months 15–18</div>
+        <div class="rm-dot" style="background:#0EA5E9;"></div>
+      </div>
+      <div class="rm-right">
+        <div class="rm-items">
+          <div class="rm-item"><div class="rm-item-dot" style="background:#0EA5E9;"></div>TransformIQ API — allow partners and enterprises to embed intelligence into their own tools</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:#0EA5E9;"></div>AI Transformation Academy — micro-certifications for teams (linked to org's roadmap)</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:#0EA5E9;"></div>Agentic features — autonomous scanning, opportunity alerts, proactive roadmap updates</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:#0EA5E9;"></div>Vertical editions: Healthcare, Financial Services, Manufacturing</div>
+          <div class="rm-item"><div class="rm-item-dot" style="background:#0EA5E9;"></div>Series A readiness: $2M ARR target, 50+ enterprise accounts</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- MONETIZATION -->
+<section id="monetization" class="section">
+  <div class="section-eyebrow">Business Model</div>
+  <h2 class="section-title">Monetization Strategy</h2>
+  <p class="section-sub">Usage-based seat model with enterprise expansion motions. Designed for land-and-expand inside large orgs — start with one team, grow to the full C-suite.</p>
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+      <div class="pricing-tier">Starter</div>
+      <div>
+        <div class="pricing-price">$149</div>
+        <div class="pricing-cadence">/ month · up to 3 users</div>
+      </div>
+      <div class="pricing-desc">For individual AI Strategists and small transformation teams getting started.</div>
+      <ul class="pricing-features">
+        <li>AI Opportunity Scanner (5 assessments/mo)</li>
+        <li>Tool Hub access (200 tools, basic comparison)</li>
+        <li>Roadmap Builder (2 active roadmaps)</li>
+        <li>PDF/PPTX export</li>
+        <li>Email support</li>
+      </ul>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="pricing-tier">Growth</div>
+      <div>
+        <div class="pricing-price">$699</div>
+        <div class="pricing-cadence">/ month · up to 15 users</div>
+      </div>
+      <div class="pricing-desc">For transformation teams running multiple initiatives across departments.</div>
+      <ul class="pricing-features">
+        <li>Everything in Starter, unlimited assessments</li>
+        <li>AI-powered recommendations (LLM layer)</li>
+        <li>Process Optimization Engine</li>
+        <li>Governance & Risk Framework</li>
+        <li>Fit Score™ tool recommendations</li>
+        <li>Slack & Jira integration</li>
+        <li>Priority support + onboarding call</li>
+      </ul>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-tier">Enterprise</div>
+      <div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-cadence">Annual contract · unlimited users</div>
+      </div>
+      <div class="pricing-desc">For large orgs needing enterprise security, deep integrations, and dedicated success.</div>
+      <ul class="pricing-features">
+        <li>Everything in Growth</li>
+        <li>ROI Dashboard + Board Report Generator</li>
+        <li>SAML/SCIM SSO, Workday/SAP integration</li>
+        <li>RAG over internal documents</li>
+        <li>SOC 2 BAA, DPA agreements</li>
+        <li>Dedicated Customer Success Manager</li>
+        <li>Custom SLAs &amp; private cloud option</li>
+      </ul>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-tier">Add-ons</div>
+      <div>
+        <div class="pricing-price">Modular</div>
+        <div class="pricing-cadence">Per module / per month</div>
+      </div>
+      <div class="pricing-desc">Extend your plan with additional revenue streams beyond seat-based pricing.</div>
+      <ul class="pricing-features">
+        <li>Partner Marketplace listing ($299/mo per vendor)</li>
+        <li>TransformIQ API access (usage-based)</li>
+        <li>AI Academy certifications ($49/learner)</li>
+        <li>Benchmark Network data ($199/mo)</li>
+        <li>White-label for consulting firms (revenue share)</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- GTM -->
+<section id="gtm" class="section">
+  <div class="section-eyebrow">Go-To-Market</div>
+  <h2 class="section-title">GTM Motion &amp; North Star Metrics</h2>
+  <p class="section-sub">A community-led, content-driven growth engine — build authority with AI leaders first, then convert through product-led trials and enterprise sales.</p>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:40px; margin-bottom:48px;">
+    <div>
+      <h3 style="font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:16px; color:var(--ink);">GTM Channels</h3>
+      <ul class="feature-list">
+        <li><strong>Content Authority:</strong> Weekly "AI Transformation Signal" newsletter targeting CDOs, CIOs, AI Strategists — 10K subscribers in Year 1</li>
+        <li><strong>LinkedIn Presence:</strong> Founder-led thought leadership content (case studies, benchmark data, AI adoption research)</li>
+        <li><strong>Partner Channel:</strong> Co-sell with Big 4 consulting firms, boutique AI transformation consultancies</li>
+        <li><strong>Product Hunt &amp; Communities:</strong> r/artificial, Latent Space, TLDR AI, AI Leader forums</li>
+        <li><strong>Event Presence:</strong> Sponsor Gartner Data &amp; Analytics Summit, MIT CDO Summit, World AI Cannes</li>
+        <li><strong>PLG Trial:</strong> 14-day free trial with full Starter feature access — no credit card required</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:16px; color:var(--ink);">Sales Motion</h3>
+      <ul class="feature-list">
+        <li><strong>Land:</strong> Individual AI Strategist or transformation lead discovers via content or referral → PLG trial → Starter convert</li>
+        <li><strong>Expand:</strong> CS team monitors product signals (heavy roadmap usage, adding team members) → upgrade to Growth</li>
+        <li><strong>Enterprise:</strong> Outbound to CDO/CTO at F500 + inbound from partner referrals → custom deal cycle</li>
+        <li><strong>Champion Program:</strong> Internal power users become roadmap advocates → drive org-wide rollout</li>
+        <li><strong>ICP Focus (Year 1):</strong> 500–5,000 employee companies in FSI, Healthcare, Professional Services undergoing active AI programs</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="m-val">$2M</div>
+      <div class="m-lbl">ARR Target — Month 18</div>
+      <div class="m-note">~50 enterprise + 200 growth accounts</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-val">&lt;6mo</div>
+      <div class="m-lbl">Payback Period</div>
+      <div class="m-note">CAC:LTV target = 1:5</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-val">120%</div>
+      <div class="m-lbl">Net Revenue Retention</div>
+      <div class="m-note">Expansion via seats + add-ons</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-val">&lt;5%</div>
+      <div class="m-lbl">Annual Churn Target</div>
+      <div class="m-note">Data stickiness + roadmap lock-in</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-val">50+</div>
+      <div class="m-lbl">NPS Score Target</div>
+      <div class="m-note">Benchmark: top SaaS tools = 40–60</div>
+    </div>
+    <div class="metric-card">
+      <div class="m-val">40%</div>
+      <div class="m-lbl">Trial → Paid Conversion</div>
+      <div class="m-note">Activated users (AHA moment hit)</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- MOAT -->
+<section id="moat" class="section">
+  <div class="section-eyebrow">Competitive Moat</div>
+  <h2 class="section-title">Why This Wins.<br>Why It's Hard to Copy.</h2>
+  <p class="section-sub">Each advantage compounds with scale. The Fit Score™ and Benchmark Network create a data flywheel that widens the moat every quarter.</p>
+
+  <div style="border:1px solid var(--rule); border-radius:16px; overflow:hidden;">
+    <table class="moat-table">
+      <thead>
+        <tr>
+          <th>Advantage</th>
+          <th>How It Works</th>
+          <th>Moat Type</th>
+          <th>Strength</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Fit Score™ Algorithm</td>
+          <td>ML model trained on org profiles × tool adoption outcomes. Gets smarter with every user — no one can replicate without the data.</td>
+          <td><span class="badge core">Data</span></td>
+          <td><span class="badge high">High</span></td>
+        </tr>
+        <tr>
+          <td>Benchmark Network</td>
+          <td>Anonymized cross-customer data on AI adoption velocity, ROI by use case, and tool performance. Becomes a unique market intelligence asset.</td>
+          <td><span class="badge core">Network</span></td>
+          <td><span class="badge high">High</span></td>
+        </tr>
+        <tr>
+          <td>Roadmap Lock-in</td>
+          <td>Once an org's multi-year AI roadmap, team assignments, and initiative history lives in the platform, switching costs are extremely high.</td>
+          <td><span class="badge core">Switching</span></td>
+          <td><span class="badge high">High</span></td>
+        </tr>
+        <tr>
+          <td>Use Case Library Depth</td>
+          <td>200+ pre-scored, industry-specific AI use cases built from expert curation + LLM synthesis. Takes 12–18 months to replicate with quality.</td>
+          <td><span class="badge med">Content</span></td>
+          <td><span class="badge med">Med</span></td>
+        </tr>
+        <tr>
+          <td>Partner Ecosystem</td>
+          <td>Certified implementation partners create an expansion channel, community signal, and platform defensibility — competitors can't easily co-opt.</td>
+          <td><span class="badge core">Network</span></td>
+          <td><span class="badge med">Med</span></td>
+        </tr>
+        <tr>
+          <td>Governance Templates</td>
+          <td>EU AI Act, NIST AI RMF, ISO 42001-aligned policy templates that compliance teams adopt company-wide. Creates broad internal buy-in beyond the champion.</td>
+          <td><span class="badge core">Switching</span></td>
+          <td><span class="badge med">Med</span></td>
+        </tr>
+        <tr>
+          <td>Founder Domain Expertise</td>
+          <td>TPM-rooted product thinking ensures the product speaks the language of both business leaders and engineers — rare in this space dominated by generalists.</td>
+          <td><span class="badge med">Brand</span></td>
+          <td><span class="badge med">Med</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- TEAM -->
+<section class="section">
+  <div class="section-eyebrow">Team & Funding</div>
+  <h2 class="section-title">Team to Build This.<br>Capital to Fuel It.</h2>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px;">
+    <div>
+      <h3 style="font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:16px; color:var(--ink);">Core Founding Team (Year 1)</h3>
+      <ul class="feature-list">
+        <li><strong>CEO / CPO (You):</strong> TPM background, AI transformation domain expertise, product vision</li>
+        <li><strong>CTO:</strong> Spring Boot / cloud-native architect with AI/ML engineering background</li>
+        <li><strong>Head of Design:</strong> B2B SaaS product design, data visualization, enterprise UX</li>
+        <li><strong>AI/ML Engineer:</strong> LLM orchestration, RAG pipelines, Fit Score™ model training</li>
+        <li><strong>2× Full-Stack:</strong> Angular + Spring Boot, multi-tenant architecture</li>
+        <li><strong>GTM Lead:</strong> Content + PLG motion, community building, partner development</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-family:'Syne',sans-serif; font-size:18px; font-weight:700; margin-bottom:16px; color:var(--ink);">Funding Milestones</h3>
+      <ul class="feature-list">
+        <li><strong>Pre-seed ($500K–$1M):</strong> Friends/family or angel round. Covers team of 4 for 12 months + infra through Phase 2</li>
+        <li><strong>Seed ($3–5M):</strong> After public launch with 100+ paid customers. Accelerate GTM, expand engineering team, certifications</li>
+        <li><strong>Series A ($15–25M):</strong> At $2M ARR + 120% NRR. Vertical expansion, international markets, agentic platform v2</li>
+        <li><strong>Strategic Investors:</strong> Target AI-native VCs (a16z, Sequoia Scout), enterprise SaaS angels, CIO/CDO operators as advisors</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FOOTER -->
+<div class="cta-section">
+  <h2>The Transformation<br>Market Is Moving Now.</h2>
+  <p>The window to establish the definitive AI Transformation OS is 18–24 months. First mover with a data advantage wins. The playbook is here.</p>
+  <div class="cta-chips">
+    <div class="cta-chip">🎯 ICP: AI Strategists, CDOs, CIOs, CXOs</div>
+    <div class="cta-chip">🏗️ Stack: Angular · Spring Boot · PostgreSQL · pgvector</div>
+    <div class="cta-chip">💡 Core Moat: Fit Score™ + Benchmark Network</div>
+    <div class="cta-chip">🚀 Target: $2M ARR by Month 18</div>
+    <div class="cta-chip">🔒 Enterprise-ready: SOC 2 · SAML · Multi-tenant</div>
+  </div>
+</div>
+
+</body>
+</html>
